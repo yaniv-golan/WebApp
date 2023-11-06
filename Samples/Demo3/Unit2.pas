@@ -1,0 +1,66 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  HWebApp, AppSSI, HtmlTxt, WapActns, WapTmplt;
+
+type
+  TSessionModule = class(TDataModule)
+    WapSession1: TWapSession;
+    ProcessTemplateAction: TWapAction;
+    WapTemplate1: TWapTemplate;
+    DefaultAction: TWapAction;
+    procedure DefaultActionExecute(Sender: TObject; Request: THttpRequest;
+      Response: THttpResponse; const Verb, Value: String;
+      Params: TVariantList; var Handled: Boolean);
+    procedure ProcessTemplateActionExecute(Sender: TObject;
+      Request: THttpRequest; Response: THttpResponse; const Verb,
+      Value: String; Params: TVariantList; var Handled: Boolean);
+  private
+    { Private declarations }
+    function GetRequest: THttpRequest;
+    function GetResponse: THttpResponse;
+  public
+    { Public declarations }
+    property Request: THttpRequest read GetRequest;
+    property Response: THttpResponse read GetResponse;
+  end;
+
+var
+  SessionModule: TSessionModule;
+
+implementation
+
+{$R *.DFM}
+
+function TSessionModule.GetRequest: THttpRequest;
+begin
+  Result := WapSession1.Request;
+end;
+
+function TSessionModule.GetResponse: THttpResponse;
+begin
+  Result := WapSession1.response;
+end;
+
+procedure TSessionModule.DefaultActionExecute(Sender: TObject;
+  Request: THttpRequest; Response: THttpResponse; const Verb,
+  Value: String; Params: TVariantList; var Handled: Boolean);
+begin
+    if (Request.LogicalPath = '') then
+        Response.Redirect('/WapSamples/Demo3/html/Default.htm')
+    else
+        Response.Redirect(Request.LogicalPath);
+end;
+
+procedure TSessionModule.ProcessTemplateActionExecute(Sender: TObject;
+  Request: THttpRequest; Response: THttpResponse; const Verb,
+  Value: String; Params: TVariantList; var Handled: Boolean);
+begin
+    WapTemplate1.LoadFromFile(Request.PhysicalPath);
+    WapTemplate1.WriteToStream(Response.OutputStream);
+end;
+
+end.

@@ -1,0 +1,861 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML LANG="en">
+
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT=
+"text/html; charset=ISO-8859-1">
+<TITLE>Scripts in HTML documents</TITLE>
+<LINK REL="previous" HREF="forms.html">
+<LINK REL="next" HREF="../sgml/intro.html">
+<LINK rel="contents" href="../cover.html#toc">
+<LINK REL="STYLESHEET" HREF="../style/default.css" TYPE="text/css">
+</HEAD>
+<BODY>
+<div class="navbar" align="center">
+&nbsp;<a href="forms.html">previous</a> &nbsp; <a href="../sgml/intro.html">next</a> &nbsp; <a href="../cover.html#toc">contents</a> &nbsp; <a href="../index/elements.html">elements</a> &nbsp; <a href="../index/attributes.html">attributes</a> &nbsp; <a href="../index/list.html">index</a>
+<hr>
+</div>
+
+<H1 ALIGN="center"><a name="h-18">18</a> <A NAME="scripts">Scripts</A></H1>
+<div class="subtoc"><p><strong>Contents</strong>
+<ol>
+<li><a class="tocxref" href="#h-18.1">
+<span class="index-inst" title="script::introduction to">
+Introduction to scripts</span></a>
+<li><a class="tocxref" href="#h-18.2">Designing documents for user agents that support scripting</a>
+<ol>
+<li><a class="tocxref" href="#h-18.2.1">The <samp class="einst2">SCRIPT</SAMP>
+element</a>
+<li><a class="tocxref" href="#h-18.2.2">
+<span class="index-inst" title="scripting language::specification
+of|language::of script">Specifying the scripting language</span></a>
+<ul>
+<li><a class="tocxref" href="#h-18.2.2.1">
+<span class="index-inst" title="default::scripting language|scripting
+language::default">The default scripting
+language</span>
+</a>
+<li><a class="tocxref" href="#h-18.2.2.2">
+<span class="index-inst" title="scripting language::local declaration">
+Local declaration of a scripting language</span></a>
+<li><a class="tocxref" href="#h-18.2.2.3">
+<span class="index-inst" title="element::references from
+scripts|script::references to elements"> References
+to HTML elements from a script</span></a>
+</ul>
+<li><a class="tocxref" href="#h-18.2.3">
+<span class="index-inst" title="events|intrinsic events">
+Intrinsic events</span></a>
+<li><a class="tocxref" href="#h-18.2.4">
+<span class="index-inst" title="document::dynamic modification with
+script|script::used to modify document">Dynamic modification of
+documents</span></a>
+</ol>
+<li><a class="tocxref" href="#h-18.3">
+<span class="index-inst" title="script::when unsupported">
+Designing documents for user agents that don't support
+scripting</span></a>
+<ol>
+<li><a class="tocxref" href="#h-18.3.1">The <samp class="einst2">NOSCRIPT</SAMP>
+ element</a>
+<li><a class="tocxref" href="#h-18.3.2">
+<span class="index-inst" title="user agent::and script
+data|comments::used to hide script data|script::comments to
+hide">Hiding script data from user agents</span></a>
+</ol>
+</ol>
+</div>
+
+<h2><a name="h-18.1">18.1</a> 
+<span class="index-inst" title="script::introduction to"><a name="idx-script">
+Introduction to scripts</a></span></h2>
+
+A client-side <DFN>script</DFN> is a program that may accompany an
+HTML document or be embedded directly in it. The program executes
+on the client's machine when the document loads, or at some other
+time such as when a link is activated. HTML's support for scripts
+is independent of the scripting language. 
+
+<P>
+<span class="index-inst" title="script::uses of"><a name="idx-script-1">
+Scripts</a></span> offer authors a means to extend HTML documents in
+highly active and interactive ways. For example:</P>
+
+<UL>
+<LI>Scripts may be evaluated as a document loads to modify the
+contents of the document dynamically.</LI>
+
+<LI>Scripts may accompany a form to process input as it is entered.
+Designers may dynamically fill out parts of a form based on the
+values of other fields. They may also ensure that input data
+conforms to predetermined ranges of values, that fields are
+mutually consistent, etc.</LI>
+
+<LI>Scripts may be triggered by events that affect the document,
+such as loading, unloading, element focus, mouse movement, etc. 
+</LI>
+
+<LI>Scripts may be linked to form controls (e.g., buttons) to
+produce graphical user interface elements.</LI>
+</UL>
+
+<P>There are two types of scripts authors may attach to an HTML
+document:</P>
+
+<UL>
+<LI>
+<span class="index-inst" title="script::executed when document
+loaded"><a name="idx-script-2">Those</a></span> that are executed one time when the document is
+loaded by the user agent. Scripts that appear within a <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP
+CLASS="einst">SCRIPT</SAMP></a> element are executed when the document is
+loaded. For user agents that cannot or will not handle scripts,
+authors may include alternate content via the <a href="scripts.html#edef-NOSCRIPT" class="noxref"><SAMP
+CLASS="einst">NOSCRIPT</SAMP></a> element.</LI>
+
+<LI>
+<span class="index-inst" title="script::executed on event"><a name="idx-script-3">
+Those</a></span> that are executed every time a specific event occurs.
+These scripts may be assigned to a number of elements via the <A
+HREF="#events">intrinsic event</A> attributes.</LI>
+</UL>
+
+<DIV CLASS="note">
+<P><EM><strong>Note.</strong>
+This specification includes more detailed information
+about scripting in sections on <A HREF=
+"../appendix/notes.html#notes-scripting">script macros</A>.</EM>
+</P>
+</DIV>
+
+<H2><a name="h-18.2">18.2</a> Designing documents for user agents that support scripting</H2>
+
+<P>The following sections discuss issues that concern user agents
+that support scripting.</P>
+
+<H3><a name="h-18.2.1">18.2.1</a> The <A NAME="edef-SCRIPT"><SAMP CLASS="edef">SCRIPT</SAMP></A>
+element</H3>
+
+<div class="dtd-fragment">
+<PRE CLASS="dtd-fragment">
+&lt;!ELEMENT <a href="scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a> - - <a href="../sgml/dtd.html#Script">%Script;</a>          -- script statements --&gt;
+&lt;!ATTLIST SCRIPT
+  <a href="../struct/links.html#adef-charset" class="noxref"><samp class="ainst-SCRIPT">charset</samp></a>     <a href="../sgml/dtd.html#Charset">%Charset;</a>      #IMPLIED  -- char encoding of linked resource --
+  <a href="scripts.html#adef-type-SCRIPT" class="noxref"><samp class="ainst-SCRIPT">type</samp></a>        <a href="../sgml/dtd.html#ContentType">%ContentType;</a>  #REQUIRED -- content type of script language --
+  <a href="scripts.html#adef-src-SCRIPT" class="noxref"><samp class="ainst-SCRIPT">src</samp></a>         <a href="../sgml/dtd.html#URI">%URI;</a>          #IMPLIED  -- URI for an external script --
+  <a href="scripts.html#adef-defer" class="noxref"><samp class="ainst-SCRIPT">defer</samp></a>       (defer)        #IMPLIED  -- UA may defer execution of script --
+  &gt;
+</PRE>
+</div>
+<p><em>Start tag: <strong>required</strong>, End tag: <strong>required</strong></em></p>
+
+<DIV CLASS="adef-list">
+<P><EM>Attribute definitions</EM></P>
+<DL>
+<DT><A NAME="adef-src-SCRIPT"><SAMP CLASS="adef">src</SAMP></A> =
+<A HREF="../types.html#type-uri"><EM>uri</EM></A> 
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>This attribute specifies the location of an external script.
+
+<DT><A NAME="adef-type-SCRIPT"><SAMP CLASS="adef">type</SAMP></A> =
+<A HREF="../types.html#type-content-type"><EM>content-type</EM></A> 
+<a href="../types.html#case-insensitive">[CI]</a>
+</DT>
+
+<dd>This attribute specifies the scripting language of the element's
+contents and overrides the default scripting language. The scripting
+language is specified as a content type (e.g.,
+"text/javascript"). Authors must supply a value for this attribute. There is
+no default value for this attribute.</dd>
+
+<DT><A NAME="adef-language"><SAMP CLASS="adef">language</SAMP></A>
+= <A HREF="../types.html#type-cdata"><EM>cdata</EM></A> 
+<a href="../types.html#case-insensitive">[CI]</a>
+</DT>
+
+<DD><a
+href="../conform.html#deprecated"><STRONG>Deprecated.</STRONG></a>
+This attribute specifies the scripting language of the contents of
+this element. Its value is an identifier for the language, but since
+these identifiers are not standard, this attribute has been <a
+href="../conform.html#deprecated">deprecated</a> in favor of <SAMP
+CLASS="ainst">type</SAMP>. </DD>
+
+<dt><a name="adef-defer"><samp class="adef">defer</samp></a> <a
+href="../types.html#case-insensitive">[CI]</a>
+
+<dd>When set, this boolean attribute provides a hint to the user agent
+that the script is not going to generate any document content (e.g.,
+no "document.write" in javascript) and thus, the user agent can
+continue parsing and rendering.
+</DL>
+</DIV>
+
+<div class="aref-list">
+<P><em>Attributes defined elsewhere</em> 
+<ul>
+<LI><a href="../struct/links.html#adef-charset" class="noxref"><SAMP class="ainst">charset</SAMP></a>(<A href=
+"../charset.html#doc-char-set">character encodings</A>)</LI>
+</ul>
+</div>
+
+<P>The <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a> element places a script within a
+document. This element may appear any number of times in the <a href="../struct/global.html#edef-HEAD" class="noxref"><SAMP
+CLASS="einst">HEAD</SAMP></a> or <a href="../struct/global.html#edef-BODY" class="noxref"><SAMP CLASS="einst">BODY</SAMP></a> of an HTML
+document.</P>
+
+<P>The script may be defined within the contents of the <SAMP CLASS
+="einst">SCRIPT</SAMP> element or in an external file. If the <a href="forms.html#adef-src" class="noxref"><SAMP
+CLASS="ainst">src</SAMP></a> attribute is not set, user agents must
+interpret the contents of the element as the script. If the <a href="forms.html#adef-src" class="noxref"><SAMP
+CLASS="ainst">src</SAMP></a> has a URI value, user agents must ignore the
+element's contents and retrieve the script via the URI. Note that the
+<a href="../struct/links.html#adef-charset" class="noxref"><samp class="ainst">charset</samp></a> attribute refers
+to the <a href="../charset.html">character encoding</a> of the script
+designated by the <a href="forms.html#adef-src" class="noxref"><SAMP CLASS="ainst">src</SAMP></a> attribute; it does
+not concern the content of the <a href="scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a>
+element.
+</P>
+
+<P>Scripts are evaluated by <EM>script engines</EM> that must be
+known to a user agent.</P>
+
+<P>The <a href="../types.html#type-script">syntax of script data</a>
+depends on the scripting language.
+
+<H3><a name="h-18.2.2">18.2.2</a> 
+<span class="index-inst" title="scripting language::specification
+of|language::of script"><a name="idx-scripting_language">Specifying the scripting language</a></span></H3>
+
+<P>As HTML does not rely on a specific scripting language, document
+authors must explicitly tell user agents the language of each
+script. This may be done either through a default declaration or a
+local declaration.</P>
+
+<H4>
+<span class="index-inst" title="default::scripting language|scripting
+language::default"><A NAME="default-script">The default scripting
+language</A></span>
+<a name="h-18.2.2.1">&nbsp;</a></H4>
+
+<P>Authors should specify the default scripting language for all
+scripts in a document by including the following <a href="../struct/global.html#edef-META" class="noxref"><SAMP
+CLASS="einst">META</SAMP></a> declaration in the <a href="../struct/global.html#edef-HEAD" class="noxref"><SAMP
+CLASS="einst">HEAD</SAMP></a>:
+</P>
+
+<PRE>
+&lt;META http-equiv="Content-Script-Type" content="type"&gt;
+</PRE>
+
+<P>where "type" is an <a href="../types.html#type-content-type">content
+type</a> naming the scripting language. Examples of values include
+"text/tcl", "text/javascript", "text/vbscript".</P>
+
+<P>
+<span class="index-inst" title="HTTP::Content-Script-Type header|Content-Script-Type header">
+In the absence of a <a name="idx-HTTP" href="../struct/global.html#edef-META" class="noxref"><SAMP CLASS="einst">META</SAMP></a> declaration, the
+default can be set by a "Content-Script-Type" HTTP header.</span></P>
+
+<PRE>
+    Content-Script-Type: type
+</PRE>
+
+<P>where "type" is again an <a
+href="../types.html#type-content-type">content type</a> naming the
+scripting language.</P>
+
+<P>User agents should determine the default scripting language for a
+document according to the following steps (highest to lowest
+priority):
+
+<ol>
+<li>If any <a href="../struct/global.html#edef-META" class="noxref"><samp class="einst">META</samp></a> declarations specify
+the "Content-Script-Type", the last one in the character
+stream determines the default scripting language.
+<li>Otherwise, if any HTTP headers specify
+the "Content-Script-Type", the last one in the character
+stream determines the default scripting language.
+</ol>
+
+<P>Documents that do not specify a default scripting language
+information and that contain elements that specify an <a
+href="#events">intrinsic event</a> script are incorrect. User agents
+may still attempt to interpret incorrectly specified scripts but are
+not required to.  Authoring tools should generate default scripting
+language information to help authors avoid creating incorrect
+documents.
+
+<H4>
+<span class="index-inst" title="scripting language::local declaration"><a name="idx-scripting_language-2">
+Local declaration of a scripting language</a></span><a name="h-18.2.2.2">&nbsp;</a></H4>
+
+<P>The <samp class="ainst">type</samp> attribute must be specified for
+each <a href="scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a> element instance in a
+document. The value of the <samp class="ainst">type</samp> attribute
+for a <a href="scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a> element overrides the default
+scripting language for that element.</p>
+
+<DIV CLASS="example">
+<P>In this example, we declare the default scripting language to be
+"text/tcl". We include one <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a> in the
+header, whose script is located in an external file and is in the
+scripting language "text/vbscript". We also include one <SAMP CLASS
+="einst">SCRIPT</SAMP> in the body, which contains its own script
+written in "text/javascript".</P>
+
+<PRE>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+     "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;HTML&gt;
+&lt;HEAD&gt;
+&lt;TITLE&gt;A document with SCRIPT&lt;/TITLE&gt;
+&lt;META http-equiv="Content-Script-Type" content="text/tcl"&gt;
+&lt;SCRIPT type="text/vbscript" src="http://someplace.com/progs/vbcalc"&gt;
+&lt;/SCRIPT&gt;
+&lt;/HEAD&gt;
+&lt;BODY&gt;
+&lt;SCRIPT type="text/javascript"&gt;
+<EM>...some JavaScript...</EM>
+&lt;/SCRIPT&gt;
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</PRE>
+
+</DIV>
+
+<H4>
+<span class="index-inst" title="element::references from
+scripts|script::references to elements"> <a name="htmlrefs">References
+to HTML elements from a script</a></span><a name="h-18.2.2.3">&nbsp;</a></H4>
+
+<P>Each scripting language has its own conventions for referring to
+HTML objects from within a script. This specification does not
+define a standard mechanism for referring to HTML objects.</P>
+
+<P>However, scripts should refer to an element according to its
+assigned name. Scripting engines should observe the following
+precedence rules when identifying an element: a <a href="../struct/links.html#adef-name-A" class="noxref"><SAMP CLASS=
+"ainst-A">name</SAMP></a> attribute takes precedence over an <a href="../struct/global.html#adef-id" class="noxref"><SAMP CLASS=
+"ainst">id</SAMP></a> if both are set. Otherwise, one or the other may
+be used.</P>
+
+<H3><a name="h-18.2.3">18.2.3</a> 
+<span class="index-inst" title="events|intrinsic events">
+<A NAME="events">Intrinsic events</A></span></H3>
+
+<DIV CLASS="note">
+<P><EM><STRONG>Note.</STRONG> Authors of HTML documents are advised
+that changes are likely to occur in realm of intrinsic events
+(e.g., how scripts are bound to events). Research in this realm is
+carried on by members of the W3C Document Object Model Working
+Group (see the W3C Web Site at <A HREF="http://www.w3.org/">
+http://www.w3.org/</A> for more information).</EM></P>
+</DIV>
+
+<DIV CLASS="adef-list">
+<P><EM>Attribute definitions</EM></P>
+
+<DL>
+<DT><A NAME="adef-onload"><SAMP CLASS="adef">onload</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onload</SAMP> event occurs when the user agent
+finishes loading a window or all frames within a <a href="../present/frames.html#edef-FRAMESET" class="noxref"><SAMP CLASS=
+"einst">FRAMESET</SAMP></a>. This attribute may be used with <a href="../struct/global.html#edef-BODY" class="noxref"><SAMP
+CLASS="einst">BODY</SAMP></a> and <a href="../present/frames.html#edef-FRAMESET" class="noxref"><SAMP CLASS="einst">FRAMESET</SAMP></a>
+elements. </DD>
+
+<DT><A NAME="adef-onunload"><SAMP CLASS="adef">onunload</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onunload</SAMP> event occurs when the user agent
+removes a document from a window or frame. This attribute may be
+used with <a href="../struct/global.html#edef-BODY" class="noxref"><SAMP CLASS="einst">BODY</SAMP></a> and <a href="../present/frames.html#edef-FRAMESET" class="noxref"><SAMP CLASS="einst">FRAMESET</SAMP></a> elements. </DD>
+
+<DT><A NAME="adef-onclick"><SAMP CLASS="adef">onclick</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onclick</SAMP> event occurs when the pointing device
+button is clicked over an element. This attribute may be used with
+most elements. </DD>
+
+<DT><A NAME="adef-ondblclick"><SAMP CLASS="adef">ondblclick</SAMP></a>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>ondblclick</SAMP> event occurs when the pointing
+device button is double clicked over an element. This attribute may
+be used with most elements. </DD>
+
+<DT><A NAME="adef-onmousedown"><SAMP CLASS="adef">onmousedown</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT> 
+
+<DD>The <SAMP>onmousedown</SAMP> event occurs when the pointing
+device button is pressed over an element. This attribute may be
+used with most elements. </DD>
+
+<DT><A NAME="adef-onmouseup"><SAMP CLASS="adef">onmouseup</SAMP></a>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT>
+
+<DD>The <SAMP>onmouseup</SAMP> event occurs when the pointing
+device button is released over an element. This attribute may be
+used with most elements. </DD>
+
+<DT><A NAME="adef-onmouseover"><SAMP CLASS="adef">onmouseover</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT>
+
+<DD>The <SAMP>onmouseover</SAMP> event occurs when the pointing
+device is moved onto an element. This attribute may be used with
+most elements. </DD>
+
+<DT><A NAME="adef-onmousemove"><SAMP CLASS="adef">onmousemove</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT>
+
+<DD>The <SAMP>onmousemove</SAMP> event occurs when the pointing
+device is moved while it is over an element. This attribute may be
+used with most elements. </DD>
+
+<DT><A NAME="adef-onmouseout"><SAMP CLASS="adef">onmouseout</SAMP></a>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT>
+
+<DD>The <SAMP>onmouseout</SAMP> event occurs when the pointing
+device is moved away from an element. This attribute may be used
+with most elements. </DD>
+
+<DT><A NAME="adef-onfocus"><SAMP CLASS="adef">onfocus</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+
+</DT>
+
+<DD>The <SAMP>onfocus</SAMP> event occurs when an element receives
+focus either by the pointing device or by tabbing navigation. This
+attribute may be used with the following elements: <a href="forms.html#edef-LABEL" class="noxref"><SAMP CLASS=
+"einst">LABEL</SAMP></a>, <a href="forms.html#edef-INPUT" class="noxref"><SAMP CLASS="einst">INPUT</SAMP></a>, <SAMP CLASS
+="einst">SELECT</SAMP>, <a href="forms.html#edef-TEXTAREA" class="noxref"><SAMP CLASS="einst">TEXTAREA</SAMP></a>, and
+<a href="forms.html#edef-BUTTON" class="noxref"><SAMP CLASS="einst">BUTTON</SAMP></a>. </DD>
+
+<DT><A NAME="adef-onblur"><SAMP CLASS="adef">onblur</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onblur</SAMP> event occurs when an element loses
+focus either by the pointing device or by tabbing navigation. It
+may be used with the same elements as <SAMP>onfocus</SAMP>. </DD>
+
+<DT><A NAME="adef-onkeypress"><SAMP CLASS="adef">onkeypress</SAMP></a>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onkeypress</SAMP> event occurs when a key is pressed
+and released over an element. This attribute may be used with most
+elements. </DD>
+
+<DT><A NAME="adef-onkeydown"><SAMP CLASS="adef">onkeydown</SAMP></a>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onkeydown</SAMP> event occurs when a key is pressed
+down over an element. This attribute may be used with most
+elements. </DD>
+
+<DT><A NAME="adef-onkeyup"><SAMP CLASS="adef">onkeyup</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onkeyup</SAMP> event occurs when a key is released
+over an element. This attribute may be used with most elements. 
+</DD>
+
+<DT><A NAME="adef-onsubmit"><SAMP CLASS="adef">onsubmit</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onsubmit</SAMP> event occurs when a form is
+submitted. It only applies to the <a href="forms.html#edef-FORM" class="noxref"><SAMP CLASS="einst">FORM</SAMP></a>
+element. </DD>
+
+<DT><A NAME="adef-onreset"><SAMP CLASS="adef">onreset</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onreset</SAMP> event occurs when a form is reset. It
+only applies to the <a href="forms.html#edef-FORM" class="noxref"><SAMP CLASS="einst">FORM</SAMP></a> element. </DD>
+
+<DT><A NAME="adef-onselect"><SAMP CLASS="adef">onselect</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onselect</SAMP> event occurs when a user selects some
+text in a text field. This attribute may be used with the <a href="forms.html#edef-INPUT" class="noxref"><SAMP
+CLASS="einst">INPUT</SAMP></a> and <a href="forms.html#edef-TEXTAREA" class="noxref"><SAMP CLASS="einst">TEXTAREA</SAMP></a>
+elements. </DD>
+
+<DT><A NAME="adef-onchange"><SAMP CLASS="adef">onchange</SAMP></A>
+ = <a href="../types.html#type-script"><em>script</em></a>
+<a href="../types.html#see-type-for-case">[CT]</a>
+</DT>
+
+<DD>The <SAMP>onchange</SAMP> event occurs when a control loses the
+input focus <EM>and</EM> its value has been modified since gaining
+focus. This attribute applies to the following elements: <a href="forms.html#edef-INPUT" class="noxref"><SAMP
+CLASS="einst">INPUT</SAMP></a>, <a href="forms.html#edef-SELECT" class="noxref"><SAMP CLASS="einst">SELECT</SAMP></a>, and
+<a href="forms.html#edef-TEXTAREA" class="noxref"><SAMP CLASS="einst">TEXTAREA</SAMP></a>. </DD>
+</DL>
+</DIV>
+
+<P>It is possible to associate an action with a certain number of
+events that occur when a user interacts with a user agent. Each of the
+"intrinsic events" listed above takes a value that is a script.  The
+script is executed whenever the event occurs for that element.  The <a
+href="../types.html#type-script">syntax of script data</a> depends on
+the scripting language.
+</P>
+
+<P>
+<span class="index-inst" title="control::events for"><a name="idx-control">
+Control elements</a></span> such as <a href="forms.html#edef-INPUT" class="noxref"><SAMP CLASS="einst">INPUT</SAMP></a>,
+<a href="forms.html#edef-SELECT" class="noxref"><SAMP CLASS="einst">SELECT</SAMP></a>, <a href="forms.html#edef-BUTTON" class="noxref"><SAMP CLASS="einst">BUTTON</SAMP></a>,
+<a href="forms.html#edef-TEXTAREA" class="noxref"><SAMP CLASS="einst">TEXTAREA</SAMP></a>, and <a href="forms.html#edef-LABEL" class="noxref"><SAMP
+CLASS="einst">LABEL</SAMP></a> all respond to certain intrinsic
+events. When these elements do not appear within a form, they may be
+used to augment the graphical user interface of the document.</P>
+
+<P>For instance, authors may want to include press buttons in
+their documents that do not submit a form but still communicate
+with a server when they are activated.</P>
+
+<P>The following examples show some possible control and user
+interface behavior based on intrinsic events.</P>
+
+<DIV CLASS="example">
+<P>In the following example, userName is a required text field.
+When a user attempts to leave the field, the <SAMP>onblur</SAMP>
+event calls a JavaScript function to confirm that userName has an
+acceptable value.</P>
+
+<PRE>
+&lt;INPUT NAME="userName" onblur="validUserName(this.value)"&gt;
+</PRE>
+
+<P>Here is another JavaScript example:</P>
+
+<PRE>
+&lt;INPUT NAME="num"
+    onchange="if (!checkNum(this.value, 1, 10)) 
+        {this.focus();this.select();} else {thanks()}"
+    VALUE="0"&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="example">
+<P>Here is a VBScript example of an event handler for a text field:
+</P>
+
+<PRE>
+    &lt;INPUT name="edit1" size="50"&gt;    
+    &lt;SCRIPT type="text/vbscript"&gt;
+      Sub edit1_changed()
+        If edit1.value = "abc" Then
+          button1.enabled = True
+        Else
+          button1.enabled = False
+        End If
+      End Sub
+    &lt;/SCRIPT&gt;
+</PRE>
+
+<P>Here is the same example using Tcl:</P>
+
+<PRE>
+    &lt;INPUT name="edit1" size="50"&gt;
+    &lt;SCRIPT type="text/tcl"&gt;
+      proc edit1_changed {} {
+        if {[edit value] == abc} {
+          button1 enable 1
+        } else {
+          button1 enable 0
+        }
+      }
+      edit1 onChange edit1_changed
+    &lt;/SCRIPT&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="example">
+<P>Here is a JavaScript example for event binding within a script.
+First, here's a simple click handler:</P>
+
+<PRE>
+    
+&lt;BUTTON type="button" name="mybutton" value="10"&gt;
+&lt;SCRIPT type="text/javascript"&gt;
+      function my_onclick() {
+         . . .
+      }
+    document.form.mybutton.onclick = my_onclick
+ &lt;/SCRIPT&gt;
+ &lt;/BUTTON&gt;
+</PRE>
+
+<P>Here's a more interesting window handler:</P>
+
+<PRE>
+    
+&lt;SCRIPT type="text/javascript"&gt;
+      function my_onload() {
+         . . .
+      }
+
+      var win = window.open("some/other/URI")
+      if (win) win.onload = my_onload
+&lt;/SCRIPT&gt;
+</PRE>
+
+<P>In Tcl this looks like:</P>
+
+<PRE>
+ &lt;SCRIPT type="text/tcl"&gt;
+     proc my_onload {} {
+       . . .
+     }
+     set win [window open "some/other/URI"]
+     if {$win != ""} {
+         $win onload my_onload
+     }
+ &lt;/SCRIPT&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="note">
+<P><EM>Note that "document.write" or equivalent statements in
+intrinsic event handlers create and write to a new document rather
+than modifying the current one.</EM></P>
+</DIV>
+
+<H3><a name="h-18.2.4">18.2.4</a> 
+<span class="index-inst" title="document::dynamic modification with
+script|script::used to modify document"><a name="idx-document">Dynamic modification of
+documents</a></span></H3>
+
+Scripts that are executed when a document is loaded may be able to
+modify the document's contents dynamically. The ability to do so
+depends on the scripting language itself (e.g., the
+"document.write" statement in the HTML object model supported by
+some vendors). 
+
+<P>The dynamic modification of a document may be modeled as
+follows:</P>
+
+<OL>
+<LI>All <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a> elements are evaluated in
+order as the document is loaded. </LI>
+
+<LI>All script constructs within a given <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a>
+element that generate SGML CDATA are evaluated. Their combined generated
+text is inserted in the document in place of the <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP
+CLASS="einst">SCRIPT</SAMP></a> element. </LI>
+
+<LI>The generated CDATA is re-evaluated. </LI>
+</OL>
+
+<P>HTML documents are constrained to conform to the HTML DTD both
+before and after processing any <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a>
+elements.</P>
+
+<DIV CLASS="example">
+<P>The following example illustrates how scripts may modify a
+document dynamically. The following script:</P>
+
+<PRE>
+ &lt;TITLE&gt;Test Document&lt;/TITLE&gt;
+ &lt;SCRIPT type="text/javascript"&gt;
+     document.write("&lt;p&gt;&lt;b&gt;Hello World!&lt;\/b&gt;")
+ &lt;/SCRIPT&gt;
+</PRE>
+
+<P>Has the same effect as this HTML markup:</P>
+
+<PRE>
+ &lt;TITLE&gt;Test Document&lt;/TITLE&gt;
+ &lt;P&gt;&lt;B&gt;Hello World!&lt;/B&gt;
+</PRE>
+</DIV>
+
+<H2><a name="h-18.3">18.3</a> 
+<span class="index-inst" title="script::when unsupported"><a name="idx-script-6">
+Designing documents for user agents that don't support
+scripting</a></span></H2>
+
+<P>The following sections discuss how authors may create documents
+that work for user agents that don't support scripting.
+
+<H3><a name="h-18.3.1">18.3.1</a> The <A NAME="edef-NOSCRIPT"><SAMP CLASS="edef">NOSCRIPT</SAMP>
+</A> element</H3>
+
+<div class="dtd-fragment">
+<PRE CLASS="dtd-fragment">
+&lt;!ELEMENT <a href="scripts.html#edef-NOSCRIPT" class="noxref"><samp class="einst">NOSCRIPT</samp></a> - - (<a href="../sgml/dtd.html#block">%block;</a>)+
+  -- alternate content container for non script-based rendering --&gt;
+&lt;!ATTLIST NOSCRIPT
+  <a href="../sgml/dtd.html#attrs">%attrs;</a>                              -- <a href="../sgml/dtd.html#coreattrs">%coreattrs</a>, <a href="../sgml/dtd.html#i18n">%i18n</a>, <a href="../sgml/dtd.html#events">%events</a> --
+  &gt;
+</PRE>
+</div>
+<p><em>Start tag: <strong>required</strong>, End tag: <strong>required</strong></em></p>
+
+The <a href="scripts.html#edef-NOSCRIPT" class="noxref"><SAMP CLASS="einst">NOSCRIPT</SAMP></a> element allows authors to
+provide alternate content when a script is not executed. The
+content of a <a href="scripts.html#edef-NOSCRIPT" class="noxref"><SAMP CLASS="einst">NOSCRIPT</SAMP></a> element should
+only rendered by a script-aware user agent in the following cases: 
+
+<UL>
+<LI>The user agent is configured not to evaluate scripts. </LI>
+
+<LI>The user agent doesn't support a scripting language invoked by
+a <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a> element earlier in the
+document. </LI>
+</UL>
+
+<P>User agents that do not support client-side scripts must render
+this element's contents.</P>
+
+<DIV CLASS="example">
+<P>In the following example, a user agent that executes the <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP
+CLASS="einst">SCRIPT</SAMP></a> will include some dynamically created
+data in the document. If the user agent doesn't support scripts,
+the user may still retrieve the data through a link.</P>
+
+<PRE>
+&lt;SCRIPT type="text/tcl"&gt;
+ <EM>...some Tcl script to insert data...</EM>
+&lt;/SCRIPT&gt;
+&lt;NOSCRIPT&gt;
+ &lt;P&gt;Access the &lt;A href="http://someplace.com/data"&gt;data.&lt;/A&gt;
+&lt;/NOSCRIPT&gt;
+</PRE>
+</DIV>
+
+<H3><a name="h-18.3.2">18.3.2</a> 
+<span class="index-inst" title="user agent::and script
+data|comments::used to hide script data|script::comments to
+hide"><a name="idx-user_agent">Hiding script data from user agents</a></span></H3>
+
+<p>User agents that don't recognize the <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS="einst">SCRIPT</SAMP></a>
+element will likely render that element's contents as text.  Some scripting
+engines, including those for languages JavaScript, VBScript, and Tcl allow
+the script statements to be enclosed in an SGML comment. User agents that
+don't recognize the <a href="scripts.html#edef-SCRIPT" class="noxref"><SAMP CLASS= "einst">SCRIPT</SAMP></a> element will thus
+ignore the comment while smart scripting engines will understand that the
+script in comments should be executed.
+
+<P>Another solution to the problem is to keep scripts in external
+documents and refer to them with the <a href="forms.html#adef-src" class="noxref"><SAMP CLASS="ainst">src</SAMP></a>
+attribute.</P>
+
+<DIV CLASS="example">
+<P><STRONG>Commenting scripts in JavaScript</STRONG><BR>
+ The JavaScript engine allows the string "&lt;!--" to occur at the
+start of a SCRIPT element, and ignores further characters until the
+end of the line. JavaScript interprets "//" as starting a comment
+extending to the end of the current line. This is needed to hide
+the string "--&gt;" from the JavaScript parser.</P>
+
+<PRE>
+&lt;SCRIPT type="text/javascript"&gt;
+&lt;!--  to hide script contents from old browsers
+  function square(i) {
+    document.write("The call passed ", i ," to the function.","&lt;BR&gt;")
+    return i * i
+  }
+  document.write("The function returned ",square(5),".")
+// end hiding contents from old browsers  --&gt;
+&lt;/SCRIPT&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="example">
+<P><STRONG>Commenting scripts in VBScript</STRONG><BR>
+ In VBScript, a single quote character causes the rest of the
+current line to be treated as a comment. It can therefore be used
+to hide the string "--&gt;" from VBScript, for instance:</P>
+
+<PRE>
+   &lt;SCRIPT type="text/vbscript"&gt;
+     &lt;!--
+       Sub foo()
+        ...
+       End Sub
+     ' --&gt;
+    &lt;/SCRIPT&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="example">
+<P><STRONG>Commenting scripts in TCL</STRONG><BR>
+ In Tcl, the "#" character comments out the rest of the line:</P>
+
+<PRE>
+&lt;SCRIPT type="text/tcl"&gt;
+&lt;!--  to hide script contents from old browsers
+  proc square {i} {
+    document write "The call passed $i to the function.&lt;BR&gt;"
+    return [expr $i * $i]
+  }
+  document write "The function returned [square 5]."
+# end hiding contents from old browsers  --&gt;
+&lt;/SCRIPT&gt;
+</PRE>
+
+</DIV>
+
+<DIV CLASS="note">
+<P><EM><strong>Note.</strong>
+Some browsers close comments on the first "&gt;"
+character, so to hide script content from such browsers, you can
+transpose operands for relational and shift operators (e.g., use "y
+&lt; x" rather than "x &gt; y") or use scripting language-dependent
+escapes for "&gt;".</EM></P>
+</DIV>
+<div class="navbar" align="center">
+<hr><a href="forms.html">previous</a> &nbsp; <a href="../sgml/intro.html">next</a> &nbsp; <a href="../cover.html#toc">contents</a> &nbsp; <a href="../index/elements.html">elements</a> &nbsp; <a href="../index/attributes.html">attributes</a> &nbsp; <a href="../index/list.html">index</a>
+</div>
+</BODY>
+</HTML>
+

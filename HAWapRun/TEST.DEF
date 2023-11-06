@@ -1,0 +1,27 @@
+LIBRARY     HAWAPRUN.DLL
+
+EXPORTS
+    BitmapToGIF                    @23  
+    BitmapToJPEG                   @24  
+    Mask_Create                    @12  
+    Mask_Free                      @11  
+    Mask_Matches                   @10  
+    MatchesMask                    @9   
+    ScriptedHtmlLexer_Create       @22  
+    ScriptedHtmlLexer_Destroy      @21  
+    ScriptedHtmlLexer_Execute      @20  
+    ScriptedHtmlLexer_SetEndDelim  @18  
+    ScriptedHtmlLexer_SetMacroChar @17  
+    ScriptedHtmlLexer_SetOnInlineScript @16  
+    ScriptedHtmlLexer_SetOnMacro   @13  
+    ScriptedHtmlLexer_SetOnNonScriptText @14  
+    ScriptedHtmlLexer_SetOnScriptTag @15  
+    ScriptedHtmlLexer_SetStartDelim @19  
+    TemplateActionLexer_Create     @8   
+    TemplateActionLexer_Free       @7   
+    TemplateActionLexer_GetActionName @6   
+    TemplateActionLexer_GetParamCount @3   
+    TemplateActionLexer_GetParamName @2   
+    TemplateActionLexer_GetParamValue @1   
+    TemplateActionLexer_GetValue   @4   
+    TemplateActionLexer_GetVerb    @5   

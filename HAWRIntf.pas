@@ -1,0 +1,139 @@
+unit HAWRIntf;
+
+interface
+
+uses SysUtils, Windows;
+
+type
+TImageConversionCallback = procedure(Instance: pointer; Data: pointer; Size: integer); stdcall;
+
+var
+BitmapToJPEG: function (BitmapMemory: pointer; BitmapMemorySize: integer; Instance: pointer; Callback: TImageConversionCallback): integer; stdcall;
+BitmapToGIF: function (BitmapMemory: pointer; BitmapMemorySize: integer; Instance: pointer; Callback: TImageConversionCallback): integer; stdcall;
+
+type
+TInlineScriptCallback = procedure(Text: pchar) of object; stdcall;
+TScriptTagCallback = procedure(Text: pchar; Language: pchar) of object; stdcall;
+TNonScriptTextCallback = procedure(Text: pchar) of object; stdcall;
+TMacroCallback = procedure(MacroName: pchar) of object; stdcall;
+TPreProcessorIncludeCallback = procedure(Attribute, Filename: PChar) of object; stdcall;
+
+var
+ScriptedHtmlLexer_Create: function : pointer; stdcall;
+ScriptedHtmlLexer_Destroy: procedure (Handle: pointer); stdcall;
+ScriptedHtmlLexer_Execute: procedure (Handle: pointer; Buf: PChar; BufLen: integer); stdcall;
+ScriptedHtmlLexer_SetStartDelim: procedure (Handle: pointer; Value: PChar); stdcall;
+ScriptedHtmlLexer_SetEndDelim: procedure (Handle: pointer; Value: PChar); stdcall;
+ScriptedHtmlLexer_SetMacroChar: procedure (Handle: pointer; Value: char); stdcall;
+ScriptedHtmlLexer_SetOnInlineScript: procedure (Handle: pointer; Callback: TInlineScriptCallback); stdcall;
+ScriptedHtmlLexer_SetOnScriptTag: procedure (Handle: pointer; Callback: TScriptTagCallback); stdcall;
+ScriptedHtmlLexer_SetOnNonScriptText: procedure (Handle: pointer; Callback: TNonScriptTextCallback); stdcall;
+ScriptedHtmlLexer_SetOnMacro: procedure (Handle: pointer; Callback: TMacroCallback); stdcall;
+ScriptedHtmlLexer_SetOnPreProcessorInclude: procedure (Handle: pointer; Callback: TPreProcessorIncludeCallback); stdcall;
+
+Mask_Create: function (MaskValue: PChar): pointer; stdcall;
+Mask_Free: procedure (Instance: pointer); stdcall;
+Mask_Matches: function (Instance: pointer; Filename: pchar): boolean; stdcall;
+MatchesMask: function (Filename, Mask: pchar): boolean; stdcall;
+
+TemplateActionLexer_Create: function (ActionString: PChar): pointer; stdcall;
+TemplateActionLexer_Free: procedure (Instance: pointer); stdcall;
+TemplateActionLexer_GetActionName: procedure (Instance: pointer; Buf: PChar; BufLen: integer); stdcall;
+TemplateActionLexer_GetVerb: procedure (Instance: pointer; Buf: PChar; BufLen: integer); stdcall;
+TemplateActionLexer_GetValue: procedure (Instance: pointer; Buf: PChar; BufLen: integer); stdcall;
+TemplateActionLexer_GetParamCount: function (Instance: pointer): integer; stdcall;
+TemplateActionLexer_GetParamName: procedure (Instance: pointer; Index: integer; Buf: PChar; BufLen: integer); stdcall;
+TemplateActionLexer_GetParamValue: procedure (Instance: pointer; Index: integer; Buf: PChar; BufLen: integer); stdcall;
+
+implementation
+
+{$ifdef HAWRIntf_debug}
+uses ImageConversion,
+  UScriptedHtmlLexer,
+  D3MasksWrapper,
+  CTemplateActionStringLexer;
+{$endif HAWRIntf_debug}
+
+var
+    ModuleHandle: HModule = 0;
+
+{$ifdef HAWRIntf_debug}
+
+    procedure ResolveProcs;
+    begin
+        @BitmapToJPEG := @ImageConversion.BitmapToJPEG;
+        @BitmapToGIF := @ImageConversion.BitmapToGIF;
+
+        @ScriptedHtmlLexer_Create := @UScriptedHtmlLexer.ScriptedHtmlLexer_Create;
+        @ScriptedHtmlLexer_Destroy := @UScriptedHtmlLexer.ScriptedHtmlLexer_Destroy;
+        @ScriptedHtmlLexer_Execute := @UScriptedHtmlLexer.ScriptedHtmlLexer_Execute;
+        @ScriptedHtmlLexer_SetStartDelim := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetStartDelim;
+        @ScriptedHtmlLexer_SetEndDelim := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetEndDelim;
+        @ScriptedHtmlLexer_SetMacroChar := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetMacroChar;
+        @ScriptedHtmlLexer_SetOnInlineScript := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetOnInlineScript;
+        @ScriptedHtmlLexer_SetOnScriptTag := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetOnScriptTag;
+        @ScriptedHtmlLexer_SetOnNonScriptText := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetOnNonScriptText;
+        @ScriptedHtmlLexer_SetOnMacro := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetOnMacro;
+        @ScriptedHtmlLexer_SetOnPreProcessorInclude := @UScriptedHtmlLexer.ScriptedHtmlLexer_SetOnPreProcessorInclude;
+
+        @Mask_Create := @D3MasksWrapper.Mask_Create;
+        @Mask_Free := @D3MasksWrapper.Mask_Free;
+        @Mask_Matches := @D3MasksWrapper.Mask_Matches;
+        @MatchesMask := @D3MasksWrapper.MatchesMask;
+
+        @TemplateActionLexer_Create := @CTemplateActionStringLexer.TemplateActionLexer_Create;
+        @TemplateActionLexer_Free := @CTemplateActionStringLexer.TemplateActionLexer_Free;
+        @TemplateActionLexer_GetActionName := @CTemplateActionStringLexer.TemplateActionLexer_GetActionName;
+        @TemplateActionLexer_GetVerb := @CTemplateActionStringLexer.TemplateActionLexer_GetVerb;
+        @TemplateActionLexer_GetValue := @CTemplateActionStringLexer.TemplateActionLexer_GetValue;
+        @TemplateActionLexer_GetParamCount := @CTemplateActionStringLexer.TemplateActionLexer_GetParamCount;
+        @TemplateActionLexer_GetParamName := @CTemplateActionStringLexer.TemplateActionLexer_GetParamName;
+        @TemplateActionLexer_GetParamValue := @CTemplateActionStringLexer.TemplateActionLexer_GetParamValue;
+    end;
+
+{$else}
+
+    procedure ResolveProcs;
+    begin
+        ModuleHandle := LoadLibrary('HAWAPRUN.DLL');
+        if (ModuleHandle = 0) then
+            raise Exception.Create('Unable to load HAWAPRUN.DLL - ' + SysErrorMessage(GetLastError));
+
+        @BitmapToJPEG := GetProcAddress(ModuleHandle, 'BitmapToJPEG');
+        @BitmapToGIF := GetProcAddress(ModuleHandle, 'BitmapToGIF');
+
+        @ScriptedHtmlLexer_Create := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_Create');
+        @ScriptedHtmlLexer_Destroy := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_Destroy');
+        @ScriptedHtmlLexer_Execute := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_Execute');
+        @ScriptedHtmlLexer_SetStartDelim := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetStartDelim');
+        @ScriptedHtmlLexer_SetEndDelim := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetEndDelim');
+        @ScriptedHtmlLexer_SetMacroChar := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetMacroChar');
+        @ScriptedHtmlLexer_SetOnInlineScript := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetOnInlineScript');
+        @ScriptedHtmlLexer_SetOnScriptTag := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetOnScriptTag');
+        @ScriptedHtmlLexer_SetOnNonScriptText := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetOnNonScriptText');
+        @ScriptedHtmlLexer_SetOnMacro := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetOnMacro');
+        @ScriptedHtmlLexer_SetOnPreProcessorInclude := GetProcAddress(ModuleHandle, 'ScriptedHtmlLexer_SetOnPreProcessorInclude');
+
+        @Mask_Create := GetProcAddress(ModuleHandle, 'Mask_Create');
+        @Mask_Free := GetProcAddress(ModuleHandle, 'Mask_Free');
+        @Mask_Matches := GetProcAddress(ModuleHandle, 'Mask_Matches');
+        @MatchesMask := GetProcAddress(ModuleHandle, 'MatchesMask');
+
+        @TemplateActionLexer_Create := GetProcAddress(ModuleHandle, 'TemplateActionLexer_Create');
+        @TemplateActionLexer_Free := GetProcAddress(ModuleHandle, 'TemplateActionLexer_Free');
+        @TemplateActionLexer_GetActionName := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetActionName');
+        @TemplateActionLexer_GetVerb := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetVerb');
+        @TemplateActionLexer_GetValue := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetValue');
+        @TemplateActionLexer_GetParamCount := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetParamCount');
+        @TemplateActionLexer_GetParamName := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetParamName');
+        @TemplateActionLexer_GetParamValue := GetProcAddress(ModuleHandle, 'TemplateActionLexer_GetParamValue');
+    end;
+
+{$endif HAWRIntf_debug}
+
+initialization
+begin
+    ResolveProcs;
+end;
+
+end.

@@ -1,0 +1,85 @@
+unit CTemplateActionStringLexer;
+
+interface
+
+uses Classes, SysUtils, HTMLLex;
+
+function TemplateActionLexer_Create(ActionString: PChar): pointer; stdcall; export;
+procedure TemplateActionLexer_Free(Instance: pointer); stdcall; export;
+procedure TemplateActionLexer_GetActionName(Instance: pointer; Buf: PChar; BufLen: integer); stdcall; export;
+procedure TemplateActionLexer_GetVerb(Instance: pointer; Buf: PChar; BufLen: integer); stdcall; export;
+procedure TemplateActionLexer_GetValue(Instance: pointer; Buf: PChar; BufLen: integer); stdcall; export;
+function TemplateActionLexer_GetParamCount(Instance: pointer): integer; stdcall; export;
+procedure TemplateActionLexer_GetParamName(Instance: pointer; Index: integer; Buf: PChar; BufLen: integer); stdcall; export;
+procedure TemplateActionLexer_GetParamValue(Instance: pointer; Index: integer; Buf: PChar; BufLen: integer); stdcall; export;
+
+implementation
+
+uses XStrings;
+
+function TemplateActionLexer_Create(ActionString: PChar): pointer;
+begin
+    result := pointer(THtmlTagToken.Create);
+    THtmlTagToken(result).Contents.Text := '<' + string(ActionString) + '>';
+end;
+
+procedure TemplateActionLexer_Free(Instance: pointer);
+begin
+    THtmlTagToken(Instance).Free;
+end;
+
+procedure TemplateActionLexer_GetActionName(Instance: pointer; Buf: PChar; BufLen: integer); stdcall; export;
+var
+    p: integer;
+    s: string;
+begin
+    s := THtmlTagToken(Instance).Tag;
+    p := GetCharPosFromEnd(s, '.');
+    if (p = 0) then
+        strPCopy(Buf, Copy(s, 1, BufLen - 1))
+    else
+        StrPCopy(Buf, Copy(Copy(s, 1, p - 1), 1, BufLen - 1));
+end;
+
+procedure TemplateActionLexer_GetVerb(Instance: pointer; Buf: PChar; BufLen: integer); stdcall; export;
+var
+    p: integer;
+    s: string;
+begin
+    s := THtmlTagToken(Instance).Tag;
+    p := GetCharPosFromEnd(s, '.');
+    if (p = 0) then
+        StrCopy(Buf, '')
+    else
+        StrPCopy(Buf, Copy(Copy(s, p + 1, MaxInt), 1, BufLen - 1));
+end;
+
+procedure TemplateActionLexer_GetValue(Instance: pointer; Buf: PChar; BufLen: integer);
+begin
+    StrPCopy(Buf, Copy(THtmlTagToken(Instance).Attributes['value'], 1, BufLen - 1));
+end;
+
+function TemplateActionLexer_GetParamCount(Instance: pointer): integer;
+begin
+    result := THtmlTagToken(Instance).AttributeCount;
+end;
+
+procedure TemplateActionLexer_GetParamName(Instance: pointer; Index: integer; Buf: PChar; BufLen: integer);
+var
+    s: string; 
+begin
+    s := THtmlTagToken(Instance).AttributeNames[Index];
+    s := copy(s, 1, BufLen - 1);
+    StrPCopy(Buf, s);
+end;
+
+procedure TemplateActionLexer_GetParamValue(Instance: pointer; Index: integer; Buf: PChar; BufLen: integer); 
+var
+    s: string; 
+begin
+    s := THtmlTagToken(Instance).AttributeValues[Index];
+    s := copy(s, 1, BufLen - 1);
+    StrPCopy(Buf, s);
+end;
+
+end.

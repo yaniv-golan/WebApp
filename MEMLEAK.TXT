@@ -1,0 +1,13 @@
+------------------------------------------
+1 - allocates shared mem into 1-mem handle
+1 - sends 1-mem handle, 1-process id to 2
+1 - wait for 2
+	2 - use 1-process id to get 1-process handle
+	2 - use duplicate handle, 1-process handle, 1-mem handle to get 2-mem handle
+	2 - close 1-process handle
+	2 - use 2-mem handle
+	2 - close 2-mem handle
+1 - close 1-mem handle
+
+Duplicating in target process - No leaks in the target process.
+

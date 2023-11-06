@@ -1,0 +1,377 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Action Components Writer Guide</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Action Components Writer Guide</h1>
+
+<p><a href="#Introduction">Introduction</a></p>
+
+<p><a href="#What_is_an_Action_Component">What is an Action
+Component ?</a></p>
+
+<p><a href="#The_Clock_Action_Component">The Clock Action
+Component</a></p>
+
+<p><a href="#Using_Action_Components">Using Action Components</a></p>
+
+<p><a href="#About_Properties_Verbs_Values_and_Parameters">About
+Verbs, Values, Parameters and Properties</a></p>
+
+<p><a href="#Implementing_THtmlClock">Implementing THtmlClock</a></p>
+
+<p><a href="#TWapControl">TWapControl</a></p>
+
+<p><a href="#Re-implementing_THtmlClock">Re-implementing
+THtmlClock as a WebApp Control</a></p>
+
+<p><a href="#THtmlFormControl">THtmlFormControl</a></p>
+
+<p><a href="#The_TWapAction_Component">The TWapAction Component</a></p>
+
+<hr>
+
+<h2><a name="Introduction">Introduction</a></h2>
+
+<p>The Action Components Writer Guide teaches :</p>
+
+<ul>
+    <li>What are WebApp Action Components</li>
+    <li>Using Action Components</li>
+    <li>Creating new Action Components</li>
+</ul>
+
+<hr>
+
+<h2><a name="What_is_an_Action_Component">What is an Action
+Component ?</a></h2>
+
+<p>A WebApp Action Component is a specialized Delphi component
+that descends from TWapCustomAction. Such components can be used
+and manipulated from <strong>HTML templates</strong>, <strong>scripts</strong>
+and even using commands embedded in a <strong>Request URL</strong>,
+or in a submitted <strong>form's fields</strong>.</p>
+
+<p>Of course, just like any other Delphi component, Action
+Components can also be used directly by Delphi or C++ Builder <strong>code</strong>.</p>
+
+<p>Action components are a great way to encapsulate often-used
+WebApp code, or to expose certain functionality for use by HTML
+authors, and not just programmers.</p>
+
+<hr>
+
+<h2><a name="The_Clock_Action_Component">The Clock Action
+Component</a></h2>
+
+<p>Throughout this guide we will use an Action Component called
+THtmlClock as an example. </p>
+
+<p>THtmlClock is a simple component, which is probably not very
+useful in real-world Web applications. The THtmlClock component
+performs one basic action : when requested, it will output the
+current time, in one of several formats.</p>
+
+<p>THtmlClock can display the current time either as HTML text,
+or as a LED-style GIF image. It also supports both the 12-hours
+(8:37pm) and the 24-hours (20:37) style clocks.</p>
+
+<p>For example, given the following HTML template code :</p>
+
+<pre>	The current time is : &lt;FONT COLOR=&quot;RED&quot;&gt;
+        &lt;%~ HtmlClock1.WriteHtml Format=cfHTML Clock=cl24Hours %&gt;
+        &lt;/FONT&gt;</pre>
+
+<p>Where HtmlClock1 is a THtmlClock component, the following HTML
+will be sent to the client browser by the TWapTemplate component
+:</p>
+
+<pre>	The current time is : &lt;FONT COLOR=&quot;RED&quot;&gt;
+        20:37
+        &lt;/FONT&gt;</pre>
+
+<hr>
+
+<h2><a name="Using_Action_Components">Using Action Components</a></h2>
+
+<p>Action Components can be accessed from :</p>
+
+<ul>
+    <li>Action Macros embedded in HTML templates which are
+        processed by the TWapTemplate component</li>
+    <li>Server-side Scripts embedded in HTML templates which are
+        executed by the TWapTemplate component</li>
+    <li>Commands embedded in a request URL, using various
+        triggers - action name, method type, URL pattern, default
+        action.</li>
+    <li>Commands embedded in the fields submitted by a HTML form</li>
+    <li>Directly from your Delphi code</li>
+</ul>
+
+<p>For more information, see the section on &quot;Action
+Components&quot; in the WebApp User Guide.</p>
+
+<hr>
+
+<h2><a name="About_Properties_Verbs_Values_and_Parameters">About
+Verbs, Values, Parameters</a> and Properties</h2>
+
+<p>The general syntax for using Action Components from a Action
+Macro is :</p>
+
+<p>&lt;%~ <em>Component-name</em>.<em>Verb</em>[=<em>value</em>]
+[<em>parameter-1</em>[=<em>value-1</em>]] <em>parameter-2</em>[=<em>value-2</em>]
+....] %&gt;</p>
+
+<p>If a Action can be triggered using its name (this is
+determined by the Session's Actions property), the URL's syntax
+is :</p>
+
+<p>....<em>Component-name</em>.<em>Verb</em>[=<em>value</em>]&amp;
+[<em>Component-name</em>@<em>parameter-1</em>[=<em>value-1</em>]]&amp;
+<em>Component-name</em>@<em>parameter-2</em>[=<em>value-2</em>]
+....]...</p>
+
+<p>In the sample HTML snippet :</p>
+
+<blockquote>
+    <p>&lt;%~ HtmlClock1.WriteHtml Format=cfHTML Clock=cl24Hours
+    %&gt;</p>
+</blockquote>
+
+<p>the <em>verb</em> is <strong>WriteHtml</strong>, there is no
+value, and there are two <em>parameters</em>=<em>value</em>
+pairs: <strong>Format=cfHTML</strong> and <strong>Clock=cl24Hours</strong>.</p>
+
+<h3>Verb</h3>
+
+<p>The verb identifies the operation that the Action Component
+should perform. It is much like method names in regular Delphi
+components, however the name of a verb does not have to
+correspond to a the name of a method of the component.</p>
+
+<h3>Value</h3>
+
+<p>The value is used mainly by Action Components which handle
+HTML form submissions. When used in this manner, it is the value
+of the submitted field whose name is the same as the Action name.</p>
+
+<h3>Parameters</h3>
+
+<p>The parameters are either a series of name=value pairs. The
+list of pairs can be accessed by the component code, and used to
+modify the behavior of a verb, or to change the properties of the
+component. </p>
+
+<h3>Properties</h3>
+
+<p>Like all Delphi components, Action Components have published
+properties, which are available at design time through the Delphi
+Object Inspector. You may choose to further expose almost any
+published property, so that it can be modified directly by
+specifying the property name as a parameter, and its new value as
+the parameter value.</p>
+
+<hr>
+
+<h2><a name="TWapCustomAction">TWapCustomAction</a></h2>
+
+<p>All WebApp Action Components descend from the TWapCustomAction
+class. TWapCustomAction is defined in WapActns.pas, and is never
+used directly - only as an ancestor for other Actions.</p>
+
+<p>Here are the important parts from the declaration of the
+TWapCustomAction class :</p>
+
+<pre>TWapCustomAction = class(TComponent)
+protected
+    procedure UnsupportedVerbError(const Verb: string); virtual;
+    procedure UpdateProperties(Params: TVariantList); virtual;
+    procedure ExposeProperties(const Properties: array of string); virtual;
+    property OnExecute: TWapActionExecuteEvent read FOnExecute write FOnExecute;
+public
+    procedure Execute(
+        Request: THttpRequest; Response: THttpResponse;
+        const Verb, Value: string; Params: TVariantList;
+        var Handled: boolean); virtual;
+end;</pre>
+
+<h3>The Execute Method</h3>
+
+<p>The most important declaration is that of the Execute method.
+The Execute method is called whenever the action needs to be
+performed. It receives the <em>Verb</em>, <em>Value</em> and <em>Parameters</em>
+as its arguments, as well as the <em>Request</em> and <em>Response</em>
+references.</p>
+
+<p>If the component supports several verbs, it should first look
+at the <em>Verb</em> parameter to determine which one is called.
+The convention used by the built-in Action components is that for
+every verb, there is a protected virtual method named Execute<em>Verb</em>
+which implements it. This allows descendants to override the
+implementation of a verb.</p>
+
+<p>For example :</p>
+
+<blockquote>
+    <pre><strong>if</strong> (Verb = '') <strong>then</strong>
+  ExecuteDefault(Request, Response, Verb, Value, Params, Handled)
+<strong>else if</strong> CompareText(Verb, 'WriteHtml') <strong>then</strong>
+  ExecuteWriteHtml(Request, Response, Verb, Value, Params, Handled)
+<strong>else</strong> <strong>if</strong> (CompareText(Verb, 'Submit) <strong>then</strong>
+  ExecuteSubmit(Request, Response, Verb, Value, Params, Handled)
+<strong>else</strong>
+  UnsupportedVerbError(Verb);
+</pre>
+</blockquote>
+
+<p>Note that this sample code also specifies that the
+ExecuteDefault method is called if no verb is specified, and that
+UnsupportedVerbError is called if the verb name is not
+recognized. UnsupportedVerbError is a protected method of
+TWapCustomAction, which throws a EUnsupportedVerb exception.</p>
+
+<p>If we would like the WriteHtml verb to be the default one,
+which will be used if no other verb is specified, we could do so
+by implementing the ExecuteDefault method :</p>
+
+<blockquote>
+    <pre><strong>procedure</strong> THtmlClock.ExecuteDefault(
+    Request: THttpRequest; Response: THttpResponse;
+    <strong>const</strong> Value: <strong>string</strong>; Params: TVariantList;
+    <strong>var</strong> Handled: Boolean);
+<strong>begin</strong>
+    ExecuteWriteHtml(Request, Response, Value, Params, Handled);
+<strong>end</strong>;
+
+</pre>
+</blockquote>
+
+<p>The <em>handled</em> parameter is set by default to True,
+indicating that the request was handled. If the action code does
+not completly handle the request (for example, if it only
+provides some sort of preprocessing or verification, such as
+checking if the user is logged in), set the <em>Handled</em>
+parameter to false. In this case, WebApp will attempt to execute
+the next matching action.</p>
+
+<h3>Exposing Properties</h3>
+
+<p>The behavior of a component are usually determined by the
+value of its properties. Since Action components are meant to be
+used by HTML authors, and not just by programmers writing Delphi
+code, it is desirable to permit modification of those properties
+directly from the HTML template, script, or request.</p>
+
+<p>However, not all properties are relevant, or useful, to HTML
+authors. Therefore, WebApp enables you to selectively expose only
+a subset of the available properties to external manipulation.</p>
+
+<p>A property exposed to external manipulation should fulfil the
+following conditions :</p>
+
+<ul>
+    <li>It's a published property</li>
+    <li>The property type is any of the following types : <ul>
+            <li>basic type (integer, string, boolean, etc.), </li>
+            <li>an enumerated type (such as TAlignment)</li>
+            <li>a registered type (such as TColor)</li>
+            <li>set of the above (TFontStyles)</li>
+        </ul>
+    </li>
+    <li>The property name is specified in a call to
+        ExposeProperties</li>
+</ul>
+
+<p>Call ExposeProperties in the component constructor, listing
+the names of the properties you wish to expose :</p>
+
+<blockquote>
+    <pre><strong>type</strong>
+
+TClockFormat = (cfHTML, cfGraphics);
+TClockNotation = (cl12Hours, cl24Hours);
+
+THtmlClock = <strong>class</strong>(TWapCustomAction)
+....
+....
+<strong>published</strong>
+  <strong>property</strong> Format: TClockFormat <strong>read</strong> FFormat <strong>write</strong> FFormat;
+  <strong>property</strong> Clock: TClockNotation <strong>read</strong> FClock <strong>write</strong> FClock;
+end;</pre>
+    <pre>constructor THtmlClock.Create(AOwner: TComponent);
+begin
+  .....
+<font color="#FF0000">  ExposeProperties(['Format', 'Clock']);
+</font>end;</pre>
+</blockquote>
+
+<h3>Updating Properties Values</h3>
+
+<p>Once the properties are exposed, you can request at any time
+that their value is updated from the list of parameters using the
+UpdateProperties method. To make sure this happens before any
+verb is handled, call UpdateProperties in your Execute method :</p>
+
+<blockquote>
+    <pre><strong>procedure </strong>THtmlClock.Execute(
+    Request: THttpRequest; Response: THttpResponse;
+    <strong>const</strong> Verb, Value: <strong>string</strong>; Params: TVariantList;
+    <strong>var</strong> Handled: boolean); virtual;
+<strong>begin</strong>
+<font color="#FF0000">  UpdateProperties(Params);
+</font>  <strong>if</strong> (Verb = '') <strong>then</strong>
+    .....
+  .....
+<strong>end</strong>;</pre>
+</blockquote>
+
+<p>You can also choose to perform this only for certain verbs.</p>
+
+<hr>
+
+<h2><a name="Implementing_THtmlClock">Implementing THtmlClock</a></h2>
+
+<p>TBD</p>
+
+<hr>
+
+<h2><a name="TWapControl">TWapControl</a></h2>
+
+<p>TWapControl descends from TWapCustomAction. It is the basis
+for the WebApp components which support both the WriteHtml and
+the Submit verbs. </p>
+
+<p>TBD</p>
+
+<hr>
+
+<h2><a name="Re-implementing_THtmlClock">Re-implementing
+THtmlClock as a WebApp Control</a></h2>
+
+<p>TBD</p>
+
+<hr>
+
+<h2><a name="THtmlFormControl">THtmlFormControl</a></h2>
+
+<p>THtmlFormControl descends from TWapControl. It is the ancestor
+of all Action components which encapsulate HTML form controls,
+such as &lt;INPUT TYPE=&quot;TEXT&quot;&gt;, &lt;SELECT&gt;, etc.</p>
+
+<p>TBD</p>
+
+<hr>
+
+<h2><a name="The_TWapAction_Component">The TWapAction Component</a></h2>
+
+<p>TBD</p>
+</body>
+</html>

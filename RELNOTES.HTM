@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>WebApp Release Notes</title>
+</head>
+
+<body bgcolor="#FFFFFF" style="font-family: Arial">
+
+<h1>Release Notes for WebApp 1.04</h1>
+
+<h2>Release History</h2>
+
+<blockquote>
+  <hr>
+  <h3>Version 1.04</h3>
+  <p>Note : Borland has recently released BDE 4.51. It is recommended that you use the latest BDE version with WebApp. </p>
+  <p>Version 1.04 adds the following new features to WebApp:</p>
+  <UL>
+		<hr>
+	<LI><h4>AutoStart</h4>
+		<p>With AutoStart, the requirement that your WebApp application will be running
+		before it can handle requests is removed. Once you enable AutoStart for a certain
+		application, it will be <em>automatically started</em> with the first request to this application.</p>
+		<p>The AutoStart feature enables you to use WebApp with Web servers which run as a NT service, without
+		requiring a logon to the machine.</p>
+		<p>To enable AutoStart, follow these steps:<p>
+		<ul>
+			<li>Start the <b>WebApp Configuration</b> utility from the WebApp folder
+			<li>Switch to the <b>Applications</b> page
+			<li>If your application's ID does not appear in the list, click the <b>Add</b> button and specify your application's <b>AppId</b>
+			<li>Switch to the <b>AutoStart</b> page
+			<li>Check the <b>"Automatically start the application on the first request"</b> checkbox
+			<li>Specify the path to your WebApp application executable in the <b>"Application Path"</b> field
+			<li>Optional : if you would like your WebApp application to run with the permissions of a specific 
+			user, specify the user name and password in the <b>"User Name"</b> and <b>"Password"</b> fields. If you don't
+			specify a value for these fields, WebApp will use the Local System account if running in a NT service,
+			or the currently logged on user otherwise. 
+			<li>Click the <b>OK</b> button to close the WebApp Configuration utility
+		</ul>
+		<hr>
+	<LI><h4>Remote Administration</h4>
+		<p>Remote Administration enables you to perform administration and maintenance of your WebApp application
+		using your Web browser. It is ideal for situations where the Web server is not physically accessible, such as when
+		running your application on a remote ISP machine.</p>
+		<p>To enable Remote Administration, follow these steps:<p>
+		<ul>
+			<li>Start the <b>WebApp Configuration</b> utility from the WebApp folder
+			<li>Switch to the <b>Applications</b> page
+			<li>If your application's ID does not appear in the list, click the <b>Add</b> button and specify your application's <b>AppId</b>
+			<li>Switch to the <b>Remote Admin</b> page
+			<li>Check the <b>"Permit the application to be remotely administrated"</b> checkbox
+			<li>Depending on your environment, you may want to restrict remote administration. You can do that using any combination of the following :
+				<ul>
+					<li>Specify a <b>password</b> in the Password field
+					<li>Specify an IP in the <b>IP</b> field
+					<li>Check the <b>"Only over a secure connection"</b> (e.g. HTTPS) box
+				</ul>
+			<li>Click the <b>OK</b> button to close the WebApp Configuration utility
+		</ul>
+		<p>Once Remote Administration is enabled, you need to configure the browser-based 
+		Administration application. The HTML pages for this application are installed by the WebApp Setup program
+		in the <b>RmtAdmin</b> folder. You can either open the application from this directory, or copy it to a
+		location on the Web server. In any case, before you can use it, you will need to specify the location of the 
+		WebApp Server stub (e.g. WAPIS.ISA, WAPCGI.EXE, WAPNS.DLL etc.) :
+		<ul>
+			<li>Open the file RmtAdmin\main.html with your favorite HTML editor
+			<li>Change the ACTION attribute of the adminForm Form to specify
+			the full URL of the WebApp Server stub which you use with your WebApp
+			application (e.g. http://myhost/scripts/wapis.isa).
+		</ul>
+		To use the Remote Administration application, open the index.html page using your browser.
+			
+		<hr>
+		
+	<LI><h4>Automatic AppId</h4>
+		<p>The Automatic AppId feature enables you to specify that all the requests where the URL of the request matches
+		a specific pattern are associated with a specific AppId, even if the URL does not contain the AppId=.. syntax.	</p>
+		<p>To define a mapping between a specific URL pattern and a AppId, follow these steps :</p>
+		<ul>
+			<li>Start the <b>WebApp Configuration</b> utility from the WebApp folder
+			<li>Switch to the <b>Mapping</b> page
+			<li>Click the <b>Add</b> button
+			<li>Specify the URL pattern (e.g. <tt>/myapp/html/*</tt>) in the top field, and the AppId in the bottom field
+			<li>Click the <b>OK</b> button to close the WebApp Configuration utility
+		</ul>
+		<hr>
+  </UL>
+  <p>Other changes in this release:</p>
+  <p>Changed: <ul>
+	<li>To make the conversion from Delphi 3's WebModules even easier, TWebDispatcherAdapter now descends from Delphi's TWebModule, and
+	is now registered with Delphi as a "Custom Module". 
+  </ul>
+  <p>Added: <ul>
+	<li>Added TWapSession.FreeModule. Use this to free Data Modules which were created dynamically using TWapSession.CreateModule.
+	<li>Added TDBAutoSession.Session property. This is a read-only property, which you can use if you need to determine the BDE session
+	used by your WebApp session.
+	<li>Added a GetSessionForCurrentThread function in DBWap.pas. Use it if you need to determine the BDE session used by
+	WebApp for all WebApp sessions running in the current thread
+	<li>Added a GetSessionForThreadId function in DBWap.pas. Use it if you need to determine the BDE session used by
+	WebApp for all WebApp sessions running in the specified thread
+	<li>Shortened initialization time for sessions which use the BDE
+	<li>TWapActionItem now provides a ActionName property which you can use to set the name
+	of dynamically created actions
+  </ul>
+  <p>Fixed: <ul>
+	<li>WebApp application would sometime take a long time to close
+ 	<li>Action would be set to &lt;unassigned&gt; in the actions editor if the action was on another module which was closed at design time. 
+  </ul>
+  <h3>Version 1.03</h3>
+  <p>Please make sure you use the latest version of the BDE with your WebApp applications.
+  Versions of the BDE prior to 4.01 are not suitable for usage in high-performance heavy
+  duty web sites. You can download the latest version of the BDE from the Borland web site. </p>
+  <p>Added :<ul>
+    <li>MoveBy, AtLastPage, AtFirstPage methods in TPagedDataSource</li>
+    <li>Improved TDBHtmlTable</li>
+    <li>Improved Netscape servers support</li>
+    <li>Added TWapSession.FreeForm. Use it to destroy forms created using
+      TWapSession.CreateForm.</li>
+    <li>Added URLRemoveFilename to InetStr.pas</li>
+    <li>Initial (still undocumented) Auto-Start and Remote-Shutdown support - contact us for
+      additional details if you need these capabilities today.</li>
+  </ul>
+  <p>Fixed :<ul>
+    <li>HTML Templates : fixed inability to use string variants, &lt;SCRIPT&gt; style
+      client-side scripts. </li>
+    <li>Eliminated memory leak.</li>
+    <li>Eliminated various threading-related stability problems.</li>
+    <li>Implemented workaround for the IE4 cookies bug.</li>
+  </ul>
+  <p>Note : the WebApp application templates has changed. To apply the changes to your
+  existing WebApp applications which were created using the template, follow these steps :<ol>
+    <li>Open your main form</li>
+    <li>In the WapApp OnNotify event, change the call to <tt>UpdateStatistics</tt> to <tt>CallInMainThread(UpdateStatistics)</tt></li>
+    <li>Remove all references to FStatsLock, it is not needed anymore.</li>
+  </ol>
+  <h3>Version 1.02</h3>
+  <p>Version 1.02 fixes problems related to the creation and destruction of visual
+  components :<ul>
+    <li>Dead-lock if a visual control was created in the session startup code (Session.OnStart
+      or DataModule.OnCreated)</li>
+    <li>Visual controls were destroyed in the session thread, now they are destroyed in the
+      application main thread, which is a lot safer.</li>
+  </ul>
+  <h3>Version 1.01</h3>
+  <ul>
+    <li>Fixed installation of Delphi project and data module templates</li>
+    <li>Multiple values for an Action parameter are CRLF-delimited instead of comma-delimited</li>
+    <li>Fixed bug in THtmlCheckboxGroup</li>
+    <li>Due to licensing restrictions by Unisys, the owners of the LZW patent which is used by
+      the GIF format, we had to disable the built-in BMP-&gt;GIF conversion. We will re-enable
+      it for users who supply a proof of their GIF license. Please review the full details in
+      the documentation for TWapResponse.SendBitmapAsGIF function.</li>
+    <li>Fixed HTML generation bugs in THtmlCheckbox, THtmlRadioButton and THtmlTextArea</li>
+    <li>Improved exception handling</li>
+    <li>Improved performance of ISAPI stub, fixed memory leak</li>
+    <li>Added GMTToLocalTime to InetStr</li>
+    <li>Improved URLEncode</li>
+    <li>Fixed threading-related problem in session creation, which resulted in the &quot;Invalid
+      session name&quot; being issued sometimes.</li>
+    <li>Fixed errors regarding TWapVariantDictionary issued by Delphi when opening some of the
+      sample programs.</li>
+    <li>Several other minor bug fixes.</li>
+  </ul>
+  <h3>Version 1.0</h3>
+  <ul>
+    <li>Added a new TWapSMTP component for sending email from a WebApp application. Based on
+      ArGo Software's TSMTP component, this component is included only in the Pro version.</li>
+    <li>Added a new SendMail sample program, demonstrating the use of TWapSMTP</li>
+    <li>Added several template to speed up the creation of WebApp program - see the WebApp page
+      in the Object Repository.</li>
+    <li>Renamed TWapVariantDictionary to TVariantList. TWapVariantDictionary is now aliases to
+      TVariantList, so your old code should compile fine.</li>
+    <li>Fixed a bug in the WebApp scheduler. The result is yet another performance improvement.</li>
+  </ul>
+  <h3>Preview 5</h3>
+  <ul>
+    <li>We have added a powerfull new piece to the WebApp architecture. Every descandant of the
+      new TWapCustomAction component automaticaly gains many WebApp-aware capabilities. </li>
+    <li>We've added a collection of data-aware HTML controls, which know how to read their value
+      from a DataSet, as well as post updates back to the DataSet, just like regular Delphi
+      data-aware controls. This is only the beginning... there is a lot more planned in this
+      area.</li>
+    <li>The WapSession component now supports a flexible dispatching mechanism. Now you can
+      specify actions which will be automatically executed when certain conditions are
+      satisfied, similarly to the regular Delphi events mechanism. Along with the multiple data
+      modules and forms support from Preview 4, this makes WebApp the perfect tool to create
+      non-trivial Web applications! For additional information, see the TWapSession.Actions
+      property.</li>
+    <li>The WebApp's HTML templates processor has been enhanced to work seamlessly with the new
+      action components. You can now activate action components directly from the HTML template.
+      For example, the following HTML template : &lt;%~HTMLTable1.WriteHTML BGColor=clRed%&gt;
+      will execute the WriteHTML method of the HTMLTable1 component, but not before it sets the
+      component's BGColor property to clRed. </li>
+    <li>TWapApp has a new DebugMode property. This property is false by default, and can be
+      enabled only at runtime. If you set it to true, WebApp will enable various debugging
+      support functions. This is especially useful when single-stepping WebApp applications - if
+      DebugMode is true, the WebApp runtime will wait full 5 minutes before announcing that the
+      application timed-out, instead of the normal 30 seconds. This property is supported by the
+      default WebApp application template - see the Options | Debug Mode menu.</li>
+    <li>For those of you running a single WebApp application on your server : now you can
+      specify a default AppID, which will be used if the &quot;app=&quot; syntax is not found on
+      the URL line. </li>
+    <li>The WebApp habit of starting a new session whenever &quot;app=...&quot; was used was
+      annoying, we'll admit that. We've changed this behaviour - if WebApp detects an existing
+      session between the specified application and the requesting client, it will use it. To
+      force WebApp to start a new session, add &quot;NewSession&quot; to the URL : <a
+      href="http://....?app=MyApp&amp;NewSession">&quot;http://....?app=MyApp&amp;NewSession&quot;</a>.</li>
+    <li>You can now customize the error message displayed by WebApp when an exception occurs
+      before control gets to your application, or if there is no associated application (for
+      example, the &quot;No AppID&quot; message). See the &quot;Customizing Error Messages&quot;
+      !!! section in the documentation.</li>
+    <li>There is a new configuration program in the WebApp folder - WapCfg. You can use it to
+      set the DefaultAppID and Error Message file.</li>
+    <li>The Delphi 3 C/S Compatibility layer is now included in the setup. See the &quot;Delphi
+      3 C/S Compatibilty Layer&quot; secion in the documention.</li>
+    <li>Added 2 new sample programs, in the directories DBControls and HtmlCtrl</li>
+  </ul>
+  <p>Some more minor changes :<ul>
+    <li>THTMLChunk is a new HTML control.</li>
+    <li>New THttpRequest.MethodType property (in addition to the existing THttpRequest.Method
+      property).</li>
+    <li>New THttpRequest.QueryString.ValueExists and THttpRequest.Form.ValueExists functions</li>
+    <li>The TWebApp.Serialize property was removed, as it is no longer needed. Delphi might
+      report a &quot;Property does not exist&quot; error when you open the form for the first
+      time, you can safely ignore it.</li>
+  </ul>
+  <h3>Preview 4</h3>
+</blockquote>
+
+<blockquote>
+  <blockquote>
+    <p>Preview 4 is an unscheduled release, whose main purpose is to handle the
+    &quot;Duplicate Session&quot; bug many of you encountered. Originally we planned Preview 4
+    to be the last one before the release, but now it looks like there will be a Preview 5... </p>
+    <p>Even though the main purpose of this release is the fix that bug, it does include quite
+    a lot of exciting features... <ul>
+      <li>The WebApp threading behaviour is now finalized. The rule is simple - sessions spend
+        their entire lifetime in the same thread. This makes WebApp's multithreaded nature truly
+        transparent!</li>
+      <li>WebApp now consumes very few BDE sessions. Again, beauty in simplicity - each BDE-using
+        WebApp thread gets its own BDE session, which is shared by all the WebApp sessions using
+        this thread. Contrast this with the Delphi 3 behaviour, where <em>every web module</em>
+        gets its own BDE session, and you will find that the WebApp approach wastes less BDE
+        sessions and is a lot more scalable.</li>
+      <li>The TDBWapSession component was removed and replaced by TDBAutoSession component. If you
+        attempt to open a data module which contained the TDBWapSession component, Delphi will
+        issue a warning and remove the TDBWapSession component. Drop a TDBAutoSession component on
+        the module form, and re-activate the tables. TDBAutoSession is the component that
+        implements the new BDE session management.</li>
+      <li>The TWapApp.Serialize property is obsolete, and will be removed before the release.</li>
+      <li>We've now simplified the creation of WebApp applications which use more than one data
+        module to implement a WebApp session. Check out the documentation for the new
+        TWebSession.CreateModule function.</li>
+      <li>We've provided new built-in support for using <strong>any</strong> visual component in
+        WebApp - check out the documentation for the new CreateForm and GetFormImage functions.
+        See the TeeChart sample for a demonstration of this feature (this sample will compile only
+        with Delphi 3, but CreateForm and GetFormImage work great with Delphi 2 and C++Builder as
+        well)</li>
+      <li>The TBrowserType component (Request.BrowserCaps property) now handles the newer
+        BROWSCAP.INI from Microsoft. We've also provided a new BROWSCAP.INI with entries for
+        Netscape Communicator 4.</li>
+    </ul>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <hr>
+  <h3>Preview 3</h3>
+</blockquote>
+
+<blockquote>
+  <blockquote>
+    <p>WebApp Preview 3 adds many features, the most important of them is support for <strong>HTML
+    Templates with embedded VBScript or JavaScript scripts</strong> (currently available for
+    Delphi 3 only, we are working on the Delphi 2 and C++ Builder version as well).</p>
+    <p>Also new :<ul>
+      <li>Built in conversion of bitmaps to GIF/JPEG on the fly</li>
+      <li>More documentation and examples</li>
+      <li>The WSAPI interface is included</li>
+      <li>TDBWapSession for automatic managment of BDE sessions</li>
+      <li>The Delphi 3 packages are included</li>
+    </ul>
+    <p>Some of changes in this version :<ul>
+      <li>The WebApp runtime DLLs (HAWEBAPP.DLL, HAWAPRUN.DLL) are installed by the Setup program</li>
+      <li>TDBPaginator renamed to TDataSetPage. This still doesn't good, anyone has a better name
+        ?</li>
+      <li>Various bug fixes and performance improvments...</li>
+    </ul>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <hr>
+  <h3>Beta 2</h3>
+</blockquote>
+
+<blockquote>
+  <blockquote>
+    <table border="0">
+      <tr>
+        <th align="left" valign="top">Fixed</th>
+        <td valign="top"><ul>
+          <li>WinCGI interface did not work with WebSite</li>
+          <li>The USER_AGENT HTTP header was not available with the WinCGI interface</li>
+          <li>Test.exe was compiled with debugging stuf turned on, which caused it to fail under
+            certain conditions</li>
+          <li>The Server Installation Assistant incorrectly used the <tt>Distrib</tt> directory as the
+            location of the redistributable files. It should have been <tt>Redist</tt>.</li>
+        </ul>
+        </td>
+      </tr>
+      <tr>
+        <th align="left" valign="top">Changed</th>
+        <td valign="top"><ul>
+          <li>The compiled sample programs were taking up lots of space in the archive, they are no
+            longer provided in this release - you will need to compile them. Test.exe is still
+            available though.</li>
+          <li>Syntax for the WebApp DLL self-test command changed from &quot;?WebAppTest&quot; to
+            &quot;WapCmd=test&quot;.</li>
+        </ul>
+        </td>
+      </tr>
+      <tr>
+        <th align="left" valign="top">Added</th>
+        <td valign="top"><ul>
+          <li>HtmlText now includes many HTML generation components, check it out.</li>
+          <li>Added DBHtml. It contains two new components, TDBPaginator and TDBHtmlTable. More to
+            follow soon.</li>
+          <li>Added Request.MapPath function. Currently working only for ISAPI, the rest of the
+            interfaces will be implemented in the next release.</li>
+          <li>Added Response.RequestBasicAuthorization</li>
+          <li>Added DecodeBasicAuthorization function to AppSSI</li>
+        </ul>
+        </td>
+      </tr>
+    </table>
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <hr>
+  <h3>Beta 1</h3>
+  <p>First release.</p>
+  <hr>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<h2>Known Problems</h2>
+
+<ol>
+  <li>The Microsoft Personal Web Server seems to provide only partial support for CGI, do not
+    use the CGI interface with it - use the ISAPI interface instead.</li>
+  <li>Netscape FastTrack 2.0 (and probably other Netscape servers) with WinCGI : The server
+    does include the drive (d:) specification in the input and output filenames. To enable
+    WebApp to locate the input and output files, make sure that the WebApp WinCGI stub is
+    located in the same drive as the temporary directory used by Netscape to create the files
+    in (type &quot;echo %temp&quot; in the command line to find out which directory is that).</li>
+  <li>Microsoft Internet Explorer 3.0x incorrectly caches HTML pages that include
+    &quot;Pragma: no-cache&quot; and &quot;Expires: <em>some-date-in-the-past</em>&quot;
+    headers (this is a known bug in this version, hopefully it will be fixed in the upcoming
+    IE 4). The result is that by default IE will displayed cached pages instead of
+    re-submitting requests to your WebApp program until it is restarted. A temporary fix is to
+    use the <tt>View | Options | Advanced | Temporary Internet Files | Setting</tt>s dialog to
+    set the value of the &quot;Check for newer versions of stored pages&quot; to &quot;Every
+    visit to the page&quot;. If anyone knows of a better solution, please let <a
+    href="mailto:ygolan@hyperact.com">me</a> know.</li>
+  <li>Installing the C++Builder WapReg.cpp generates link-time errors. We will provide a fixed
+    version soon.</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,259 @@
+unit ISAPIReq;
+
+interface
+
+uses Classes, SysUtils, Windows, ISAPI2, HttpReq, IPC
+    ;
+
+type
+
+EIsapiHttpRequestImp = class(EAbstractHttpRequestInterface);
+
+TIsapiHttpRequestImp = class(TAbstractHttpRequestInterface)
+private
+    FEcb: PEXTENSION_CONTROL_BLOCK;
+    FHttpHeaders: TStringList;
+    FBytesRead: dword;
+    FPtrInData: PByte;
+    procedure   ReadHttpHeaders;
+public
+    constructor Create(Ecb: PEXTENSION_CONTROL_BLOCK);
+    destructor  Destroy; override;
+    function    GetQueryString: string; override;
+    function    GetMethod: string; override;
+    function    GetLogicalPath: string; override;
+    function    GetPhysicalPath: string; override;
+    function    WriteToClient(const Buffer; Count: integer): integer; override;
+    function    ReadFromClient(var Buffer; Count: integer): integer; override;
+    function    GetInputSize: integer; override;
+    function    GetInputContentType: string; override;
+    function    GetServerVariable(const VarName: string): string; override;
+    function    GetHttpHeader(const HeaderName: string): string; override;
+    function    MapURLToPath(const LogicalURL: string): string; override;
+
+    property    Ecb: PEXTENSION_CONTROL_BLOCK read FEcb;
+end;
+
+implementation
+
+uses D3SysUtl, XcptTrc
+;
+
+constructor TIsapiHttpRequestImp.Create(Ecb: PEXTENSION_CONTROL_BLOCK);
+begin
+    inherited Create;
+    FEcb := Ecb;
+end;
+
+destructor  TIsapiHttpRequestImp.Destroy;
+begin
+    FHttpHeaders.Free;
+    inherited Destroy;
+end;
+
+function TIsapiHttpRequestImp.WriteToClient(const Buffer; Count: integer): integer;
+var
+    dw: dword;
+    WriteClientResult: boolean;
+begin
+    dw := Count;
+    try
+        WriteClientResult := Ecb.WriteClient(Ecb.ConnId, @buffer, dw, 0);
+        Win32Check(WriteClientResult);
+    except
+        on e: exception do begin
+            raise ETracedException.create('TIsapiHttpRequestImp.WriteToClient failed');
+        end;
+    end;
+    result := dw;
+end;
+
+function    TIsapiHttpRequestImp.ReadFromClient(var Buffer; Count: integer): integer;
+var
+    bytesFromStream: dword;
+    bytesFromData: dword;
+    bufferPtr: PByte;
+begin
+    try
+        if (FBytesRead = 0) then
+            FPtrInData := Ecb.lpbData;
+
+        bufferPtr := @buffer;
+
+        bytesFromStream := Count;
+        if (FBytesRead + bytesFromStream > Ecb.cbTotalBytes) then
+            bytesFromStream := Ecb.cbTotalBytes - FBytesRead;
+
+        bytesFromData := bytesFromStream;
+        if (FBytesRead + bytesFromData > Ecb.cbAvailable) then
+            bytesFromData := Ecb.cbAvailable - FBytesRead;
+
+        if (bytesFromData > 0) then begin
+            move(FPtrInData^, bufferPtr^, bytesFromData);
+            dec(bytesFromStream, bytesFromData);
+            inc(bufferPtr, bytesFromData);
+            inc(FPtrInData, bytesFromData);
+        end;
+
+        if (bytesFromStream > 0) then begin
+            Win32Check(
+                Ecb.ReadClient(Ecb.ConnID, bufferPtr, bytesFromStream)
+            );
+        end; // if
+        result := bytesFromData + bytesFromStream;
+        FBytesRead := FBytesRead + result;
+    except
+        on E: Exception do begin
+            raise ETracedException.Create('TIsapiHttpRequestImp.ReadFromClient failed');
+        end;
+    end;
+end;
+
+function    TIsapiHttpRequestImp.GetInputSize: integer;
+begin
+    result := Ecb.cbTotalBytes;
+end;
+
+function    TIsapiHttpRequestImp.GetInputContentType: string;
+begin
+    Assert(Ecb.lpszContentType <> nil);
+    result := StrPas(Ecb.lpszContentType);
+end;
+
+function    TIsapiHttpRequestImp.GetServerVariable(const VarName: string): string;
+
+    procedure   DoGetServerVar(var buf: PChar; bufSize: dword; retry: boolean);
+    var
+        errCode: dword;
+    begin
+        if (not Ecb.GetServerVariable(Ecb.ConnId, PChar(varName), buf, bufSize)) then begin
+            StrCopy(buf, '');
+            errCode := GetLastError;
+            if (errCode = ERROR_INSUFFICIENT_BUFFER) then begin
+                if (retry) then begin
+                    // the buffer was too small :
+                    StrDispose(buf);
+                    buf := nil;
+                    // realloc the required size
+                    buf := StrAlloc(bufSize);
+                    // try one last time with the bigger buffer (retry = false)
+                    DoGetServerVar(buf, bufSize, false);
+                end; { if }
+            end; { if }
+        end; { if }
+    end; { DoGetServerVar }
+
+var
+    buf: PChar;
+begin
+    try
+        buf := StrAlloc(2 * 1024);
+        try
+            DoGetServerVar(buf, strBufSize(buf), true);
+            result := StrPas(buf);
+        finally
+            StrDispose(buf);
+        end;
+    except
+        on E: Exception do begin
+            raise ETracedException.Create('TIsapiHttpRequestImp.GetServerVariable failed');
+        end;
+    end;
+end;
+
+procedure   TIsapiHttpRequestImp.ReadHttpHeaders;
+var
+    m: TMemoryStream;
+    all_http: string;
+    i: integer;
+    name, value: string;
+    p: integer;
+begin
+    try
+        FHttpHeaders := TStringList.Create;
+        try
+            all_http := GetServerVariable('ALL_HTTP');
+            // we will use TStringList's ability to load a CRLF or CR-seperated
+            // list of strings from a stream :
+            m := TMemoryStream.Create;
+            try
+                m.Write(pointer(all_http)^, length(all_http));
+                m.Seek(0, soFromBeginning);
+                FHttpHeaders.loadFromStream(m);
+            finally
+                m.free;
+            end;
+            // Now FHttpHeaders contains the list of headers in the form "HTTP_header: value".
+            // We want to change it to "header=value", so that we can access it
+            // using the TStringList.Values property :
+            for i := 0 to (FHttpHeaders.Count - 1) do begin
+                p := pos(':', FHttpHeaders[i]);
+                if (p > 0) then begin
+                    name := trim(Copy(FHttpHeaders[i], 1, p - 1));
+                    value := trim(Copy(FHttpHeaders[i], p + 1, maxInt));
+                    if (Copy(name, 1, 5) = 'HTTP_') then
+                        name := Copy(name, 6, maxInt);
+                    FHttpHeaders[i] := name + '=' + value;
+                end;
+            end;
+        except
+            FHttpHeaders.free;
+            FHttpHeaders := nil;
+            raise;
+        end;
+    except
+        on E: Exception do begin
+            raise ETracedException.Create('TIsapiHttpRequestImp.ReadHttpHeaders failed');
+        end;
+    end;
+end;
+
+function    TIsapiHttpRequestImp.GetHttpHeader(const HeaderName: string): string;
+begin
+    try
+        if (FHttpHeaders = nil) then
+            ReadHttpHeaders;
+        result := FHttpHeaders.values[headerName];
+    except
+        on E: Exception do begin
+            raise ETracedException.Create('TIsapiHttpRequestImp.GetHttpHeader failed');
+        end;
+    end;
+end;
+
+function    TIsapiHttpRequestImp.MapURLToPath(const LogicalURL: string): string; 
+var
+    Buf: array [0..1023] of char;
+    Size: dword;
+    DataType: dword;
+begin
+    StrCopy(Buf, PChar(LogicalURL));
+    Size := SizeOf(Buf);
+    if Ecb.ServerSupportFunction(Ecb.ConnId, HSE_REQ_MAP_URL_TO_PATH, @Buf, @Size, @DataType) then
+        result := Buf
+    else
+        result := '';
+end;
+
+function    TIsapiHttpRequestImp.GetQueryString: string;
+begin
+    result := Ecb.lpszQueryString;
+end;
+
+function    TIsapiHttpRequestImp.GetMethod: string;
+begin
+    result := Ecb.lpszMethod;
+end;
+
+function    TIsapiHttpRequestImp.GetLogicalPath: string;
+begin
+    result := Ecb.lpszPathInfo;
+end;
+
+function    TIsapiHttpRequestImp.GetPhysicalPath: string;
+begin
+    result := Ecb.lpszPathTranslated;
+end;
+
+end.
+

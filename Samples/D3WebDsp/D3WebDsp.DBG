@@ -1,0 +1,104 @@
+0000008D 58:10.136 : <TWapWorkerThread.DoExecute
+0000008D 58:10.136 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000090 58:10.176 : <TWapWorkerThread.DoExecute
+00000090 58:10.176 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000092 58:10.186 : <TWapWorkerThread.DoExecute
+00000092 58:10.186 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000B3 58:10.216 : <TWapWorkerThread.DoExecute
+000000B3 58:10.226 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+0000003F 58:10.246 : <TWapWorkerThread.DoExecute
+0000003F 58:10.256 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000065 58:10.276 : <TWapWorkerThread.DoExecute
+00000065 58:10.276 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+0000002F 58:10.296 : <TWapWorkerThread.DoExecute
+0000002F 58:10.296 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000CA 58:10.316 : <TWapWorkerThread.DoExecute
+000000CA 58:10.326 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000CD 58:10.346 : <TWapWorkerThread.DoExecute
+000000CD 58:10.346 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000042 58:10.386 : <TWapWorkerThread.DoExecute
+00000042 58:10.386 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000AE 58:10.426 : <TWapWorkerThread.DoExecute
+000000AE 58:10.426 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000073 58:10.456 : <TWapWorkerThread.DoExecute
+00000073 58:10.456 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000CF 58:10.587 : <TWapWorkerThread.DoExecute
+000000CF 58:10.587 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D0 58:10.617 : <TWapWorkerThread.DoExecute
+000000D0 58:10.627 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D1 58:10.667 : <TWapWorkerThread.DoExecute
+000000D1 58:10.667 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D2 58:10.717 : <TWapWorkerThread.DoExecute
+000000D2 58:10.717 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D4 58:59.817 : <TWapRequestsReader.HandleRequest
+000000D4 59:00.098 : TWapRequestsReader.HandleRequest>
+0000008D 59:00.158 :   TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate>
+0000008D 59:00.158 :   <TExecutionJob.Execute
+0000008D 59:04.494 :   TExecutionJob.Execute>
+0000008D 59:04.494 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D4 59:08.089 : <TWapRequestsReader.HandleRequest
+0000008D 59:08.089 :   TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate>
+0000008D 59:08.099 :   <TExecutionJob.Execute
+000000D4 59:08.099 : TWapRequestsReader.HandleRequest>
+0000008D 59:08.239 :   TExecutionJob.Execute>
+0000008D 59:08.239 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D4 59:14.418 : <TWapRequestsReader.HandleRequest
+0000008D 59:14.418 :   TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate>
+0000008D 59:14.418 :   <TExecutionJob.Execute
+000000D4 59:14.428 : TWapRequestsReader.HandleRequest>
+0000008D 59:14.498 :   TExecutionJob.Execute>
+0000008D 59:14.498 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+000000D4 59:25.044 : <TWapRequestsReader.HandleRequest
+0000008D 59:25.054 :   TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate>
+0000008D 59:25.054 :   <TExecutionJob.Execute
+000000D4 59:25.054 : TWapRequestsReader.HandleRequest>
+0000008D 59:25.144 :   TExecutionJob.Execute>
+0000008D 59:25.144 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+0000008D 19:25.430 :   TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate>
+0000008D 19:25.430 :   <TRemovalJob.Execute
+0000008D 19:26.521 :   TRemovalJob.Execute>
+0000008D 19:26.521 :   <TWapWorkerThread.DoExecute.WaitForSingleObjectCheckTerminate
+00000074 44:43.743 : <TWapApp.Stop
+00000074 44:45.215 :   TWapApp.Stop.BeforeEmptyEvent
+00000074 44:45.215 :   TWapApp.Stop.AfterEmptyEvent
+00000074 44:45.215 : TWapApp.Stop>
+00000074 44:45.245 : <TWapScheduler.Stop
+00000074 44:45.245 :   <TWapScheduler.Stop.TerminatingThreads
+00000074 44:45.245 :   TWapScheduler.Stop.TerminatingThreads>
+0000008D 44:45.245 :   TWapWorkerThread.DoExecute>
+00000074 44:45.255 :   TWapScheduler.Stop.WaitingForThreadsToTerminate>
+00000090 44:45.445 :   TWapWorkerThread.DoExecute>
+00000092 44:45.485 :   TWapWorkerThread.DoExecute>
+000000B3 44:45.536 :   TWapWorkerThread.DoExecute>
+0000003F 44:45.566 :   TWapWorkerThread.DoExecute>
+00000065 44:45.576 :   TWapWorkerThread.DoExecute>
+0000002F 44:45.686 :   TWapWorkerThread.DoExecute>
+000000D2 44:45.726 :   TWapWorkerThread.DoExecute>
+000000CA 44:45.736 :   TWapWorkerThread.DoExecute>
+000000D1 44:45.776 :   TWapWorkerThread.DoExecute>
+000000CD 44:45.796 :   TWapWorkerThread.DoExecute>
+000000D0 44:45.836 :   TWapWorkerThread.DoExecute>
+00000042 44:45.856 :   TWapWorkerThread.DoExecute>
+000000CF 44:45.886 :   TWapWorkerThread.DoExecute>
+000000AE 44:45.936 :   TWapWorkerThread.DoExecute>
+00000073 44:45.936 :   TWapWorkerThread.DoExecute>
+00000074 44:45.946 :   TWapScheduler.Stop.WaitingForThreadsToTerminate>
+00000074 44:45.946 :   <TWapScheduler.Stop.DeletingThreads
+00000074 44:45.946 :     TWapScheduler.Stop.Thread 210 = 0
+00000074 44:45.946 :     TWapScheduler.Stop.Thread 209 = 0
+00000074 44:45.946 :     TWapScheduler.Stop.Thread 208 = 0
+00000074 44:45.956 :     TWapScheduler.Stop.Thread 207 = 0
+00000074 44:45.956 :     TWapScheduler.Stop.Thread 115 = 0
+00000074 44:45.956 :     TWapScheduler.Stop.Thread 174 = 0
+00000074 44:45.956 :     TWapScheduler.Stop.Thread 66 = 0
+00000074 44:45.956 :     TWapScheduler.Stop.Thread 205 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 202 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 47 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 101 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 63 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 179 = 0
+00000074 44:45.966 :     TWapScheduler.Stop.Thread 146 = 0
+00000074 44:45.976 :     TWapScheduler.Stop.Thread 144 = 0
+00000074 44:45.976 :     TWapScheduler.Stop.Thread 141 = 0
+00000074 44:45.976 :   TWapScheduler.Stop.DeletingThreads>
+00000074 44:45.976 : <TWapScheduler.Stop

@@ -1,0 +1,112 @@
+unit CWapRegReader;
+
+interface
+
+uses Classes, SysUtils, Windows;
+
+type
+
+TWapRegDataInfo = record
+    RegData: integer;
+    DataSize: Integer;
+end;
+
+
+TWapRegReader = class
+private
+    FKey: HKEY;
+    FRoot: string;
+    function OpenKey: longint;
+    function GetDataInfo(const ValueName: string; var Value: TWapRegDataInfo): Boolean;
+    function GetDataSize(const ValueName: string): Integer;
+    function GetData(const Name: string; Buffer: Pointer;
+      BufSize: Integer; var RegData: TWapRegDataInfo): Integer;
+public
+    constructor Create(const Root: string);
+    destructor Destroy; override;
+    function ReadString(const Name: string): string;
+end;
+
+
+implementation
+
+constructor TWapRegReader.Create(const Root: string);
+begin
+    inherited Create;
+    FRoot := Root;
+    if (OpenKey <> ERROR_SUCCESS) then
+        FKey := 0;
+end;
+
+destructor TWapRegReader.Destroy;
+begin
+    if (FKey <> 0) then
+        RegCloseKey(FKey);
+    inherited;
+end;
+
+function TWapRegReader.OpenKey: longint;
+begin
+    Result := 
+        RegOpenKeyEx(
+            HKEY_LOCAL_MACHINE,
+            PChar(FRoot), // 'SOFTWARE\HyperAct\WebApp',
+            0,
+            KEY_QUERY_VALUE,
+            FKey);
+end;
+
+function TWapRegReader.GetDataInfo(const ValueName: string; var Value: TWapRegDataInfo): Boolean;
+begin
+  FillChar(Value, SizeOf(TWapRegDataInfo), 0);
+  Result := RegQueryValueEx(FKey, PChar(ValueName), nil, @Value.RegData, nil,
+    @Value.DataSize) = ERROR_SUCCESS;
+end;
+
+function TWapRegReader.GetDataSize(const ValueName: string): Integer;
+var
+  Info: TWapRegDataInfo;
+begin
+  if GetDataInfo(ValueName, Info) then
+    Result := Info.DataSize else
+    Result := -1;
+end;
+
+function TWapRegReader.GetData(const Name: string; Buffer: Pointer;
+  BufSize: Integer; var RegData: TWapRegDataInfo): Integer;
+var
+  DataType: Integer;
+begin
+  DataType := REG_NONE;
+  if RegQueryValueEx(FKey, PChar(Name), nil, @DataType, PByte(Buffer),
+    @BufSize) <> ERROR_SUCCESS then
+    raise Exception.Create('Get Data Failed');
+  Result := BufSize;
+  RegData.RegData := DataType;
+end;
+
+
+procedure ReadError(const Name: string);
+begin
+  raise Exception.Create('Invalid Registry Type');
+end;
+
+
+function TWapRegReader.ReadString(const Name: string): string;
+var
+  Len: Integer;
+  RegData: TWapRegDataInfo;
+begin
+  Len := GetDataSize(Name);
+  if Len > 0 then
+  begin
+    SetString(Result, nil, Len);
+    GetData(Name, PChar(Result), Len, RegData);
+    if (RegData.RegData = REG_SZ) or (RegData.RegData = REG_EXPAND_SZ) then
+      SetLength(Result, StrLen(PChar(Result)))
+    else ReadError(Name);
+  end
+  else Result := '';
+end;
+
+end.

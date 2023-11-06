@@ -1,0 +1,26 @@
+[DSP upload]
+Filename=wapevl10.zip
+Replacements=wapevl10.zip
+Version=1.04
+FileURL=ftp://ftp.hyperact.com/pub/products
+Description=Framework for developing Web server applications using  Delphi 2, Delphi 3 or C++ Builder. Features : Runs on any  NT Web server, Automatic Session Management, Live  debugging, ASP-compatible HTML templates with  Server-side scripts (VBS & JS), Rmt. Admn
+Delphi 1.0=N
+Delphi 2.0=Y
+Delphi 3.0=Y
+C++Builder 1.0=Y
+File Status=Shareware
+Full Source=NOT included
+Category=Winsock and Communications
+Note=WebApp is available in two versions:  Standard version for $199.  Pro version (with source code and SMTP component)  for  $495. 
+Additional info=HTML file ( extension htm )
+[DSP Support]
+DSP Support=Y
+[Versions available]
+Delphi 1.0=
+Delphi 2.0=
+Delphi 3.0=
+C++Builder 1.0=
+[Uploader]
+Author name=HyperAct
+Author E-mail=ygolan@hyperact.com
+Author URL=http://www.hyperact.com

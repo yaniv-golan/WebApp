@@ -1,0 +1,10 @@
+//SUPPRESSIONPROJ:Test
+//VERSION:5.00
+//ENABLE:Yes
+ignore failure KERNEL32.DLL:LoadLibraryExA in module HAWAPRUN.DLL
+ignore failure KERNEL32.DLL:LoadLibraryExA in module EXE
+ignore failure ADVAPI32.DLL:RegCloseKey in module HOOKDLL.dll
+ignore failure KERNEL32.DLL:LoadLibraryExA in module HAWEBAPP.DLL
+ignore failure USER32.DLL:LoadIconA in module HAWEBAPP.DLL
+ignore other(30,0) in module EXE
+

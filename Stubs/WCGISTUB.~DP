@@ -1,0 +1,6 @@
+program wcgistub;
+
+Uses WapDIntf;
+
+begin
+end.

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>WebApp Data-aware Controls Sample</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<table border="0">
+    <tr>
+        <td valign="top"><form action="<%= Request.ScriptName %>"
+        method="POST" name="DBForm_HTMLForm1">
+            <input type="hidden" name="DBForm_HTMLForm1.Submit"
+            value><input type="hidden"
+            name="DBForm_HTMLForm1@Bookmark"
+            value="<%~EmployeeBookmark%>"><table border="1">
+<!--
+						YES, we will provide a fuller implementation of a DBNavigator-like
+						drop-in component in a future release!
+					-->                <tr>
+                    <td align="center"><a
+                    href="<%= Request.ScriptName %>?<%= Response.EncodeAction("DBForm_NavImage.DataSetAction Action=First") %>">
+					<img src="<%= Request.ScriptName %>?<%= Response.EncodeAction("DBForm_NavImage.WriteImage Image=First") %>"
+                    alt="Prior" border="0"></a><br>
+                    <tt>&nbsp;First&nbsp;</tt></td>
+                    <td align="center"><a
+                    href="<%= Request.ScriptName %>?DBForm_NavImage.DataSetAction&amp;DBForm_NavImage@Action=Prior&amp;DBForm_NavImage@Bookmark=<%~EmployeeBookmark%>"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Prior"
+                    alt="Prior" border="0"></a><br>
+                    <tt>&nbsp;Prior&nbsp;</tt></td>
+                    <td align="center"><a
+                    href="<%= Request.ScriptName %>?DBForm_NavImage.DataSetAction&amp;DBForm_NavImage@Action=Next&amp;DBForm_NavImage@Bookmark=<%~EmployeeBookmark%>"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Next"
+                    alt="Next" border="0"></a><br>
+                    <tt>&nbsp;Next&nbsp;&nbsp;</tt></td>
+                    <td align="center"><a
+                    href="<%= Request.ScriptName %>?DBForm_NavImage.DataSetAction&amp;DBForm_NavImage@Action=Last"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Last"
+                    alt="Last" border="0"></a><br>
+                    <tt>&nbsp;Last&nbsp;&nbsp;</tt></td>
+                    <td align="center"><a
+                    href="JavaScript:document.DBForm_HTMLForm1.elements[1].value='';document.DBForm_HTMLForm1.submit()"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Insert"
+                    alt="Insert" border="0"></a><br>
+                    <tt>&nbsp;Insert&nbsp;</tt></td>
+                    <td align="center"><a
+                    href="<%= Request.ScriptName %>?DBForm_NavImage.DataSetAction&amp;DBForm_NavImage@Action=Delete&amp;DBForm_NavImage@Bookmark=<%~EmployeeBookmark%>"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Delete"
+                    alt="Delete" border="0"></a><br>
+                    <tt>&nbsp;Delete</tt></td>
+                    <td align="center"><a
+                    href="JavaScript:document.DBForm_HTMLForm1.submit()"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Post"
+                    alt="Post" border="0"></a><br>
+                    <tt>&nbsp;Post&nbsp;&nbsp;</tt></td>
+<!--
+						The "Cancel" button will be displayed only if the browser is Netscape, since IE
+						does not support the Form.reset() method.
+					--><% If Request.BrowserCaps.Browser = "Netscape" then %>                    <td align="center"><a
+                    href="JavaScript:document.DBForm_HTMLForm1.reset()"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Cancel"
+                    alt="Cancel" border="0"></a><br>
+                    <tt>&nbsp;Cancel&nbsp;</tt></td>
+<% End If %><!--
+						Note the use of server-side script to generate different code for Netscape and IE.
+					-->                    <td align="center"><a
+                    href="<% if Request.BrowserCaps.Browser = "Netscape" then %>JavaScript:location.reload()<% Else %>JavaScript:navigate(location.href)<% End If %>"><img
+                    src="<%= Request.ScriptName %>?DBForm_NavImage.WriteImage&amp;DBForm_NavImage@Image=Refresh"
+                    alt="Refresh" border="0"></a><br>
+                    <tt>Refresh</tt></td>
+                </tr>
+            </table>
+            <table border="0" cellspacing="0" width="100%"
+            bgcolor="#FFFF00">
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+                    <td bgcolor="#E0E0E0" nowrap>&nbsp;</td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>Emp.
+                    No.&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=EmpNoHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>First
+                    Name&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=FirstNameHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>Last
+                    Name</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=LastNameHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>Hire
+                    Date&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=HireDateHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>Phone
+                    Ext.</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=PhoneExtHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td valign="top" bgcolor="#E0E0E0" nowrap>Salary</td>
+                    <td valign="top" bgcolor="#E0E0E0"><%~ DBForm_HTMLForm1.WriteControlHTML Control=SalaryHtmlText%></td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td bgcolor="#E0E0E0" nowrap>&nbsp;</td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                    <td bgcolor="#E0E0E0">&nbsp;</td>
+                </tr>
+            </table>
+        </form>
+        </td>
+    </tr>
+</table>
+
+<p><b>Note:</b> The table you are editing is the <strong>Employee
+</strong>table from the Borland <strong>DBDEMOS</strong>
+database. You might wish to make a copy of it before you modify
+any of the records.</p>
+
+<p>The &quot;DBNavigator&quot;-like buttons above behave almost,
+but not exactly, like the real DBNavigator. We are working on a
+fuller implementation of a drop-in WebApp component which will
+implement the correct behavior, so stay tuned.</p>
+</body>
+</html>

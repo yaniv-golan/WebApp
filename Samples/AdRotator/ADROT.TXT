@@ -1,0 +1,20 @@
+WIDTH 200
+HEIGHT 71
+BORDER 1 
+*
+/WapSamples/AdRotator/htmhelp.gif
+http://www.hyperact.com/htmh40pr.html
+The best WinHelp to HTML conversion tool, the only tool that converts HTML to WinHelp!
+20
+/WapSamples/AdRotator/sx.gif
+-
+Manage, Analyze and Enhance your web site with SiteXtras!
+10
+/WapSamples/AdRotator/hterp.gif
+http://www.hyperact.com/htrp40pr.html
+The Scripting Language for Delphi Applications
+30
+/WapSamples/AdRotator/sb.gif
+http://www.hyperact.com/sbpr01.html
+Web Shopping Cart, the RAD way!
+40

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>WebApp Templates Demo</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>WebApp Templates Demo</h1>
+
+<p>BETA NOTE : This demo takes advantage of the WebApp Scripts
+feature which is currently available only for Delphi 3.</p>
+
+<p>This is a demonstration of the HTML template processing
+capabilities of WebApp, as implemented by the WebApp <strong><tt>TWapTemplate</tt></strong>
+component. </p>
+
+<p>Each of the HTML templates in this demo contains embedded
+Macros or WebApp Scripts. The entire processing and generation of
+the HTML page takes place on the server side by the WebApp
+application, therefore the user or the browser never see any
+trace of these macros and scripts (select Document Source from
+the View menu of your Netscape browser, or Source from the View
+menu of your Internet Explorer, to see for yourself).</p>
+
+<p>The standard footer at the bottom of these pages contains the
+name of the HTML template from which the page was generated.
+Also, if you click on the &quot;View Template Source&quot; link
+at the bottom of the page, the WebApp application will display
+the original HTML Template source, with the WebApp macros and
+scripts marked in red color. This feature is available only in
+this demo - your users will not be able to view the templates
+source.</p>
+
+<h2>Featuring :</h2>
+
+<p><a href="GeneralScripting.htm">General Scripting</a></p>
+
+<p><a href="UsingWebAppObjects.htm">Using the WebApp objects</a></p>
+
+<p><a href="FormProcessing.htm">Form Processing</a></p>
+
+<p><font color="#000000"><em>This page was accessed <%=Application("AccessCount")%></em></font><em>
+times since the WebApp Templates demo application was started, <%=Session("AccessCount") %></em>
+<em>times by this session.</em></p>
+
+<p><em></em>&nbsp;</p>
+</body>
+</html>

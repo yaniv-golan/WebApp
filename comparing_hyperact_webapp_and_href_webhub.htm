@@ -1,0 +1,109 @@
+<html>
+
+<head>
+<title>Comparing HyperAct WebApp and HREF WebHub</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Comparing HyperAct WebApp and HREF WebHub</h1>
+
+<h2>Similarities</h2>
+
+<ul>
+  <li>Implemented as persistent executables (normal EXE-based applications)</li>
+  <li>Use a stub/runner technology to isolate the application from the specifics of a
+    particular Web server / protocol</li>
+  <li>Run on a variety of Web servers and protocols</li>
+  <li>Provide State Management</li>
+  <li>Support HTML templates</li>
+</ul>
+
+<h2>Differences</h2>
+<div align="left">
+
+<table border="1" width="710" height="332">
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00"></th>
+    <th width="359" height="19" valign="top" bgcolor="#FFFF00">HREF WebHub</th>
+    <th width="306" height="19" valign="top" bgcolor="#FFFF00">HyperAct WebApp</th>
+  </tr>
+  <tr>
+    <th width="30" height="76" valign="top" bgcolor="#FFFF00">Multi-Threading </th>
+    <td width="359" height="76" valign="top">WebHub was designed originally for running on
+    Windows 3.1, and as such handles multiple requests by spawning several instances of the
+    executable. This approach consumes a lot more server resources.</td>
+    <td width="306" height="76" valign="top">WebApp takes advantage of modern Win32 features
+    such as multi-threading to handle multiple simultaneous requests efficiently.</td>
+  </tr>
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00">Advanced Web Server Protocols</th>
+    <td width="359" height="19" valign="top">WebHub was designed with the older, inefficient
+    CGI protocol in mind, and was only later patched to support additional advanced protocols
+    such as ISAPI.</td>
+    <td width="306" height="19" valign="top">WebApp was designed from the start to support the
+    advanced, fast Web server protocols such as Microsoft's ISAPI and Netscape's NSAPI.</td>
+  </tr>
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00">Authoring Tools Support</th>
+    <td width="359" height="19" valign="top">WebHub requires the usage of a complex set of INI
+    files to maintain &quot;HTML chunks&quot; which contain macros written in WebHub's
+    propriety macro syntax. Here is what a link looks like in a WebHub HTML chunk :<p>%=GO|pgEggplant|Eggplant=%</p>
+    <p>This syntax is not recognized by any authoring tool or Web analyzer as a link to
+    another page. In fact, when using WebHub, it is nearly impossible to use anything but
+    Notepad to create the site content.</td>
+    <td width="306" height="19" valign="top">WebApp allows the developer and the content
+    author to maintain standard HTML files. It uses the same macro syntax as the Microsoft
+    Active Server Pages syntax, which ensures that it will be recognized and supported by most
+    popular HTML editors, including FrontPage and HomeSite, and is familiar to content
+    authors.<p>In general, an important design goal of WebApp was to make sure you can use all
+    these great HTML editors out there to create as much as possible of the content of your
+    site. </td>
+  </tr>
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00">Server Side Scripting</th>
+    <td width="359" height="19" valign="top">The WebHub macros used to customize HTML
+    templates are restricted to &quot;expandable macros&quot; and activation of Delphi
+    components. </td>
+    <td width="306" height="19" valign="top">WebApp supports expandable macros and activation
+    of Delphi components, but it also supports a fully featured scripting language, allowing a
+    lot more to be done in the HTML page by the content author without resorting to custom
+    programming.<p>The scripting engine is implemented using Microsoft ActiveScript, which is
+    the same scripting engine used by the Microsoft Internet Explorer, Internet Information
+    Server (ASP), Windows NT 5.0 and Windows 98. This provides WebApp with the following
+    advantages :<ul>
+      <li>A choice of scripting languages, all already familiar to content authors - VBScript,
+        JScript, PerlScript and others.</li>
+      <li>Fully featured engine with access to both the Delphi environment and COM/OLE objects.</li>
+      <li>Compatibility with the Microsoft Active Server Pages product.</li>
+      <li>The support and knowledge base associated with using a core Microsoft technology which
+        receives a lot of attention from Microsoft developers.</li>
+    </ul>
+    </td>
+  </tr>
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00">Sessions Support</th>
+    <td width="359" height="19" valign="top">WebHub sessions are kept in disk files, which
+    need to be purged every once in a while. Components used in a WebHub application must
+    explicitly provide support for saving and restoring their state.</td>
+    <td width="306" height="19" valign="top">WebApp sessions are simply standard Delphi Data
+    Modules, which are kept in memory, and expire automatically after a configurable timeout
+    period.<p>Any standard Delphi or 3rd party component will work in a WebApp session Data
+    Module, no special customization is necessary.</td>
+  </tr>
+  <tr>
+    <th width="30" height="19" valign="top" bgcolor="#FFFF00">Dynamic Images using Visual
+    Components</th>
+    <td width="359" height="19" valign="top">Visual components are often used to generate
+    dynamic images such as charts. WebHub requires that each visual component is provided with
+    a special custom wrapper, implemented in code, before it can be used in a WebHub
+    application. </td>
+    <td width="306" height="19" valign="top">WebApp allows you to use any visual component, or
+    combination of components, to produce a dynamic image. The process is very easy, all that
+    is needed is to place the components on a form.</td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

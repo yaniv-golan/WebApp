@@ -1,0 +1,74 @@
+THANKS to Mauricio Korbman, mauricio@food-online.com, http://www.food-online.com, 
+for the following JavaScript code which checks a credit card number to make sure 
+that it is a valid number (as distinct from making sure that a charge can be authorized!).  
+The code is provided as-is, with no warranties.
+
+5 October 1996.
+
+<h1>-Chunk:chValidateCardNum</h1>
+<SCRIPT LANGUAGE=JAVASCRIPT>
+<!-- 
+function validateCardNum()
+{
+        var cardNumber = document.forms[0].CCNum.value
+        var CalcCard = 0
+        var calcs = 0
+
+        var ExpDate = document.forms[0].ExpDate.value
+
+        var CC = parseInt (cardNumber)
+        
+        if (ExpDate.length!=4) {
+           alert ("Enter Expiration Date as MMYY.");
+           return false;
+        }
+
+        if (CC == 0) return 1;
+
+        var R = cardNumber.length / 2;
+        if (cardNumber.length - (parseInt(R)*2) == 0)
+           for (var x = cardNumber.length-1; x > 0; x--){
+              R = x / 2;
+              if (R < 1)
+                R = R + 1
+              
+              if (x - (parseInt(R) * 2) != 0)
+                 calcs = (parseInt(cardNumber.charAt (x-1))) * 2;
+              else
+                 calcs = (parseInt(cardNumber.charAt (x-1)));
+                  
+              if (calcs >= 10)
+                 calcs = calcs - 10 + 1;
+              
+              CalcCard = CalcCard + calcs;
+           }
+        else
+           for (var x = cardNumber.length-1; x > 0; x--){
+              R = x / 2;
+              if (R < 1) 
+                R = R + 1
+               
+              if (x - (parseInt(R)*2) != 0)
+                 calcs = parseInt(cardNumber.charAt (x-1));
+              else
+                 calcs = (parseInt(cardNumber.charAt (x-1))) * 2;
+                
+              if (calcs >= 10)
+                 calcs = calcs - 10 + 1;
+              
+              CalcCard = CalcCard + calcs;
+           }
+        calcs = 10 - (CalcCard % 10);
+        if (calcs == 10)
+           calcs = 0;
+        
+        if (calcs == (parseInt(cardNumber.charAt (cardNumber.length-1))))
+           return true
+        else {
+           alert ("Invalid Credit Card Number");
+           return false;
+        }
+
+}
+//Show if no javascript-->
+</SCRIPT>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title></title>
+</head>
+
+<body bgcolor="#FFFFFF">
+<%
+SpeciesNo = Request.Literals("SpeciesNo")
+ImageSource = Request.ScriptName + "?Command=FishPicture&SpeciesNo=" + SpeciesNo
+%>
+<table border="0">
+    <tr>
+        <td><img src="<%=ImageSource%>"
+        alt="<%~BioLifeCommon_Name%>" align="top" width="250"
+        height="150"></td>
+        <td><h2>Notes</h2>
+        <p><%~Notes%></p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

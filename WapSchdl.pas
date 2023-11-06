@@ -1,0 +1,238 @@
+unit WapSchdl;
+
+{$I WapDef.INC}
+
+interface
+
+uses Classes, SysUtils, D3SysUtl, SDS, IPC, Windows, HWebApp, AppSSI, WapWThrd;
+
+type
+
+TBusyFactor = (btBySessions, btByJobs);
+
+TWapScheduler = class(TComponent)
+private
+    FThreads: TList;
+    FInitialThreadCount: integer;
+    function FindLeastBusyThread(Factor: TBusyFactor): TWapWorkerThread;
+    function GetThreadCount: integer;
+public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    
+    procedure Start;
+    function Stop(Timeout: dword): boolean;
+    
+    procedure ScheduleForExecution(App: TWapApp; Session: TWapSession; Transaction: THttpTransaction);
+    procedure ScheduleForRemoval(SessionList: TWapSessionList; Session: TWapSession);
+    
+    property InitialThreadCount: integer read FInitialThreadCount write FInitialThreadCount;
+    property ThreadCount: integer read GetThreadCount;
+
+    class function GetMaxThreadsPerCPU: integer;
+    class procedure SetMaxThreadsPerCPU(Value: integer);
+    class function GetMaxThreads: integer;
+    class procedure SetMaxThreads(Value: integer);
+end;
+
+implementation
+
+uses WCP;
+
+{$include wcp.inc}
+
+var
+    ThreadsPerCPU : integer = 16;
+    {$ifdef wap_delphi_2_or_cbuilder_1}
+    MaxThreadCount : integer = 30; // Determined by the max num. of BDE sessions per client.
+    {$endif wap_delphi_2_or_cbuilder_1}
+    {$ifdef wap_delphi_3_or_delphi_4_or_cbuilder_3}
+    MaxThreadCount : integer = 60; // Determined by the max num. of BDE sessions per client.
+    // Note : the documented BDE session limit is 32 sessions per client, my tests
+    // have shown it to be around 64 sessions with BDE 4.
+    {$endif wap_delphi_3_or_delphi_4_or_cbuilder_3}
+
+function GetNumberOfProcessors: integer;
+var
+    SysInfo: TSystemInfo;
+begin
+    GetSystemInfo(SysInfo);
+    result := SysInfo.dwNumberOfProcessors;
+    if (result = 0) then
+        result := 1;
+end;
+
+constructor TWapScheduler.Create(AOwner: TComponent);
+begin
+    inherited;
+    FThreads := TList.Create;
+    FInitialThreadCount := GetNumberOfProcessors * ThreadsPerCPU;
+    if (FInitialThreadCount > MaxThreadCount) then
+        FInitialThreadCount := MaxThreadCount;
+end;
+
+destructor TWapScheduler.Destroy;
+begin
+    Stop(5 * 1000);
+    FThreads.Free;
+    inherited;
+end;
+
+function TWapScheduler.FindLeastBusyThread(Factor: TBusyFactor): TWapWorkerThread;
+
+    function GetValue(Thread: TWapWorkerThread): integer;
+    begin
+        case Factor of
+            btBySessions: result := Thread.SessionCount;
+            btByJobs: result := Thread.WaitingJobs;
+            else
+                raise exception.create('Unknown factor');
+        end;
+    end;
+
+var
+    i: integer;
+    MinValue: integer;
+    Thread: TWapWorkerThread;
+begin
+    if (FThreads.Count = 0) then begin
+        raise Exception.Create('No Threads');
+        exit;
+    end;
+
+    result := TWapWorkerThread(FThreads[0]);
+    MinValue := GetValue(result);
+    if (MinValue = 0) then
+        exit;
+
+    for i := 1 to (FThreads.Count - 1) do begin
+        Thread := TWapWorkerThread(FThreads[i]);
+        // we can't find a Thread less busy than this...
+        if (GetValue(Thread) = 0) then begin
+            result := Thread;
+            exit;
+        end;
+        if (GetValue(Thread) < MinValue) then begin
+            MinValue := GetValue(Thread);
+            result := Thread;
+        end;
+    end;
+end;
+
+procedure TWapScheduler.ScheduleForExecution(App: TWapApp; Session: TWapSession; Transaction: THttpTransaction);
+var
+    SelectedThread: TWapWorkerThread;
+begin
+    if (Session = nil) then begin
+        if App.MultiSession then
+            SelectedThread := FindLeastBusyThread(btBySessions)
+        else
+            SelectedThread := FindLeastBusyThread(btByJobs);
+    end else begin
+        SelectedThread := TWapWorkerThread(Session.ThreadToken);
+    end;
+    SelectedThread.QueueForExecution(App, Session, Transaction);
+end;
+
+procedure TWapScheduler.ScheduleForRemoval(SessionList: TWapSessionList; Session: TWapSession);
+var
+    SessionThread: TWapWorkerThread;
+begin
+    SessionThread := TWapWorkerThread(Session.ThreadToken);
+    SessionThread.QueueForRemoval(SessionList, Session);
+end;
+
+procedure TWapScheduler.Start;
+var
+    i: integer;
+    Thread: TWapWorkerThread;
+begin
+    for i := 0 to (FInitialThreadCount - 1) do begin
+        Thread := TWapWorkerThread.Create;
+        FThreads.Add(Thread);
+        Thread.Resume;
+    end;
+end;
+
+function TWapScheduler.Stop(Timeout: dword): boolean;
+var
+    i: integer;
+    HandlesArray: PWOHandleArray;
+    wr: dword;
+begin
+    {$ifdef cp_on}cp(1, '<TWapScheduler.Stop');{$endif cp_on}
+    if (FThreads.Count = 0) then begin
+        result := true;
+        exit;
+    end;
+
+    HandlesArray := AllocMem(FThreads.Count * sizeof(THandle));
+    try
+        {$ifdef cp_on}cp(1, '<TWapScheduler.Stop.TerminatingThreads');{$endif cp_on}
+        for i := 0 to (FThreads.Count - 1) do begin
+            HandlesArray^[i] := TWapWorkerThread(FThreads[i]).Handle;
+            // wake waiting Threads, tell them to terminate
+            TWapWorkerThread(FThreads[i]).SignalTerminate;
+        end;
+        {$ifdef cp_on}cp(-1, 'TWapScheduler.Stop.TerminatingThreads>');{$endif cp_on}
+
+
+        result := false;
+
+        Sleep(1); // give the other threads a chance to execute
+
+        {$ifdef cp_on}cp(1, 'TWapScheduler.Stop.WaitingForThreadsToTerminate>');{$endif cp_on}
+        wr := WaitForMultipleObjects(FThreads.Count, HandlesArray, true, Timeout);
+        if (wr = WAIT_FAILED) then
+            RaiseLastWin32Error
+        else if (wr in [WAIT_OBJECT_0 .. (WAIT_OBJECT_0 + FThreads.Count - 1)]) then
+            result := true
+        else if (wr in [WAIT_ABANDONED_0 .. (WAIT_ABANDONED_0 + FThreads.Count - 1)]) then
+            result := true
+        else
+            result := false;
+        {$ifdef cp_on}cp(-1, 'TWapScheduler.Stop.WaitingForThreadsToTerminate>');{$endif cp_on}
+
+        {$ifdef cp_on}cp(1, '<TWapScheduler.Stop.DeletingThreads');{$endif cp_on}
+        for i := (FThreads.Count - 1) downto 0 do begin
+            {$ifdef cp_on}cp(0, 'TWapScheduler.Stop.Thread ' + IntToStr(TWapWorkerThread(FThreads[i]).ThreadId) + ' = ' + IntToStr(Ord(TWapWorkerThread(FThreads[i]).Running)));{$endif cp_on}
+            if (not TWapWorkerThread(FThreads[i]).Running) then begin
+                TWapWorkerThread(FThreads[i]).Free;
+                FThreads.Delete(i);
+            end;
+        end;
+        {$ifdef cp_on}cp(-1, 'TWapScheduler.Stop.DeletingThreads>');{$endif cp_on}
+    finally
+        FreeMem(HandlesArray);
+    end;
+    {$ifdef cp_on}cp(-1, '<TWapScheduler.Stop');{$endif cp_on}
+end;
+
+function TWapScheduler.GetThreadCount: integer;
+begin
+    result := FThreads.Count;
+end;
+
+class function TWapScheduler.GetMaxThreadsPerCPU: integer;
+begin
+    result := ThreadsPerCPU;
+end;
+
+class procedure TWapScheduler.SetMaxThreadsPerCPU(Value: integer);
+begin
+    ThreadsPerCPU := Value;
+end;
+
+class function TWapScheduler.GetMaxThreads: integer;
+begin
+    result := MaxThreadCount;
+end;
+
+class procedure TWapScheduler.SetMaxThreads(Value: integer);
+begin
+    MaxThreadCount := Value;
+end;
+
+end.
+
+

@@ -1,0 +1,57 @@
+<HEAD>
+</HEAD>
+
+<BODY>
+
+    <H1><FONT COLOR="#800000">HyperAct WebApp Remote Administration</FONT></H1>
+
+    <FORM NAME="adminForm" TARGET="resultFrame" ACTION="/scripts/wapis.isa">
+
+        <SCRIPT LANGUAGE="JavaScript">
+            function doCommand(command) {
+                document.adminForm.wapcmd.value = command;
+                document.adminForm.submit();
+            }
+        </SCRIPT>
+
+        <INPUT NAME="wapcmd" TYPE=HIDDEN>
+        <TABLE>
+            <TR>
+                <TD>Application Id :</TD><TD><INPUT NAME="app" TYPE=TEXT></TD>
+            </TR>
+            <TR>
+                <TD>Password :</TD><TD><INPUT NAME="password" TYPE=password></TD>
+            </TR>
+        </TABLE>
+        <TABLE BORDER=1>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="testButton" TYPE=BUTTON        VALUE="       Test       " OnClick="doCommand('test')">&nbsp;</TD>
+                <TD>Test the connection to the WebApp runtime on the server</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="refreshButton" TYPE=BUTTON     VALUE="    Refresh   " OnClick="doCommand('refreshConfig')">&nbsp;</TD>
+                <TD>Refresh the WebApp server configuration</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="getAppSessionCountButton" TYPE=BUTTON VALUE="  Sessions  " OnClick="doCommand('getAppSessionCount')">&nbsp;</TD>
+                <TD>Return the number of active sessions</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="getAppStateButton" TYPE=BUTTON VALUE="       State     " OnClick="doCommand('getAppState')">&nbsp;</TD>
+                <TD>Return the application state</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="suspendAppButton" TYPE=BUTTON VALUE="   Suspend  " OnClick="doCommand('suspendApp')">&nbsp;</TD>
+                <TD>Suspend the application, redirect all requests to <INPUT NAME="SuspendedURL" TYPE=TEXT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="resumeAppButton" TYPE=BUTTON VALUE="   Resume   " OnClick="doCommand('resumedApp')">&nbsp;</TD>
+                <TD>Resume the suspended application</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR=#C0C0C0>&nbsp;<INPUT NAME="terminateAppButton" TYPE=BUTTON VALUE=" Terminate " OnClick="doCommand('terminateApp')">&nbsp;</TD>
+                <TD>Terminate the application</TD>
+            </TR>
+        </TABLE>
+    </FORM>
+</BODY>

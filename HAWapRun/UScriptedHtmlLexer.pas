@@ -1,0 +1,91 @@
+unit UScriptedHtmlLexer;
+
+interface
+
+uses Classes, SysUtils, ScrHtLex;
+
+type
+TInlineScriptCallback = ScrHtLex.TInlineScriptCallback;
+TScriptTagCallback = ScrHtLex.TScriptTagCallback;
+TNonScriptTextCallback = ScrHtLex.TNonScriptTextCallback;
+TMacroCallback = ScrHtLex.TMacroCallback;
+TPreProcessorIncludeCallback = ScrHtLex.TPreProcessorIncludeCallback;
+
+function ScriptedHtmlLexer_Create: pointer; stdcall;
+procedure ScriptedHtmlLexer_Destroy(Handle: pointer); stdcall;
+procedure ScriptedHtmlLexer_Execute(Handle: pointer; Buf: PChar; BufLen: integer); stdcall;
+procedure ScriptedHtmlLexer_SetStartDelim(Handle: pointer; Value: PChar); stdcall;
+procedure ScriptedHtmlLexer_SetEndDelim(Handle: pointer; Value: PChar); stdcall;
+procedure ScriptedHtmlLexer_SetMacroChar(Handle: pointer; Value: char); stdcall;
+procedure ScriptedHtmlLexer_SetOnInlineScript(Handle: pointer; Callback: TInlineScriptCallback); stdcall;
+procedure ScriptedHtmlLexer_SetOnScriptTag(Handle: pointer; Callback: TScriptTagCallback); stdcall;
+procedure ScriptedHtmlLexer_SetOnNonScriptText(Handle: pointer; Callback: TNonScriptTextCallback); stdcall;
+procedure ScriptedHtmlLexer_SetOnMacro(Handle: pointer; Callback: TMacroCallback); stdcall;
+procedure ScriptedHtmlLexer_SetOnPreProcessorInclude(Handle: pointer; Callback: TPreProcessorIncludeCallback); stdcall;
+
+implementation
+
+function ScriptedHtmlLexer_Create: pointer;
+begin
+    result := TScriptedHtmlLexer.Create(nil);
+end;
+
+procedure ScriptedHtmlLexer_Destroy(Handle: pointer);
+begin
+    TScriptedHtmlLexer(Handle).Free;
+end;
+
+procedure ScriptedHtmlLexer_Execute(Handle: pointer; Buf: PChar; BufLen: integer);
+var
+    Strings: TStringList;
+begin
+    Strings := TStringList.Create;
+    try
+        Strings.Text := string(Buf); 
+        TScriptedHtmlLexer(Handle).Execute(Strings);
+    finally
+        Strings.Free;
+    end;
+end;
+
+procedure ScriptedHtmlLexer_SetStartDelim(Handle: pointer; Value: PChar); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).StartDelim := string(Value);
+end;
+
+procedure ScriptedHtmlLexer_SetEndDelim(Handle: pointer; Value: PChar); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).EndDelim := string(Value);
+end;
+
+procedure ScriptedHtmlLexer_SetMacroChar(Handle: pointer; Value: char); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).MacroChar := Value;
+end;
+
+procedure ScriptedHtmlLexer_SetOnInlineScript(Handle: pointer; Callback: TInlineScriptCallback); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).OnInlineScript := Callback;
+end;
+
+procedure ScriptedHtmlLexer_SetOnScriptTag(Handle: pointer; Callback: TScriptTagCallback); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).OnScriptTag := Callback;
+end;
+
+procedure ScriptedHtmlLexer_SetOnNonScriptText(Handle: pointer; Callback: TNonScriptTextCallback); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).OnNonScriptText := Callback;
+end;
+
+procedure ScriptedHtmlLexer_SetOnMacro(Handle: pointer; Callback: TMacroCallback); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).OnMacro := Callback;
+end;
+
+procedure ScriptedHtmlLexer_SetOnPreProcessorInclude(Handle: pointer; Callback: TPreProcessorIncludeCallback); stdcall;
+begin
+    TScriptedHtmlLexer(Handle).OnPreprocessorInclude := Callback;
+end;
+
+end.

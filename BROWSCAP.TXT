@@ -1,0 +1,71 @@
+TBrowserType 1.0
+Written by Yaniv Golan, ygolan@hyperact.com
+http://www.hyperact.com
+
+TBrowserType reports browser capabilities based on the HTTP UserAgent header.
+
+The capabilities are determined using the file BROWSCAP.INI. This file is in a format compatible with the format used by the Microsoft Active Server Pages component MSWC.BrowserType, and is documented in the Microsoft ASP documentation.
+
+TBrowserType is usefull for CGI applications that wish to customize their output according to the capabilities of the requesting browser.
+
+Properties :
+------------
+    
+BrowserCap: The name of the INI file, defaults to BROWSCAP.INI
+UserAgent: The value of the HTTP UserAgent header
+
+Browser: The browser's generic name (e.g. IE, Netscape, etc.)
+Version: The browser's version string
+MajorVer: The browser's major version number
+MinorVer: The browser's minor version number
+Platform: The platform that the browser is running on (e.g. Win16, Win95 etc.)
+Frames: Does the browser support frames ?
+Tables: Does the browser support tables ?
+Cookies: Does the browser support HTTP cookies ?
+BackgroundSounds: Does the browser support background sounds ?
+VBScript: Does the browser support Visual Basic Script ?
+JavaScript: Does the browser support JavaScript ?
+JavaApplets: Can the browser run Java Applets ?
+ActiveXControls: Can the browser run ActiveXControls ?
+Beta: Is the browser a beta version ?
+
+Count: The number of properties available for the specified user agent
+Keys: A integer-indexed array of property names in the range 0 to (Count - 1)
+Values: The properties collection, can be accessed either by a index (integer) or by
+  property name (string).
+
+Usage :
+-------
+
+Before using the component you will need to set the UserAgent property to the value extracted from the HTTP UserAgent header :
+  
+  BrowserType.UserAgent := Request.ServerVariables['HTTP_USER_AGENT'];	
+
+If the capability you wish to query appears in the generic properties list, you can access it directly :
+
+  if (BrowserType.Tables) then 
+    Response.Write("<TABLE>");
+
+If you wish to query a custom property that does not appear in the generic properties list, use the Values property with the custom property name as an index :
+
+  if (BrowserType.Values['AOL'] = true) then
+    ....
+
+To enumerate all the known properties :
+
+  for i := 0 to (BrowserType.Count - 1) do
+    Response.Write(BrowserType.Keys[i] + ' = ' + BrowserType.Values[i]);
+  
+Status :
+--------
+
+BrowsCap.pas may be freely used and distributed, as long as it is not
+modified in any way and all comments are preserved.
+
+TBrowserType is part of HyperAct's WebApp Framework. 
+
+Written by Yaniv Golan, ygolan@hyperact.com
+http://www.hyperact.com
+Copyright (C) 1996, 1997 by HyperAct, Inc.
+All Rights Reserved.
+

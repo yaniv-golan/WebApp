@@ -1,0 +1,1230 @@
+<html>
+<head>
+<title>Introduction</title>
+</head>
+<body text="#000000" link="#0000ff" vlink="#551a8b" alink="#ff0000" bgcolor="#ffffff">
+<h1>Introduction</h1>
+Certainly by now, most people in the software development business have had to at least
+contemplate developing web-based applications.  With the rise of the Internet and the advent of
+corporate and enterprise based intranets, web development and the extension of web servers is
+becoming more and popular -- and more an more necessary.  The ability to develop web-based
+applications is quickly becoming a high-demand skill. Fortunately for Delphi developers, they
+won't be left behind; rather, they will be out in front, as Delphi 3.0 makes it very easy to build
+powerful, fully-scalable web applications.  
+
+<p>By encapsulating the HTTP protocol -- the protocol used to transmit HTML pages and other data
+across the Internet -- and the Application Programming Interfaces (API) of the most popular web
+servers, Delphi provides the programmer with the tools to build such applications using the full
+power and rapid application development capabilities of Delphi.
+<h1>The Web</h1>
+<h2>Background</h2>
+<h3>History</h3>
+The use of and access to the web has grown phenomenally over the past two years.  And along
+with that, the sophistication of the web has increased as well.  With its origins at the NCSA, it's
+first users did little more than post static HTML pages for others to access.  This afforded only
+limited access to information as there was no interaction between the user and the data, and the
+user could only access data specifically made available by the page author.  Soon, however, the
+web allowed for direct downloading of files and data via the browser, and information became a
+bit more accessible.  The addition of Common Gateway Interface (CGI) scripting allowed web
+authors to interact with users to gather information and provide tailored content.  Recently, this
+has been taken one step further by web servers that provide their own Application Programming
+Interface, greatly enhancing the ability of Web authors to provide dynamic Web pages and data to
+end users.
+<h3>Changes</h3>
+In addition to technological changes, the character of the Web and the Internet changed. 
+Originally the bastion of government and academia, the Web and the Internet used to be esoteric,
+fast, and 'free'.  A few years ago, however, many commercial enterprises began to see the benefits
+and opportunities created by the Internet.  New browsers, tools, and protocols, in addition to the
+proliferation of personal computers were leading many users to the World-wide Web, and
+business saw this as an opportunity to reach customers.  There was an initial culture clash as the
+Internet community, highly attuned to the non-commercialism of the web were angered by what
+they saw as the sullying of the purity of the Internet.
+
+<p>Though such feelings ran deep, the economic potential of the Web was too overwhelming.
+Whereas just a few short years ago there was almost no corporate presence on the Web, now
+virtually every major corporations, and even many mid-sized and small businesses have a Web
+presence.  Television commercials feature web addresses, and Web-based companies became the
+darling of Wall Street. While jokes about ways to make money abound and concerns over security
+of conducting transactions over the Internet persist, it seems inevitable that online commerce will
+be a large part of the future of many businesses.
+<h3>Intranets</h3>
+Selling products over the Web was certainly seductive, but it soon became clear that Web
+technology had more to offer than just slick marketing to external customers.  The same tools that
+were making dynamic web authoring possible could be used to build internal networks --
+intranets.  For many years, coordinating the efforts of distant workgroups and sharing large
+volumes of corporate data and information was a difficulty for many organizations.  A good
+medium for presenting and delivering the information remained elusive.  Getting that information
+to many people across many departments and locations proved costly and difficult. 
+
+<p>The Web has provided an answer to this dilemma for many organizations.  By putting data and
+information online and making it accessible only to internal users, companies have been rapidly
+realizing great advantages and benefits with Web technology. The current technology allows for
+advanced data access and queries using scalable, multi-tiered architectures.  Data that was
+formerly locked away in mainframes and corporate databases was made available to sales
+representatives at customer sites and hotel rooms around the world.  Users could access
+documents, corporate policies, up to the minute sales figures or inventory information, all from a
+single browser using any platform or operating system.  In addition, many organizations have been
+seeing large returns on their investments, and intranets lower costs and make them more
+competitive and efficient.  Intranets may even change the way computers are bought, as strong
+servers and powerful browsers are allowing 'thin-client' network computers to become viable.
+<h3>Web Development</h3>
+All of this, of course, has made the development of web applications a key factor in the success of
+many organizations and corporations.  The market for tools to develop such applications is
+immature but growing rapidly.  Early applications were done mainly on UNIX servers using
+scripting tools such as PERL.  The methods for implementing such applications were somewhat
+crude and unwieldy.  The rise of Java as a web programming language has changed much of that. 
+In addition, the appearance of Windows-based Web servers have given Windows programmers an
+opportunity to leverage their skills in the web development world.  No matter what the language
+or tool used, however, all Web-based applications have to have knowledge of and implement the
+basic tools of the World-wide Web.
+<h2>The HTTP Protocol</h2>
+The basic technology that make the Web possible is deceptively simple.  The two agents in the
+process, the web client and the web server must establish a communications link and pass
+information between themselves.  The client requests information and the server provides it.  Of
+course, the client and the server have to agree on how to communicate and what the form of the
+information that they share will take.  They do this across the web with nothing more than a
+ASCII byte stream.  The client sends a text request and gets a text answer back.  The web client
+knows little about what takes place on the server, and vice-versa, allowing for cross-platform
+communication, normally via the TCP/IP protocol. 
+
+<br wp="br1"><br wp="br2">
+<p>The standard method of communicating used on the Web is the Hyper-text Transfer Protocol
+(HTTP).   A protocol is simply an agreement about a way of doing business, and HTTP is a
+protocol designed to pass information from the client to the server in the form of a request, and
+from the server to the client in the form of a response.  It does so by formatting information as a
+byte stream of ASCII characters  and sending it between the two agents.  The protocol itself is
+quite simple, yet is both flexible and powerful.  When used in concert with the Hyper-text Markup
+Language, it can quickly and easily provide web pages to a browser.
+
+<p>An HTTP request might look like this:
+
+<br wp="br1"><br wp="br2"><pre>GET /mysite/webapp.dll/dataquery?name=CharlieTuna&amp;company=Borland
+HTTP/1.0
+Connection: Keep-Alive
+User-Agent: Mozilla/3.0b4Gold (WinNT; I)
+Host: www.mysite.com:1024
+Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+</pre>
+
+<p>HTTP is stateless, which means that the server has no knowledge of the state of the client and the
+communication between the server and the client ends once the request has been satisfied. This
+makes creating database applications using HTTP somewhat problematical, as many database
+applications rely on the client having access to a live dataset.  State information can be stored
+through the use of 'cookies', or pieces of information that are stored on the client as a result of
+the HTTP response.  
+
+<p>As you might imagine, there is a wealth of information about the HTTP protocol on the web. 
+Look <a href="#HTTP Links">to this bookmark at the end of the paper </a>for a collection of interesting sites.
+<h2>ISAPI, NSAPI and CGI</h2>
+<img src="DL180.htg/img.gif" width="601" height="255" align="right" >There are two main ways to provide dynamic, interactive web sites: the Common Gateway
+Interface (CGI) and Web server extension libraries.  CGI was the first to be implemented and is
+probably the most commonly used server extension currently used.  It is implemented by the
+server.  A request comes in for CGI servers, usually with parameters that pass data to be used for
+customizing the Web page.  The server would then launch the requested application as a separate
+process, passing the parameters by creating a file with their information in it.   The application
+would run, processing the passed data, and write out another file with the HTML code to be
+returned to the client.  The server would pass this page back to the client, and the CGI application
+would shut down.
+<h3>Inefficient</h3>
+Though effective, CGI is not efficient.  The CGI application has to launch, execute, and shut itself
+down for every request that the server receives.  To pass information back and forth, between
+itself and the server, it has to read and write files.  The application is run as a completely separate
+and independent process.  This means that if there are ten requests, then ten instances of the CGI
+application are run, possibly all at the same time.  This is not efficient, eats up resources, and can
+lead to slow response times to client requests. 
+<h3>DLL Extensions</h3>
+Realizing these limitations, the two main server companies, Netscape and Microsoft, along with
+some of the smaller Web server builders came up with a better solution.  Instead of launching a
+completely separate process, the Web server could take advantage of Windows' ability to load
+dynamic link libraries (DLLs) and extend the Web server through an API and a DLL extension. 
+This way, dynamic web pages would be created all in the same address space, a single instance of
+the extension could be loaded, and parameters and responses could be passed back and forth
+directly rather than through the cumbersome process of file writing.  
+<h3>Different Approaches</h3>
+The two major Web server providers, Microsoft and Netscape, took very different approaches to
+writing the APIs for their products.  Microsoft took the simple route, providing only three
+necessary API calls, one of which does all the real work.  They called their API the Internet
+Server API, or ISAPI.  It is implemented in their Web server, Internet Information Server.  They
+took the view that the HTTP process is very simple, and that all a server extension had to do was
+take a request, process it, and provide HTML in return; hence, the very simple API.  They assume
+that the DLL itself will do the majority of the work and process the passed data. You can find out
+more information about how ISAPI is implemented, along with code to directly access it via
+Delphi at <a href="http://members.aol.com/charliecal/internet.htm">http://members.aol.com/charliecal/internet.htm</a>
+
+<p>On the other hand,  Netscape's server API, NSAPI, has over 300 routines, allowing you much
+finer control over the server itself than ISAPI provides.  NSAPI is implemented in various
+Netscape server products.  It is much more granular, providing far greater services, and
+complexity, to the server extension programmer.  (See <a href="#NSAPI">this section</a> below for information on how
+to get your Netscape server to run ISAPI DLL's)
+<h1>The Delphi Way to the Internet</h1>
+<h2>RAD on the Internet</h2>
+As it does with most of Windows programming, Delphi brings rapid application development to
+the building of Web server extensions.  Because Delphi provides you with complete control over
+your application, Delphi's designers decided to implement the Microsoft approach to Web server
+extensions.  However, in doing so, they used the power of object-oriented programming to allow
+the same DLL to be used by both IIS and NSAPI based servers.  They made the paradigm simple
+-- make a request and get a response, but allowed you to use that simple paradigm to access both
+server types. As you would expect, the programmer is spared the details of the APIs themselves,
+and provided with a clean, object-oriented interface to the server. 
+<h3>TWebRequest/TWebResponse</h3>
+The heart of Delphi's Web Server extension implementation is the <tt>TWebRequest</tt> and
+<tt>TWebResponse</tt> objects.  These objects encapsulate the HTTP protocol specification, making it
+easy to create an HTTP request and get information from the resulting HTTP response.  The
+declarations for these objects can be found in the <tt>HTTPApp</tt> unit that is part of Delphi 3.0. 
+<tt>TWebRequest</tt> consists mainly of a series of string properties that provide access to the data
+within the HTTP request.  The class also does a lot of parsing work for you by providing TStrings
+access to the parameter values, such as query parameters, that are passed by the request.  This
+allows you to assign the values to a <tt>TStringList</tt>, for example.  All of the string properties
+that correspond to HTTP header fields are read only.  They are set by the internal workings of the
+TWebRequest class, and cannot be changed.  The key properties are the <tt>ContentFields</tt> and
+<tt>QueryFields</tt> properties, which can contain lists of data passed to the server as parameters.
+
+<p>The <tt>TWebResponse</tt> object is similar to the <tt>TWebRequest</tt> class; however, rather that
+providing you with information, it is up to you to provide the class with information to be sent
+back to the server.  It provides a list of properties that correspond to the HTTP response data
+fields.  <tt>TWebResponse</tt> provides a number of functions that allow you to respond directly to the
+request by diverting it, sending cookie information, or a stream of data.  At a minimum, you need
+to at least provide some text back to the <tt>Content</tt> property.  Normally, this will be the HTML
+that will define the page to be displayed.  
+<h3>TWebModule/TWebDispatcher</h3>
+If you select File|New|Web Server Application and then select the ISAPI/NSAPI option,  Delphi
+will open up a new library project with an empty <tt>TWebModule</tt> as the DLL's main form.  
+
+<p><img src="DL180.htg/newweb.gif" width="319" height="206" align="bottom" >
+
+<p>The module will be empty, but because it is a descendant of <tt>TDataModule</tt>, you can place
+database components, etc., in it just as you would a regular <tt>TDataModule</tt>.  These components
+can then be used to generate the HTML for your response.  The <tt>TWebModule</tt> has built into it a
+<tt>TWebDispatcher</tt> component, which catches all the HTTP requests destined for the server
+extension, wraps up the request, and passes it on to the proper <tt>Action</tt>.  
+  <blockquote><strong>Note:</strong> You can create a Web Server application with one of your existing Datamodules.  If
+you open the DataModule, you can drop a <tt>TWebDispatcher</tt> component on it.  The
+<tt>TWebDispatcher</tt> component on the Internet page of the Component Palette will add all
+of the functionality encapsulated in the <tt>TWebModule</tt>.  So if you have all of your business
+rules wrapped up in an existing <tt>TDataModule</tt>, making those rules available to your Web
+applications is as easy as point and click
+  </blockquote>
+
+<p>Looking at the Object Inspector with the <tt>TWebModule</tt> selected, you will see the <tt>Actions</tt>
+property, which is the hub of activity for a Delphi based Web server application.  By defining
+<tt>Actions</tt>, and using <tt>OnAction</tt> event attached to each action, you can provide dynamic HTML
+pages in response to the client request.  Double clicking on the edit box next to the Actions
+property or pressing the ellipse button will bring up the <tt>Actions</tt> property editor.  You can then
+provide <tt>PathInfo</tt> for the action, which will define how the server application will be called.  
+
+<p>If you select the Events page in the Object Inspector, and double click the <tt>OnAction</tt> event, you
+will get an event handler that looks like this:
+
+<br wp="br1"><br wp="br2"><pre><strong>procedure</strong> TWebModule1.WebModule1Actions0Action(Sender: TObject; 
+Request: TWebRequest; Response: TWebResponse; <strong>var</strong> Handled: Boolean);
+<strong>begin</strong>
+
+<strong>end</strong>;  </pre>
+
+<p>Inside this event handler is where all the work of creating the HTML takes place.  Within this
+event handler, you can call any Delphi code at all -- database code, Windows API calls, create
+and destroy objects, etc.  As we'll see below, Delphi provides a number of components to help
+create and format HTML code, including basic HTML page layout, the customizing of existing
+pages for dynamic output, and table creation based on datasets and queries.  In the <tt>OnAction</tt>
+event handler, notice the two most important parameters, <tt>Request</tt> and <tt>Response</tt>.  The
+<tt>Request</tt> parameter is a <tt>TWebRequest</tt> object that holds all the information about the HTTP
+request that initiated the <tt>OnAction</tt> event.  The <tt>Response</tt> parameter is a <tt>TWebResponse</tt>
+object waiting to be filled out and returned.  The <tt>Sender</tt> parameter is the <tt>TWebModule</tt> that
+owns the Action.  The <tt>Handled</tt> property is a boolean <tt>var</tt> parameter that indicates whether or
+not this <tt>OnAction</tt> event handler actually decided to provide a response.  This default is to
+<tt>True</tt>, but set it to <tt>False</tt> if you decide not to handle this request and pass it on to the default
+event handler instead.  
+
+<p>In order to produce a page in response to the passed request, you must at the very least provide a
+string back to the <tt>Response.Content</tt> property.  This is a string value that will be passed
+back to the client and displayed by the browser. It is up to you to provide the all the HTML code
+needed within this property.  Delphi has a number of components to help out in building and
+managing the HTML for you .  
+
+<p>In addition, however, you can respond in a number of different ways.  You can redirect the
+request to an entirely different page with the <tt>Response.SendRedirect</tt> method.  You can
+place a cookie on a user's machine with the <tt><a href="#Setting Cookies">SetCookieField</a></tt> method, or you can directly
+send a stream of data with the <tt>SendStream</tt> method.  You can use the<tt> <a href="#Password Protection">WWWAuthenticate</a></tt>
+method to get a user name and password before passing on further data. Most often, however,
+you will be using the <tt>Content</tt> property to send HTML
+<h3>TPageProducer</h3>
+Much of the time, you will be producing dynamic pages that are similar, but customized to
+specific inputs.  Delphi provides the <tt>TPageProducer</tt> component that makes it easy to create a
+template HTML page and substitute key pieces of information within that template. You may
+have a standard response to an order submission and want to customize it with the users name, or
+you may have a page that is always the same except for the data in a table.  <tt>TPageProducer</tt>
+allows you to define your own unique tags, which are then replaced with the custom HTML code,
+information, or text of your choosing.  
+
+<p><img src="DL180.htg/202b.gif" width="579" height="268" align="bottom" >
+<tt>
+<p>TPageProducer</tt> components are normally placed on the server extension's <tt>TWebModule</tt>,
+although they certainly can be created at runtime.  HTML code can be entered into the
+<tt>TPageProducer</tt> two ways, either as a string via the <tt>HTMLDoc</tt> property, or as the filename of
+an existing HTML document in the <tt>HTMLFile</tt> property.  
+
+<p>The <tt>TPageProducer</tt> has one event, <tt>OnHTMLTag</tt>, and it occurs whenever the
+<tt>TPageProducer.Content</tt> method is called. The <tt>Content</tt> method parses the HTML code
+assigned via the <tt>HTMLDoc</tt> or <tt>HTMLFile</tt> properties and fires the <tt>OnHTMLTag</tt> event handler
+once for each user-defined tag (text with the '&lt;' and '&gt;' pair) that is found.  The event is declared
+as follows:
+<pre><strong>procedure</strong> TWebModule1.PageProducer1HTMLTag(Sender: TObject; Tag:
+TTag; <strong>const</strong> TagString: <strong>String</strong>; TagParams: TStrings; <strong>var</strong> ReplaceText:
+<strong>String</strong>);
+<strong>begin
+
+end;</strong></pre>
+
+<p>Within the <tt>OnHTMLTag</tt> event, the <tt>TagString</tt> parameter will contain the name of the tag, and
+the <tt>TagParams</tt> parameter will be a <tt>TStrings</tt> descendant holding all the parameters passed
+with the tag, each parameter in a single <tt>TStrings.Items</tt> item.  You can use all of this
+information to create a value for the var parameter <tt>ReplaceText</tt>.  The value returned in
+<tt>ReplaceText</tt> will be used to replace the entire tag itself within the HTML of
+<tt>TPageProducer</tt>. This enables you to create customized web pages based on existing files or
+HTML created on the fly by your code.  
+
+<p>The <tt>Tag</tt> parameter is of type <tt>TTag</tt>.  Delphi defines a number of user-defined tag values for you.
+Allowing you to break out various special tags for special purposes and will pass one of the
+following values:
+  <blockquote></ol>
+
+<center>
+<table align="center" border cellpadding=5 width="100%">
+<tr valign="top"><td width="19%"><tt>tgCustom</tt></td>
+<td width="80%">A user defined or unidentified tag</td></tr>
+<tr valign="top"><td><tt>tgLink</tt></td>
+<td>This tag should be converted to a link (&lt;A&gt;..&lt;/A&gt;)</td></tr>
+<tr valign="top"><td><tt>tgImage</tt></td>
+<td>This tag should be converted to an Image tag (&lt;IMG SRC=...&gt;)</td></tr>
+<tr valign="top"><td><tt>tgTable</tt></td>
+<td>This tag should be replaced with an HTML table (&lt;TABLE&gt;..&lt;/TABLE&gt;)</td></tr>
+<tr valign="top"><td><tt>tgImageMap</tt></td>
+<td>This tag should be replaced with an Image Map.  An Image Map defines
+links based on hot zones within an image.</td></tr>
+<tr valign="top"><td><tt>tgObject</tt></td>
+<td>This tag should be replaced with code that calls an ActiveX control</td></tr>
+<tr valign="top"><td><tt>tgEmbed</tt></td>
+<td>This tag should be converted to a tag that refers to a Netscape -compliant
+add-in DLL</td></tr></table>
+</center>
+
+<br wp="br1"><br wp="br2">
+<p>A user-defined tag will normally take on the following format:
+<pre>&lt;#UserTag Param1=SomeValue Param2=SomeValue&gt;</pre>
+
+<p>For example, a tag that should be converted into a link might look like this:
+<pre>&lt;#LINK LinkName=CompanyName&gt;</pre>
+
+<p>The resulting <tt>OnHTMLTag</tt> event might react to the <tt>tgTable</tt> <tt>Tag</tt> value and then use the
+<tt>CompanyName</tt> parameter to look up the actual link based on an entry in a database table.
+
+<br wp="br1"><br wp="br2"><h3>TDataSetTableProducer/TQueryTableProducer</h3>
+The <tt>TDataSetTableProducer</tt> and the <tt>TQueryTableProducer</tt> components enable you
+to generate HTML tables from data accessed through Delphi's database components. Both
+components descend from the <tt>TDSTableProducer</tt> class and perform almost identically. 
+Indeed, their function at design time will be identical as long as the <tt>TQuery</tt> attached to
+<tt>TQueryTableProducer</tt> contains a valid <tt>SELECT</tt> call in its <tt>SQL</tt> property.  These table
+generators are of course limited by the capabilities of the HTML specification, but they can
+nevertheless provide total control over the appearance of an HTML table.
+
+<p>At design time, the <tt>TDSTableProducer</tt> allows you complete control over its appearance. 
+Attach a dataset to the component with the <tt>DataSet</tt> property. You can set its caption's text
+and alignment with the <tt>Caption</tt> and <tt>CaptionAlignment</tt> properties, respectively.  The
+<tt>Header</tt> and <tt>Footer</tt> properties allow you to add HTML code before and after the table. At
+runtime you might use other content producers to create HTML code to put around the table in
+order to embed the table in a complete web page.  The <tt>RowAttributes</tt> property allows you to
+set the properties of the tables rows. 
+
+<p> <img src="DL180.htg/img1.gif" width="511" height="428" align="top" alt="TQueryableProducer's Component Editor" >
+<tt>
+<p>TDSTableProducers</tt> have a very powerful Component Editor.  Double-clicking on the
+component itself brings it up and gives you a large amount of control over the appearance of the
+table. You can completely customize the appearance of the table by adding columns and changing
+those columns appearance. It even will display your settings in an HTML viewer as you make
+them.  If you set the controls dataset to Active, you can see the table with live data at design time. 
+You set general table properties with the controls in the upper left of the Editor.  For example, in
+order to make a border appear, set the Border property to a positive number. You can select
+which columns from the dataset to include in the table.    In addition, you can set any of the
+HTML tags that are available to HTML tables in the Component Editor. 
+
+<p>Use the Add button to add a <tt>THTMLTableColumn</tt> item to the Component Editor.  Selecting it
+will then allow you to edit its properties in the Object Inspector.  You can assign it to a specific
+column from the dataset in the <tt>FieldName</tt> property and then modify its appearance.  The
+<tt>Title</tt> property will determine appearance of the header for the selected column.  You can set
+the other properties to determine the properties for the column from the Object Inspector.
+  <blockquote><strong>Note:</strong> Column property settings take precedence over Row property settings, and
+properties set at run time take precedence over those set at design time.
+  </blockquote>
+
+<p>At runtime, using the <tt>TDSTableProducer</tt> is very straight forward.  In order to cause it to
+produce an HTML table, refer to its Content property, which will return a string with the HTML
+code for the table in it.  You can add content around the table by adding HTML code to its
+<tt>Header</tt> and <tt>Footer</tt> properties.  You can use the <tt>OnCreateContent</tt> event to control
+whether the table should be produced.  If there are reasons why the table cannot be displayed,
+then this event can set the continue property to False, and the Table will not be generated.  The
+<tt>OnFormatCell</tt> event allows you to customize how each cell is formatted. You can use the
+<tt>CellData</tt> string parameter to check the value of the data, and set the cell's appearance as
+desired.  For example, if a numeric value were below a certain level, you could highlight that cell
+with a red background.  The CellRow and CellColumn parameters will allow you to format
+specific cells, rows or columns if desired.  
+
+<p>Finally, almost all of the classes that are properties of TDSTableProducer have a Custom
+property.  This property can be used to add custom parameters to any of the given entities in the
+table.  For instance, Internet Explorer 3.01 from Microsoft adds some extensions to the HTML
+table such as BorderColor.  Setting the Custom property of the TableAttributes property to
+'BORDERCOLOR="RED"' would add that parameter to the &lt;TABLE&gt; tag, and display a red
+border to the table if it were viewed in Internet Explorer.  If the HTML specification expands to
+include new cell formatting properties, they could be added here as well.
+<h1>Examples</h1>
+The following section show a number of examples which illustrate the techniques described
+above.  Each example contains the pertinent selections of code from the accompanying source and
+examples.  Included with each example is an accompanying HTML page that illustrates how to
+call the resulting Web server extension.  The following table contains an index to the project
+names and links to the explanation of each example.
+
+<table border cellpadding=5 width="100%">
+<tr valign="top"><td width="33%">Topic</td>
+<td width="33%">Code Directory</td>
+<td width="33%">Project Name</td></tr>
+<tr valign="top"><td><a href="#Dynamic HTML">Dynamic HTML Creation</a></td>
+<td>/</td>
+<td>sample1.dpr</td></tr>
+<tr valign="top"><td><a href="#HTML From an Existing File">HTML from an Existing File</a></td>
+<td>/sample2</td>
+<td>sample2.dpr</td></tr>
+<tr valign="top"><td><a href="#HTTP Request Example">HTTP Request Example</a></td>
+<td>/sample3</td>
+<td>sample3.dpr</td></tr>
+<tr valign="top"><td><a href="#Simple Table Creation">Simple Table Creation</a></td>
+<td>/sample4</td>
+<td>sample4.dpr</td></tr>
+<tr valign="top"><td><a href="#Guest Book Application">Guest Book Application</a></td>
+<td>/sample5</td>
+<td>sample5.dpr</td></tr>
+<tr valign="top"><td><a href="#Web Advertising Example">Web Advertising Example</a></td>
+<td>/sample6</td>
+<td>sample6.dpr</td></tr>
+<tr valign="top"><td><a href="#Setting Cookies">Cookie Example</a></td>
+<td>/sample7</td>
+<td>sample7.dpr</td></tr>
+<tr valign="top"><td><a href="#Password Protection">Password Example</a></td>
+<td>/sample8</td>
+<td>sample8.dpr</td></tr></table>
+
+<br wp="br1"><br wp="br2"><h2>Basic Web Page Creation</h2>
+These examples illustrate basic principles of Web Server application creation.  They use the
+<tt>TWebModule</tt> and it's <tt>Actions</tt> property to respond to an HTTP request, and the
+TPageProducer component to customize HTML text to provide a web page for the response to
+that request.
+<a name="Dynamic HTML"></a><h3>Dynamic HTML Creation</h3>
+The <tt>TPageProducer</tt> can be used to very easily create a simple dynamic HTML page. The
+code below demonstrates how this might be done.  The WebModule's <tt>OnAction</tt> event simply
+builds a very straight forward web page inside of an instance of <tt>TStringList</tt>, and passes that
+to the <tt>TPageProducer</tt>. <tt>HTMLDoc</tt> property.  The page includes a user-defined tag to replace
+<tt>&lt;#BDCCity&gt;</tt> with 'Nashville' in the <tt>OnHTMLTag</tt> event of the <tt>TPageProducer</tt> component. 
+The result is a very simple page that has the correct city placed within it.
+
+<p>The Action that occurs for the below code has a PathInfo property of /dynamic.  It gets called
+when a link like the following is called in an HTML page:
+<pre>&lt;A HREF="sample1.dll/dynamic"&gt;Click Here!&lt;/A&gt;</pre>
+
+<p>This is the code from unit1.pas of the first sample that does all of the work:
+<pre>procedure TWebModule1.WebModule1Actions0Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:          
+     Boolean);
+var
+   Page: TStringList;
+begin
+   Page := TStringList.Create;
+   try
+     with Page do
+     begin
+          Add('&lt;HTML&gt;');
+          Add('&lt;HEAD&gt;');
+          Add('&lt;TITLE&gt;Web Server Extensions Sample One&lt;/TITLE&gt;');
+          Add('&lt;/HEAD&gt;');
+          Add('&lt;BODY&gt;');
+          Add('&lt;B&gt;This page was created on the fly by Delphi          
+                        3.0&lt;/B&gt;&lt;P&gt;');
+          Add('&lt;HR&gt;');
+          Add('Are we having fun here in &lt;#BDCCity&gt;?');
+          Add('&lt;/BODY&gt;');
+          Add('&lt;/HTML&gt;');
+     end;
+          PageProducer1.HTMLDoc := Page;
+          Response.Content := PageProducer1.Content;
+   finally
+     Page.Free;
+   end;
+   Handled := True;
+end;
+
+
+procedure TWebModule1.PageProducer1HTMLTag(Sender: TObject; Tag:
+TTag; const TagString: String; TagParams: TStrings; var ReplaceText:
+String);
+begin
+     case Tag of
+         tgCustom: if CompareStr(TagString, 'BDCCity') = 0 then       
+               ReplaceText := 'Nashville';
+     end;
+end;</pre>
+
+<p>This technique would not likely be used for large pages, but might be used for small, simple
+pages.  However, it illustrates the basics of responding to an HTTP request and using the
+<tt>TPageProducer</tt> components to generate customized HTML.
+
+<p>This example also shows the purpose of the <tt>Action.Default</tt> property.  If this property is set
+to True, the action becomes the default action for the Web server application.  Only one action
+within the <tt>TWebModule</tt> can be the default, and setting this property to <tt>True</tt> sets all others to
+<tt>False</tt>.  This <tt>Action</tt> will be fired if no other action is able to handle the request.  The
+<tt>OnAction</tt> event might return a page with an explanation and an error message.  The code for
+the default action of this application looks like this:
+<pre>procedure TWebModule1.WebModule1Actions1Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+   Page: TStringList;
+begin
+   Page := TStringList.Create;
+   try
+     with Page do
+     begin
+          Add('&lt;HTML&gt;');
+          Add('&lt;HEAD&gt;');
+          Add('&lt;TITLE&gt;Web Server Extensions Default Page&lt;/TITLE&gt;');
+          Add('&lt;/HEAD&gt;');
+          Add('&lt;BODY&gt;');
+          Add('This page is the default page and appears when a bad   
+                   link is called.&lt;/B&gt;&lt;P&gt;');
+          Add('&lt;/BODY&gt;');
+          Add('&lt;/HTML&gt;');
+     end;
+          PageProducer1.HTMLDoc := Page;
+          Response.Content := PageProducer1.Content;
+   finally
+     Page.Free;
+   end;
+   Handled := True;
+end;</pre>
+
+<p>So if a bad link is called, i.e. one that doesn't exist, this <tt>OnAction</tt> event will be called.  The
+default Action will also be called if all existing <tt>OnAction</tt> events in the application fail to provide
+a response and set their <tt>Handled</tt> parameters to <tt>False</tt>.
+<a name="HTML From an Existing File"></a><h3>HTML From an Existing File</h3>
+This next example is very similar to the first, but instead of creating the HTML on the fly, the
+<tt>TPageProducer</tt> uses an existing HTM file to establish the basis for the response. The
+<tt>TPageProducer.HTMLFile</tt> property is set to the specified file, and then the <tt>OnHTMLTag</tt>
+event occurs to replace a user-defined tag with the full path of the module name of the
+application.  
+
+<p>In order to assure that the file can be found on any system that might run the app, a call is made to
+the Windows API function <tt>GetModuleFileName</tt>, which fills the specified buffer with the path
+to the calling module.  This call is made within the little known <tt>SetString</tt> procedure which
+makes a string out of a <tt>PChar</tt> variable.  The result is used to set the
+<tt>TPageProducer.HTMLFile</tt> property:
+<pre>procedure TWebModule1.WebModule1Create(Sender: TObject);
+var
+  Path: array[0..MAX_PATH - 1] of Char;
+  PathStr: string;
+begin
+  SetString(PathStr, Path, GetModuleFileName(HInstance, Path,         
+       SizeOf(Path)));
+  PageProducer1.HTMLFile := ExtractFilePath(PathStr) + 'appname.htm';
+end;</pre>
+
+<p>Once the <tt>HTMLFile</tt> property has been set, the code is almost identical to the previous example:
+<pre>procedure TWebModule1.WebModule1Actions0Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+begin
+     {HTMLFile property was set in OnCreate of the datamodule}
+     Response.Content := PageProducer1.Content;
+     Handled := True;
+end;
+
+
+procedure TWebModule1.PageProducer1HTMLTag(Sender: TObject; Tag:
+TTag;
+  const TagString: String; TagParams: TStrings; var ReplaceText:
+String);
+var
+  Path: array[0..MAX_PATH - 1] of Char;
+  PathStr: string;
+begin
+     case Tag of
+       tgCustom:
+         begin
+           if CompareStr(TagString, 'AppName') = 0 then
+           begin
+                SetString(PathStr, Path, GetModuleFileName(HInstance, 
+                                Path, SizeOf(Path)));
+                ReplaceText := PathStr;
+           end;
+         end;
+     end;
+end;</pre>
+<a name="HTTP Request Example"></a><h3>HTTP Request Example</h3>
+This next example takes a look at a typical HTTP request by displaying in a web page all the
+properties of the <tt>THTTPRequest</tt> class.  It is a straightforward coding example and doesn't
+display any new techniques.  The benefit is in running the app and looking at the results in the web
+browser.  This example will display all of the properties of the <tt>TISAPIHTTPRequest</tt> that was
+passed when the page itself was requested.  Many of the fields are left blank with a simple request
+like this one, but the structure of an HTTP request can be seen.  The code used to create the HTTP listing follows:
+<pre>procedure TWebModule1.WebModule1Actions0Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+   Page: TStringList;
+begin
+   Page := TStringList.Create;
+   try
+     with Page do
+     begin
+          Add('&lt;HTML&gt;');
+          Add('&lt;HEAD&gt;');
+          Add('&lt;TITLE&gt;Web Server Extensions THTTPRequest              
+                        Demo&lt;/TITLE&gt;');
+          Add('&lt;/HEAD&gt;');
+          Add('&lt;BODY&gt;');
+
+          Add('&lt;H3&gt;&lt;FONT="RED"&gt;This page displays the properties of   
+                 the HTTP request that asked for it.&lt;/FONT&gt;&lt;/H3&gt;');
+          Add('&lt;P&gt;');
+          
+          Add('Method = ' + Request.Method + '&lt;BR&gt;');
+          Add('ProtocolVersion = ' + Request.ProtocolVersion +        
+                     '&lt;BR&gt;');
+          Add('URL = ' + Request.URL + '&lt;BR&gt;');
+          Add('Query = ' + Request.Query + '&lt;BR&gt;');
+          Add('PathInfo = ' + Request.PathInfo + '&lt;BR&gt;');
+          Add('PathTranslated = ' + Request.PathTranslated + '&lt;BR&gt;');
+          Add('Authorization = ' + Request.Authorization + '&lt;BR&gt;');
+          Add('CacheControl = ' + Request.CacheControl + '&lt;BR&gt;');
+          Add('Cookie = ' + Request.Cookie + '&lt;BR&gt;');
+          Add('Date = ' + FormatDateTime ('mmm dd, yyyy hh:mm',       
+                      Request.Date) + '&lt;BR&gt;');
+          Add('Accept = ' + Request.Accept + '&lt;BR&gt;');
+          Add('From = ' + Request.From + '&lt;BR&gt;');
+          Add('Host = ' + Request.Host + '&lt;BR&gt;');
+          Add('IfModifiedSince = ' + FormatDateTime ('mmm dd, yyyy    
+                      hh:mm', Request.IfModifiedSince) + '&lt;BR&gt;');
+          Add('Referer = ' + Request.Referer + '&lt;BR&gt;');
+          Add('UserAgent = ' + Request.UserAgent + '&lt;BR&gt;');
+          Add('ContentEncoding = ' + Request.ContentEncoding +        
+                      '&lt;BR&gt;');
+          Add('ContentType = ' + Request.ContentType + '&lt;BR&gt;');
+          Add('ContentLength = ' + IntToStr(Request.ContentLength) +  
+                      '&lt;BR&gt;');
+          Add('ContentVersion = ' + Request.ContentVersion + '&lt;BR&gt;');
+          Add('Connection = ' + Request.Connection + '&lt;BR&gt;');
+          Add('DerivedFrom = ' + Request.DerivedFrom + '&lt;BR&gt;');
+          Add('Expires = ' + FormatDateTime ('mmm dd, yyyy hh:mm',    
+                      Request.Expires) + '&lt;BR&gt;');
+          Add('Title = ' + Request.Title + '&lt;BR&gt;');
+          Add('RemoteAddr = ' + Request.RemoteAddr + '&lt;BR&gt;');
+          Add('RemoteHost = ' + Request.RemoteHost + '&lt;BR&gt;');
+          Add('ScriptName = ' + Request.ScriptName + '&lt;BR&gt;');
+          Add('ServerPort = ' + IntToStr(Request.ServerPort) +        
+                       '&lt;BR&gt;');
+     
+          Add('&lt;/BODY&gt;');
+          Add('&lt;/HTML&gt;');
+     end;
+       PageProducer1.HTMLDoc := Page;
+       Response.Content := PageProducer1.Content;
+   finally
+     Page.Free;
+   end;
+  Handled := True;
+end;</pre>
+<h3>Database Access and Table Creation</h3>
+These examples provide a basic look at the <tt>TTableDataSetProducer</tt> and
+<tt>TQueryTableProducer</tt> components and how they can be used to create customized HTML-based tables for a web page.  The  examples in this section are rather straightforward.  The
+examples in the next section build on the principles show here by combining database techniques
+with tables and HTML output to bring the full power of Delphi to bear on building dynamic web
+sites.
+
+<p>One thing to note when using database tools inside a Web server application -- there always
+needs to be a <tt>TSession</tt> component on the TWebModule if you are going to be using any of the
+database components from the component palette.  Each request to the application from the web
+server launches a separate thread within the application instance in order to run each request.  If
+you set the <tt>AutoSessionName</tt> property of the <tt>TSession</tt> component to <tt>True</tt>, each session
+will be given a unique name, ensuring that each thread has its own database session to run in. 
+This way, there won't be any conflict or errors when multiple clients request the same action.  
+<a name="Simple Table Creation"></a><h4>Simple Table Creation</h4>
+The creation of an HTML table using the <tt>TDataSetTableProducer</tt> component is
+surprisingly easy.  All it requires is a <tt>TTable</tt> component in addition to the
+<tt>TDatasetTableProducer</tt> component itself.  By setting the <tt>Dataset</tt> property to the
+<tt>TTable</tt>, and by setting the <tt>TTable.DatabaseName</tt> and <tt>TTable.TableName</tt> properties,
+you can easily hook the <tt>TTable</tt> into the <tt>TDataSetTableProducer</tt> and use it to produce
+an HTML table.  The code below illustrates all that it takes to make the table appear:
+<pre>procedure TWebModule1.WebModule1Actions0Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+begin
+     Response.Content := DataSetTableProducer1.Content;
+     Handled := True;
+end;</pre>
+<a name="Guest Book Application"></a><h3>Guest Book Application</h3>
+One of the more popular features on web surfer's personal web pages is a Guest Book.  Folks
+seem to like leaving messages on other people's homepages, and to read what users have to say
+about their own pages.  A guestbook is really a simple database, and hence a perfect example of
+building an ISAPI web extension using Delphi's database tools.
+
+<p>A basic guestbook application consists of two things -- an HTML form to gather information and
+an HTML page to display what the guestbook has to say.  Delphi's tools don't provide a way to
+build an HTML form, but there are numerous tools out there that can build an HTML-based form
+for your guestbook. (Actually, this example borrows the guestbook form found in the <a href="#http://www.borland.com/intrabuilder">Intrabuilder</a>
+demonstration programs.  It is included with the source code for this paper.  Intrabuilder is a
+pretty good tool for building such forms.  You can build a form in Intrabuilder, display it in a web
+browser and then steal the resulting HTML.)
+
+<p>To use this guestbook application, you will need a BDE alias named GBData which points to the
+directory holding the database files included with this demo.
+
+<p>In setting up the form to use your ISAPI extension, you need to set the action parameter to the
+application DLL.  In this example, the guestbook entry page has the following line of HTML code
+to provide an action for the "Submit" button:
+<tt>
+<p>&lt;form method="post" action="sample5.dll/form" &gt;</tt>
+
+<p>This causes the form's data to be passed to the <tt>/form</tt> action of the SAMPLE5.DLL application,
+along with the form's data.
+
+<p>After a user displays and fills out the guestbook form, the first thing that your application must do
+is gather up the relevant data.  Delphi does this automatically for you, making the content passed
+back from the form into an easily accessible property -- <tt>TWebRequest.ContentFields</tt>. 
+This parameter is passed to the <tt>OnAction</tt> event and accessible via the <tt>Request</tt> parameter. 
+
+<p>This code below takes the data in the <tt>Request.ContentFields</tt> parameter, assigns it to a
+<tt>TParamsList</tt> class instance and then assigns those values to a database file.
+
+<p><strong>Note: </strong>The <tt>TParamsList</tt> class is part of the <tt>WebUtils</tt> unit included with the paper's code. It
+is a class that automatically parses out parameters from a TStrings descendent and allows you to
+index them by the parameter's name.  For instance, <tt>TWebResponse</tt> gathers all the cookies
+passed in an HTTP response and places them in the <tt>CookieFields</tt> property, which is a
+<tt>TStrings</tt> descendant.  The Cookies are in the form <tt>CookieName= CookieValue</tt>.
+<tt>TParamsList</tt> takes these values, parses them, and indexes them by the parameter name.  Thus,
+the preceding parameter could be accessed with <tt>MyParams['CookieName']</tt>, which would
+return <tt>CookieValue</tt>.<em></em>
+
+<p>The <tt>OnAction</tt> event handler below then goes on the create a simple HTML page thanking the
+user by name for submitting an entry into the guestbook.
+<pre><tt>procedure TWebModule1.WebModule1Actions0Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+   MyPage: TStringList;
+   ParamsList: TParamsList;
+begin
+     begin
+          ParamsList := TParamsList.Create;
+          try try
+            ParamsList.AddParameters(Request.ContentFields);
+            GBTable.Open;
+            GBTable.Append;
+            GBTable.FieldByName('Name').Value :=
+ParamsList['fullnameText'];
+            GBTable.FieldByName('EMail').Value :=
+ParamsList['emailText'];
+            GBTable.FieldByName('WhereFrom').Value :=
+ParamsList['wherefromText'];
+            GBTable.FieldByName('Comments').Value :=
+ParamsList['commentsTextArea'];
+            GBTable.FieldByName('FirstTime').Value :=
+(CompareStr(ParamsList['firstVisitCheck'], 'on') = 0);
+            GBTable.FieldByName('DateTime').Value := Now;
+            GBTable.Post;
+          except
+               Response.Content := 'An Error occurred in processing
+your data.';
+               Handled := True;
+          end;
+          finally
+            ParamsList.Free;
+            GBTable.Close;
+          end;
+     end;
+     
+  MyPage := TStringList.Create;
+  ParamsList := TParamsList.Create;
+     try
+       with MyPage do
+       begin
+         Add('&lt;HTML&gt;');
+         Add('&lt;HEAD&gt;&lt;TITLE&gt;Guest Book Demo Page&lt;/TITLE&gt;&lt;/HEAD&gt;');
+         Add('&lt;BODY&gt;');
+         Add('&lt;H2&gt;Delphi 3.0 Guest Book Demo&lt;/H2&gt;&lt;HR&gt;');
+
+         ParamsList.AddParameters(Request.ContentFields);
+         Add('&lt;H3&gt;Hello &lt;FONT COLOR="RED"&gt;'+
+ParamsList['fullnameText'] +'&lt;/FONT&gt; from
+'+ParamsList['wherefromText']+'!&lt;/H3&gt;&lt;P&gt;');
+         Add('Thanks for visiting my homepage and making an entry
+into my Guestbook.&lt;P&gt;');
+         Add('If we need to e-mail you, we will use this address --
+&lt;B&gt;'+ParamsList['emailText']+'&lt;/B&gt;');
+         Add('&lt;HR&gt;&lt;/BODY&gt;');
+         Add('&lt;/HTML&gt;');
+       end;
+      PageProducer1.HtmlDoc := MyPage;
+     finally
+       MyPage.Free;
+       ParamsList.Free;
+     end;
+
+     Response.Content := PageProducer1.Content;
+     Handled := True;
+end;</tt></pre>
+
+<p>The next task would be to allow the user to view entries in a guest book.  This is done in a rather
+straightforward manner.  A separate <tt>OnAction</tt> event reads through the data in the database,
+creating HTML code for each entry.  The procedure below, for example, creates a single entry in
+the guestbook.
+<pre>procedure TWebModule1.DoGuestBookEntries(Page: TStrings; Comments:
+String; Name: String; eMail: String;
+                                           WhereFrom: String; When:
+TDateTime; FirstTime: Boolean);
+begin
+      Page.Add('&lt;B&gt;' + Comments +'&lt;/B&gt;&lt;BR&gt;');
+      Page.Add(Name + '  (&lt;A HREF="mailto:' + eMail + '"&gt;'+ email
++'&lt;/A&gt;)&lt;BR&gt;');
+      Page.Add(WhereFrom + '&lt;BR&gt;');
+      Page.Add(FormatDateTime('dd mmmm yyyy hh:mm:ss', When));
+      if FirstTime then
+      begin
+        Page.Add('&lt;FONT COLOR="RED"&gt;(First Time)&lt;/FONT&gt;&lt;BR&gt;');
+      end;
+      Page.Add('&lt;HR&gt;');
+end;</pre>
+
+<p>This <tt>OnAction</tt> handler then loops through all of the database entries, calling
+<tt>DoGuestBookEntries</tt> for each entry found, returning the resuting HTML code as the
+response.
+<pre><tt></tt>procedure TWebModule1.WebModule1Actions1Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+  Page: TStringList;
+begin
+  Page := TStringList.Create;
+  try
+         Page.Add('&lt;HTML&gt;');
+         Page.Add('&lt;HEAD&gt;&lt;TITLE&gt;Guest Book Entries&lt;/TITLE&gt;&lt;/HEAD&gt;');
+         Page.Add('&lt;BODY&gt;');
+         Page.Add('&lt;H2&gt;Delphi 3.0 Internet Tools Guest Book
+Demo&lt;/H2&gt;&lt;HR&gt;');
+         Page.Add('&lt;B&gt;&lt;FONT COLOR="BLUE"&gt;These are the entries to my
+Guest Book:&lt;/FONT&gt;&lt;/B&gt;&lt;HR&gt;');
+
+           try
+             GBTable.Open;
+             while not GBTable.EOF do
+             begin
+               DoGuestBookEntries(Page,
+                                 
+GBTable.FieldByName('Comments').AsString,
+                                 
+GBTable.FieldByName('Name').AsString,
+                                 
+GBTable.FieldByName('email').AsString,
+                                 
+GBTable.FieldByName('WhereFrom').AsString,
+                                 
+GBTable.FieldByName('DateTime').AsDateTime,
+                                 
+GBTable.FieldByName('FirstTime').AsBoolean
+                                  );
+               GBTable.Next;
+             end;
+           finally
+             GBTable.Close;
+           end;
+         Page.Add('&lt;HR&gt;&lt;/BODY&gt;');
+         Page.Add('&lt;/HTML&gt;');
+    PageProducer2.HtmlDoc := Page;
+  finally
+    Page.Free;
+  end;
+  Response.Content := PageProducer2.Content;
+  Handled := True;
+end;<tt></tt>
+</pre>
+<h2>Special Techniques</h2>
+<a name="Web Advertising Example"></a><h3>Web Advertising Example (Redirection)</h3>
+Most commercial sites have some form of web advertising.  This usually consists of an eye-catching graphic at the top of a page that, when clicked on, links to the advertiser's page.  You
+might notice, too, that the same page will often have different advertisers on it, and that the links
+often do not link directly to the advertiser's site, but pass through a site on the advertising entity's
+site before going on.  Web pages that have advertising often like to gather information about
+which ads are selected, which graphics were chosen, and how many 'hits' a particular advertiser is
+receiving.  Such data might be used to charge advertisers based on 'click-through' rates.  
+
+<p>ISAPI web server extensions make such data-gathering and web site selection easy, and Delphi's
+powerful database tools make storing such data a breeze.  The example below illustrates a rather
+straight-forward and simple approach to this problem.  It uses a database of companies to
+randomly select a company's advertising banner whenever the page is opened. It retrieves the
+banner, displays it in a dynamic web page, and makes it a link to another OnAction event within
+the DLL.  The link will pass the address of the company, the image that was selected, and a
+reference to the company in a database that tracks the total number of times a particular company
+is selected.   
+
+<p>This <tt>OnHTMLTag</tt> procedure replaces the <tt>&lt;#AdGoesHere&gt;</tt> tag inside an existing HTML file
+with an image that is a link to the proper company.  The link itseld contains parameters to tell the
+called DLL which company and which graphic was selected by the user.  The
+<tt>SpacesToPluses</tt> function is in the <tt>WebUtils</tt> unit.  It converts any spaces inside parameters
+to plus signs ('+').  HTTP does not allow spaces to be passed in its parameters, so plus signs are
+generally place where spaces are.
+<pre>procedure TWebModule1.PageProducer1HTMLTag(Sender: TObject; Tag:
+TTag;
+  const TagString: String; TagParams: TStrings; var ReplaceText:
+String);
+var
+   Param: String;
+   Total: Integer;
+begin
+     case Tag of
+       tgCustom: begin
+                    if CompareStr(TagString, 'AdGoesHere') = 0 then
+                    begin
+                         Total := GetRandomCompany;
+                         with AdInfoTable do
+                         begin
+                           Open;
+                           First;
+                           MoveBy(Total);
+                           try
+                             Param := '&lt;#Ad ';
+                             Param := Param + 'Company=' +
+SpacesToPluses(FieldByName('CompanyName').AsString);
+                             Param := Param + ' Link=' + 
+FieldByName('Link').AsString;
+                             Param := Param + ' Image=' +
+FieldByName('GIFFile').AsString;
+                             Param := Param + ' ID=' +
+FieldByName('CompID').AsString;
+                             Param := Param + '&gt;';
+                           finally
+                             Close;
+                           end;
+                           ReplaceText := Param;
+                         end;
+                    end;
+                 end;
+       tgImage: ;
+     end;
+end;
+
+procedure TWebModule1.PageProducer2HTMLTag(Sender: TObject; Tag:
+TTag;
+  const TagString: String; TagParams: TStrings; var ReplaceText:
+String);
+var
+  Params: TParamsList;
+  Link: String;
+begin
+  Params := TParamsList.Create;
+  try
+     Params.AddParameters(TagParams);
+     case Tag of
+       tgCustom: begin
+                   if CompareStr(TagString, 'Ad') = 0 then
+                   begin
+                     Link := MakeTransferImageLink(Params['Link'],
+Params['Image'], Params['Company'], Params['ID']);
+                   end;
+                 end;
+     end;
+     ReplaceText := Link;
+  finally
+    Params.Free;
+  end;
+end;
+
+function TWebModule1.MakeTransferImageLink(strLink, strImage,
+strCompany, strID: string): string;
+begin
+  Result := '&lt;A HREF='+ MakeHTMLParam('transfer?' + strLink + '&amp;' +
+strID) + '&gt;';
+  Result := Result + '&lt;IMG SRC=' + MakeHTMLParam(strImage) + ' ';
+  Result := Result + 'ALT=' + AddQuotes(strCompany) + '&gt;&lt;/A&gt;';
+end;</pre>
+
+<p>The following <tt>OnAction</tt> handler takes the parameters passed by the image and adds entries to a
+database to keep track of how many hits each company is getting and which graphic was selected. 
+(An advertiser might have more that one graphic being displayed and might be interested in which
+ones were getting more attention.)  All of the real work gets done in the final line of this
+procedure, where the link that was passed by the image is called in <tt>ResponseSendDirect</tt>.
+<tt>ResponseSendDirect</tt> causes the web browser to look to another URL for HTML to
+display.
+<pre>procedure TWebModule1.WebModule1WebActionItem2Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+   Hits: integer;
+begin
+  with AdInfoTable do
+  begin
+     Open;
+     try
+       SetKey;
+       FieldByName('CompID').AsString := Request.QueryFields[1];
+       GotoKey;
+       Hits := FieldByName('HitCount').AsInteger;
+       Edit;
+       FieldByName('HitCount').AsInteger := Hits + 1;
+       Post;
+     finally
+       Close;
+     end;
+  end;
+  
+  with HitTable do
+  begin
+       Open;
+       try
+          Insert;
+          FieldByName('DateTime').AsDateTime := Now;
+          FieldByName('Source').AsString := Request.RemoteAddr;
+          FieldByName('CompID').AsString := Request.QueryFields[1];
+          Post;
+       finally
+          Close;
+       end;
+  end;
+  Response.SendRedirect(Request.QueryFields[0]);
+end;
+</pre>
+<a name="Setting Cookies"></a><h3>Setting Cookies</h3>
+The HTTP protocol is a powerful protocol, but one of its weaknesses is that it is stateless.  This
+means that once an HTTP conversation has been completed, neither the client nor the server have
+any memory at all that the conversation even took place, much less what it was about.  This can
+present a number of problems for applications that run across the web, as the server is not able to
+remember important things like passwords, data, record positions, etc., that have been sent to the
+client.  Database applications are particularly affected as they often rely on the client knowing
+which record is the current record back on the server.
+
+<p>The HTTP protocol provides a basic method for writing information on the client's machine  to
+allow the server to get information about the client from previous HTTP exchanges.  Called by
+the curious name 'cookie', they allow the server to write state information into a file on the clients
+hard drive and to recall that information at a subsequent HTTP request.  This greatly increases a
+server's capabilities with respect to dynamic web pages.
+
+<p>Cookies are no more than a text value in the form of <tt>CookieName=CookieValue</tt>.  A cookie
+should not include semi-colons, commas, or white space.  The user can refuse to accept cookies,
+so no application should ever assume that a cookie will be present.  Cookies are becoming more
+and more prevalent as web sites get more and more sophisticated.  If you are a Netscape user, you
+might be surprised by what you find in your <tt>COOKIES.TXT</tt> file.  Internet Explorer users might
+peek into the <tt>\WINDOWS\COOKIES</tt> folder.  If you want to track cookies as they are set on your
+machine, both of these browsers allow you to approve individual cookie settings within their
+security preference settings.
+
+<p>Managing cookies in Delphi is, pardon the pun, a piece of cake.  The <tt>THTTPRequest</tt> and
+<tt>THTTPResponse</tt> classes encapsulate the handling of cookies quite cleanly, allowing you to
+easily control how cookie values are set on a clients machine, and to read what cookies have been
+previously set.  
+
+<p>The work of setting a cookie is all done in the <tt>TWebResponse.SetCookieField</tt> method. 
+Here you can pass a <tt>TStrings</tt> descendent full of cookie values, along with the restrictions
+limitations placed on the cookies.
+
+<p>The <tt>SetCookieField</tt> method is declared as follows in the <tt>HTTPAPP</tt> unit:
+<pre>procedure SetCookieField(Values: TStrings; const ADomain, APath:
+string; AExpires: TDateTime; ASecure: Boolean);</pre>
+
+<p>The <tt>Values</tt> parameter is a <tt>TStrings</tt> descendent (you will probably use  a <tt>TStringList</tt>),
+that holds the actual string values of the cookies.  You can pass multiple cookies in the <tt>Values</tt>
+parameter.  
+
+<p>The <tt>ADomain</tt> parameter allows you to define in which domain the given cookies are relevant. If
+no domain value is passed, then the cookie will be passed to every server to which a client makes
+a request.  Normally, a Web application will set its own domain here so that only the pertinent
+cookies are returned.  The client will examine the existing cookie values and return those cookies
+that match the given criteria.  
+
+<p>For example, if you pass widgets.com in the <tt>ADomain</tt> parameter, all future requests to a server
+in the widgets.com domain will pass along the cookie value set with that domain value.  The
+cookie value won't be passed to other domains.  If the client requests big.widgets.com or
+small.widgets.com the cookie will be passed.  Only hosts within the domain can set cookie values
+for that domain, avoiding all sorts of potential for mischief.  
+
+<p>The <tt>APath</tt> parameter allows you to set a subset of URL's within the domain where the cookie is
+valid.  The <tt>APath</tt> parameter is a subset of the <tt>ADomain</tt> parameter.  If the server domain
+matches the <tt>ADomain</tt> parameter, then the <tt>APath</tt> parameter is checked against the current path
+information of the requested domain.  If the <tt>APath</tt> parameter matches the pathname information
+in the client request, then the cookie is considered valid.
+
+<p>For example, following the above example, of <tt>APath</tt> contained the value '/nuts', then the cookie
+would be valid for a request to widgets.com/nuts and any further paths such as
+widgets.com/nuts/andbolts.
+
+<p>The <tt>AExpires</tt> parameter determines how long a cookie should remain valid.  You can pass any
+<tt>TDateTime</tt> value in this parameter.  If you want a cookie to be valid for ten days, pass <tt>Now +
+10 </tt>as a value.  If you want to delete a cookie, pass a date value that is in the past, and that will
+invalidate the cookie.  Note that a cookie may become invalid and not be passed, but that does
+not necessarily mean that the data is actually removed from the client's machine.
+
+<p>The final parameter, <tt>ASecure</tt>, is a boolean value that determines whether the cookie can be
+passed over non-secure channels.  A value of True means that the cookie can only be passed over
+the HTTP-Secure protocol or a Secure Socket Layer network.  For normal use, this parameter
+should be set to False.
+
+<p>You web server application receives cookies sent by the client in the
+<tt>TWebRequest.CookieFields</tt> property.  This parameter is a TStrings descendent that hold
+the values in an indexed array.  The strings are the complete cookie value in <tt>param=value</tt>
+form. They can be accessed like any other TStrings value. The cookies are also passed as a single
+string in the <tt>TWebRequest.Cookie</tt> property, but normally you wouldn't want to manipulate
+them here. You can assign the cookies directly to an existing TStrings object with the
+<tt>TWebRequest.ExtractCookieFields</tt> method.
+
+<p>A simple example can illustrate the ease with which Delphi deals with cookies.  First, add the
+<tt>WebUtils</tt> unit to your uses clause (The <tt>WebUtils</tt> unit is included with the code for this
+paper). Then, create a new Web server application and give it two <tt>Actions</tt>, one named
+<tt>SetCookie</tt> and the other <tt>GetCookie</tt>. Set the code in the <tt>OnAction</tt> event for
+<tt>SetCookie</tt> to the following code:
+<pre>procedure TWebModule1.WebModule1WebActionItem1Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+  List: TStringList;
+begin
+  List := TStringList.Create;
+  try
+     List.Add('LastVisit=' + FormatDateTime('mm/dd/yyyy hh:mm:ss',
+Now));
+     Response.SetCookieField(List, '', '', Now + 10, False);
+     Response.Content := 'Cookie set -- ' + Response.Cookies[0].Name;
+  finally
+    List.Free;
+  end;
+  Handled := True;
+end;</pre>
+
+<p>and make the <tt>OnAction</tt> code for <tt>GetCookie</tt> look like this:
+<pre>procedure TWebModule1.WebModule1WebActionItem2Action(Sender: TObject;
+  Request: TWebRequest; Response: TWebResponse; var Handled:
+Boolean);
+var
+  Params: TParamsList;
+begin
+     Params := TParamsList.Create;
+     try
+       Params.AddParameters(Request.CookieFields);
+       Response.Content := 'You last set the cookie on ' +
+Params['LastVisit'];
+     finally
+       Params.Free;
+     end;
+end;</pre>
+
+<p>  Set up a web page that calls the following URLs:
+<pre>http://&lt;your server&gt;/project1.dll/SetCookie</pre>
+
+<p>and 
+<pre>http://&lt;your server&gt;/project1.dll/GetCookie</pre>
+
+<p>Then, set the cookie by calling for the first URL from a web page in the same directory as the
+DLL.  This will set a cookie on the client machine that lasts for ten days and contains the date and
+time that the request was made in a cookie called <tt>LastVisit</tt>. If you have your web browser set
+to accept cookies, it should ask you to confirm the writing of the cookie.  Then call the
+<tt>GetCookie</tt> action to read the cookie, and you should see the date and time that you last called
+the <tt>SetCookie</tt> action.
+
+<p>Cookies can contain any information that can be stored in a string.  Cookies can be as big as 4K
+bytes, and a client can store as many as 300 cookies.  Any individual server or domain is limited to
+twenty cookies.  Cookies are powerful, but as you can see, you should try to limit their use.  They
+certainly cannot be used to store large amounts of data on a client's machine.<a name="Password Protection"></a>
+<h1>Further Information and Resources</h1>
+If you are going to do any HTML writing at all in Delphi, you have to download Kevin Weeks'
+<a href="http://www.informant.com/libs/delphi/1x/DI9605kw.zip">THTMLWriter (http://www.informant.com/libs/delphi/1x/DI9605kw.zip)</a>. It's a beautiful and
+elegant component that makes writing HTML an absolute breeze.  It was featured in an <a href="http://www.informant.com/libs/delphi/samples/DI0596KW.PDF">article
+(http://www.informant.com/libs/delphi/samples/DI0596KW.PDF)</a> in the May 1996 issue of the
+<a href="http://www.informant.com/delphi/di_index.HTM">Delphi Informant (http://www.informant.com/delphi/di_index.HTM)</a> magazine and well, well
+worth the download. (You'll need an Adobe Acrobat viewer to look at the article.  You can get
+the Acrobat reader at <a href="http://www.adobe.com">http://www.adobe.com</a>)
+<a name="HTTP Links"></a>
+<p>The HTTP protocol is an evolving standard.  The links below can provide some insight into its
+current and future definition:
+
+<p><a href="http://www.w3.org/pub/WWW/Protocols/HTTP/AsImplemented.html">http://www.w3.org/pub/WWW/Protocols/HTTP/AsImplemented.html</a>
+
+<p><a href="http://www.w3.org/pub/WWW/Protocols/HTTP/HTTP2.html">http://www.w3.org/pub/WWW/Protocols/HTTP/HTTP2.html</a>
+
+<p><a href="http://www.ics.uci.edu/pub/ietf/http/rfc1945.html">http://www.ics.uci.edu/pub/ietf/http/rfc1945.html</a><a href="#http://www.w3.org/pub/WWW/Protocols/HTTP/HTTP2.html"></a>
+
+<p><a href="http://www.ics.uci.edu/pub/ietf/http/">http://www.ics.uci.edu/pub/ietf/http/</a>
+
+<p><a href="http://www.w3.org/pub/WWW/Protocols/HTTP-NG/http-ng-status.html">http://www.w3.org/pub/WWW/Protocols/HTTP-NG/http-ng-status.html</a><a href="#http://www.w3.org/pub/WWW/Protocols/HTTP-NG/http-ng-status.html"></a>
+
+<p>This is a very good site for Delphi ISAPI developers.  Consider adding some code and examples
+for others to share --  <a href="  http://delphi.snapjax.com/isapi/">http://delphi.snapjax.com/isapi/</a>
+
+<p>This page from <a href="http://www.yahoo.com">Yahoo</a> has links to pages with information about Cookies --
+<a href="http://www.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/HTTP/Protocol_Sp ecification/Persistent_Cookies/">http://www.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/HTTP/Protocol_Specification/Persistent_Cookies/</a>
+<a name="NSAPI"></a><h3>Setting up Netscape Servers to run ISAPI DLL's</h3>
+Prior to using Delphi Web Server Applications on Netscape servers the following configuration
+changes are necessary:
+
+<p>Place the file ISAPITER.DLL file located in the Delphi 3.0 \BIN directory into the
+C:\Netscape\server\nsapi\examples directory (your path may differ).
+
+<p>Make the following modifications to the server configuration files located in
+<tt>C:\Netscape\server\httpd-&lt;servername&gt;\config</tt> directory:
+
+<p>Make the following changes in <tt>obj.conf:</tt>
+
+<p>Insert Line (modify the server path information accordingly):
+<tt>
+<p>Init funcs="handle-isapi,check-isapi,log-isapi" fn="load-modules"
+shlib="c:/netscape/server/nsapi/examples/ISAPIter.dll"</tt>
+
+<p>* AFTER the line:
+<tt>
+<p>Init fn=load-types mime-types=mime.types</tt>
+
+<p>In the <tt>&lt;Object name=default&gt;</tt> section inset the line:
+<tt>
+<p>NameTrans from="/scripts" fn="pfx2dir"
+dir="C:/Netscape/Server/docs/scripts" name="isapi"</tt>
+
+<p><strong>before</strong> the line
+<tt>
+<p>NameTrans fn=document-root root="C:/Netscape/Server/docs"</tt>
+
+<p>Add the following new section to the end of the obj.conf file:
+
+<p>------ Cut here -------
+<tt>
+<p>&lt;Object name="isapi"&gt;</tt>
+
+<p><tt>PathCheck fn="check-isapi"</tt>
+
+<p><tt>ObjectType fn="force-type" type="magnus-internal/isapi"</tt>
+
+<p><tt>Service fn="handle-isapi"</tt>
+
+<p><tt>&lt;/Object&gt;</tt>
+
+<p>------ Cut here -------
+
+<p>In <tt>mime.types</tt> add the following line as the last line in the file:
+<tt>
+<p>type=magnus-internal/isapi exts=dll</tt>
+
+<p>Once this is completed, you need to create a server directory alias that point to a directory where
+the DLL's are to reside.  You need to set the Style for that directory to ISAPI.  Note that the
+server won't serve an HTML page from that directory, expecting that every file int he directory is
+an ISAPI file.  You'll have to adjust your HTML accordingly.
+<h4>Debugging Netscape Server Extensions with Delphi</h4>
+To debug a Web Server application using Netscape Fast Track web server, set the application's
+run parameters as follows:
+
+<p>  Host Application: <tt>c:\Netscape\server\bin\httpd\httpd.exe</tt>
+
+<p>  Run Parameters:   <tt>c:\Netscape\server\httpd-&lt;servername&gt;\config</tt>
+
+<p>This starts the Netscape server and indicates to the server where the configuration files are
+located.
+
+</body>
+</html>

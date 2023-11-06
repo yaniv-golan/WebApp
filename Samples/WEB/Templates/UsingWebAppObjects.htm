@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Using the WebApp objects</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Using the WebApp Objects</h1>
+
+<p>The WebApp application provides the script programmer with
+access to most of the objects available to the Delphi programmer.
+The following information was retrieved through these objects :</p>
+
+<table border="1" bgcolor="#FFFFD7" bordercolor="#800000">
+    <tr>
+        <td valign="top">The name of the machine running the Web
+        server</td>
+        <td valign="top" nowrap><tt>Request.ServerVariables(&quot;SERVER_NAME&quot;)</tt></td>
+        <td valign="top" nowrap><%= Request.ServerVariables("SERVER_NAME") %></td>
+    </tr>
+    <tr>
+        <td valign="top">The WebApp stub used by this script</td>
+        <td valign="top" nowrap><tt>Request.ScriptName</tt></td>
+        <td valign="top" nowrap><%= Request.ScriptName%></td>
+    </tr>
+    <tr>
+        <td valign="top">The IP address of the machine you are
+        using</td>
+        <td valign="top" nowrap><tt>Request.ServerVariables(&quot;REMOTE_HOST&quot;)</tt>
+        </td>
+        <td valign="top" nowrap><%= Request.ServerVariables("REMOTE_HOST") %> </td>
+    </tr>
+    <tr>
+        <td valign="top">The WebApp Application ID</td>
+        <td valign="top" nowrap><tt>Application.AppID</tt></td>
+        <td valign="top" nowrap><%= Application.AppID%></td>
+    </tr>
+    <tr>
+        <td valign="top">The WebApp Session ID</td>
+        <td valign="top" nowrap><tt>Session.SessionID</tt></td>
+        <td valign="top" nowrap><%= Session.SessionID%></td>
+    </tr>
+    <tr>
+        <td valign="top">The Operating System the browser is
+        running on</td>
+        <td valign="top" nowrap><tt>Request.BrowserCaps.Platform</tt></td>
+        <td valign="top" nowrap><%' Just for fun, let's use the full syntax this time :
+Response.Write(Request.BrowserCaps.Platform)%></td>
+    </tr>
+</table>
+
+<p>(There is a lot more where these came from...)</p>
+
+<p>Here are some of the browser capabilities as determined by the
+script :</p>
+<script runat="SERVER">
+
+' This function will translate the boolean True to "Yes" and False to "No"
+Function BooleanToYesNo(BooleanFlag)
+	If BooleanFlag Then
+		BooleanToYesNo = "Yes"
+	Else
+		BooleanToYesNo = "No"
+	End If	
+End Function
+
+</script>
+
+<table border="1" bgcolor="#FFFFD7" bordercolor="#800000">
+    <tr>
+        <td>Browser Name</td>
+        <td><%= Request.BrowserCaps.Browser %></td>
+    </tr>
+    <tr>
+        <td>Browser Version</td>
+        <td><%= Request.BrowserCaps.Version %></td>
+    </tr>
+    <tr>
+        <td>Frames ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.Frames) %></td>
+    </tr>
+    <tr>
+        <td>Tables ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.Tables) %></td>
+    </tr>
+    <tr>
+        <td>Cookies ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.Cookies) %></td>
+    </tr>
+    <tr>
+        <td>VBScript ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.VBScript) %></td>
+    </tr>
+    <tr>
+        <td>JavaScript ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.JavaScript) %></td>
+    </tr>
+    <tr>
+        <td>Java Applets ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.JavaApplets) %></td>
+    </tr>
+    <tr>
+        <td>ActiveX Controls ?</td>
+        <td><%= BooleanToYesNo(Request.BrowserCaps.ActiveXControls) %></td>
+    </tr>
+</table>
+</body>
+</html>

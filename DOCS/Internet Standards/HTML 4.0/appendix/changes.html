@@ -1,0 +1,661 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>HTML 4.0 Changes</title>
+<LINK rel="previous" href="../sgml/entities.html">
+<LINK rel="next" href="notes.html">
+<LINK rel="contents" href="../cover.html#toc">
+<LINK rel="STYLESHEET" href="../style/default.css" type="text/css">
+</head>
+<body>
+<div class="navbar" align="center">
+&nbsp;<a href="../sgml/entities.html">previous</a> &nbsp; <a href="notes.html">next</a> &nbsp; <a href="../cover.html#toc">contents</a> &nbsp; <a href="../index/elements.html">elements</a> &nbsp; <a href="../index/attributes.html">attributes</a> &nbsp; <a href="../index/list.html">index</a>
+<hr>
+</div>
+
+<H1 align="center"><a name="h-A">Appendix A:</a> Changes</H1>
+<div class="subtoc"><p><strong>Contents</strong>
+<ol>
+<li><a class="tocxref" href="#h-A.1">Changes between HTML 3.2 and HTML 4.0</a>
+<ol>
+<li><a class="tocxref" href="#h-A.1.1">Changes to elements</a>
+<ul>
+<li><a class="tocxref" href="#h-A.1.1.1">New elements</a>
+<li><a class="tocxref" href="#h-A.1.1.2"><span class="index-inst" title="deprecated::elements|element::list of
+deprecated">Deprecated elements</span></a>
+<li><a class="tocxref" href="#h-A.1.1.3"><span class="index-inst" title="obsolete::elements|element::list of
+obsolete">Obsolete elements</span></a>
+</ul>
+<li><a class="tocxref" href="#h-A.1.2">Changes to attributes</a>
+<li><a class="tocxref" href="#h-A.1.3">Changes for accessibility</a>
+<li><a class="tocxref" href="#h-A.1.4">Changes for meta data</a>
+<li><a class="tocxref" href="#h-A.1.5">Changes for text</a>
+<li><a class="tocxref" href="#h-A.1.6">Changes for links</a>
+<li><a class="tocxref" href="#h-A.1.7">Changes for tables</a>
+<li><a class="tocxref" href="#h-A.1.8">Changes for images, objects, and image maps</a>
+<li><a class="tocxref" href="#h-A.1.9">Changes for forms</a>
+<li><a class="tocxref" href="#h-A.1.10">Changes for style sheets</a>
+<li><a class="tocxref" href="#h-A.1.11">Changes for frames</a>
+<li><a class="tocxref" href="#h-A.1.12">Changes for scripting</a>
+<li><a class="tocxref" href="#h-A.1.13">Changes for internationalization</a>
+</ol>
+<li><a class="tocxref" href="#h-A.2">Changes from the 18 December 1997 specification</a>
+<ol>
+<li><a class="tocxref" href="#h-A.2.1">Errors that were corrected</a>
+<li><a class="tocxref" href="#h-A.2.2">Minor typographical errors that were corrected</a>
+</ol>
+</ol>
+</div>
+
+<h2><a name="h-A.1">A.1</a> Changes between HTML 3.2 and HTML 4.0</h2>
+
+<h3><a name="h-A.1.1">A.1.1</a> Changes to elements</h3> 
+
+<h4>New elements<a name="h-A.1.1.1">&nbsp;</a></h4> 
+
+<p>The new elements in HTML 4.0 are:
+<a href="../struct/text.html#edef-ABBR" class="noxref"><samp class="einst">ABBR</samp></a>, 
+<a href="../struct/text.html#edef-ACRONYM" class="noxref"><samp class="einst">ACRONYM</samp></a>, 
+<a href="../struct/dirlang.html#edef-BDO" class="noxref"><samp class="einst">BDO</samp></a>, 
+<a href="../interact/forms.html#edef-BUTTON" class="noxref"><samp class="einst">BUTTON</samp></a>, 
+<a href="../struct/tables.html#edef-COL" class="noxref"><samp class="einst">COL</samp></a>, 
+<a href="../struct/tables.html#edef-COLGROUP" class="noxref"><samp class="einst">COLGROUP</samp></a>, 
+<a href="../struct/text.html#edef-del" class="noxref"><samp class="einst">DEL</samp></a>, 
+<a href="../interact/forms.html#edef-FIELDSET" class="noxref"><samp class="einst">FIELDSET</samp></a>,
+<a href="../present/frames.html#edef-FRAME" class="noxref"><samp class="einst">FRAME</samp></a>,
+<a href="../present/frames.html#edef-FRAMESET" class="noxref"><samp class="einst">FRAMESET</samp></a>,
+<a href="../present/frames.html#edef-IFRAME" class="noxref"><samp class="einst">IFRAME</samp></a>,
+<a href="../struct/text.html#edef-ins" class="noxref"><samp class="einst">INS</samp></a>,
+<a href="../interact/forms.html#edef-LABEL" class="noxref"><samp class="einst">LABEL</samp></a>, 
+<a href="../interact/forms.html#edef-LEGEND" class="noxref"><samp class="einst">LEGEND</samp></a>, 
+<a href="../present/frames.html#edef-NOFRAMES" class="noxref"><samp class="einst">NOFRAMES</samp></a>, 
+<a href="../interact/scripts.html#edef-NOSCRIPT" class="noxref"><samp class="einst">NOSCRIPT</samp></a>,
+<a href="../struct/objects.html#edef-OBJECT" class="noxref"><samp class="einst">OBJECT</samp></a>,
+<a href="../interact/forms.html#edef-OPTGROUP" class="noxref"><samp class="einst">OPTGROUP</samp></a>,
+<a href="../struct/objects.html#edef-PARAM" class="noxref"><samp class="einst">PARAM</samp></a>,
+<a href="../present/graphics.html#edef-S" class="noxref"><samp class="einst">S</samp></a> (deprecated), 
+<a href="../struct/global.html#edef-SPAN" class="noxref"><samp class="einst">SPAN</samp></a>,
+<a href="../struct/tables.html#edef-TBODY" class="noxref"><samp class="einst">TBODY</samp></a>,
+<a href="../struct/tables.html#edef-TFOOT" class="noxref"><samp class="einst">TFOOT</samp></a>,
+<a href="../struct/tables.html#edef-THEAD" class="noxref"><samp class="einst">THEAD</samp></a>,
+and <a href="../struct/text.html#edef-Q" class="noxref"><samp class="einst">Q</samp></a>.
+
+<h4><span class="index-inst" title="deprecated::elements|element::list of
+deprecated"><a name="idx-deprecated">Deprecated elements</a></span><a name="h-A.1.1.2">&nbsp;</a></H4>
+
+<p> The following elements are <a
+href="../conform.html#deprecated">deprecated</a>: 
+<a href="../struct/objects.html#edef-APPLET" class="noxref"><samp class="einst">APPLET</samp></a>,
+<a href="../present/graphics.html#edef-BASEFONT" class="noxref"><samp class="einst">BASEFONT</samp></a>,
+<a href="../present/graphics.html#edef-CENTER" class="noxref"><samp class="einst">CENTER</samp></a>,
+<a href="../struct/lists.html#edef-DIR" class="noxref"><samp class="einst">DIR</samp></a>,
+<a href="../present/graphics.html#edef-FONT" class="noxref"><samp class="einst">FONT</samp></a>,
+<a href="../interact/forms.html#edef-ISINDEX" class="noxref"><samp class="einst">ISINDEX</samp></a>,
+<a href="../struct/lists.html#edef-MENU" class="noxref"><samp class="einst">MENU</samp></a>,   
+<a href="../present/graphics.html#edef-STRIKE" class="noxref"><samp class="einst">STRIKE</samp></a>, and
+<a href="../present/graphics.html#edef-U" class="noxref"><samp class="einst">U</samp></a>.
+
+<h4><span class="index-inst" title="obsolete::elements|element::list of
+obsolete"><a name="idx-obsolete">Obsolete elements</a></span><a name="h-A.1.1.3">&nbsp;</a></h4>
+
+<P>The following elements are obsolete: <samp
+class="einst">LISTING</samp>, <samp class="einst">PLAINTEXT</samp>,
+and <samp class="einst">XMP</samp>.  For all of them, authors should
+use the <a href="../struct/text.html#edef-PRE" class="noxref"><samp class="einst">PRE</samp></a> element instead.
+
+<h3><a name="h-A.1.2">A.1.2</a> Changes to attributes</h3> 
+
+<ul>
+<li>Almost all attributes that specify the presentation of an HTML
+document (e.g., colors, alignment, fonts, graphics, etc.) have been <a
+href="../conform.html#deprecated">deprecated</a> in favor of style
+sheets. The <a href="../index/attributes.html">list of attributes</a>
+in the appendix indicates which attributes have been 
+<a href="../conform.html#deprecated">deprecated</a>.
+
+<li>The <a href="../struct/global.html#adef-id" class="noxref"><samp
+class="ainst">id</samp></a> and <a href="../struct/global.html#adef-class" class="noxref"><samp class="ainst">class</samp></a> attribute
+allow authors to assign <a
+href="../struct/global.html#id-and-class">name and class
+information</a> to elements for style sheets, as anchors, for
+scripting, for object declarations, general purpose document
+processing, etc.
+</ul>
+
+<h3><a name="h-A.1.3">A.1.3</a> Changes for accessibility</h3>
+
+<P>HTML 4.0 features many changes to promote
+<a href="../intro/intro.html#accessibility">accessibility</a>,
+including:
+
+<ul>
+<li>The <a href="../struct/global.html#adef-title" class="noxref"><samp class="ainst">title</samp></a> attribute may
+now be set on virtually every element.
+<li>Authors may provide long descriptions of tables
+(see the <a href="../struct/tables.html#adef-summary" class="noxref"><samp class="ainst">summary</samp></a> attribute),
+images and frames (see the <a href="../struct/objects.html#adef-longdesc-IMG" class="noxref"><samp class="ainst-IMG">longdesc</samp></a>
+attribute).
+</ul>
+
+<h3><a name="h-A.1.4">A.1.4</a> Changes for meta data</h3>
+
+<P>Authors may now specify <a href="../struct/global.html#profiles">
+profiles</a> that provide explanations about meta data specified
+with the <a href="../struct/global.html#edef-META" class="noxref"><samp class="einst">META</samp></a> or <a href="../struct/links.html#edef-LINK" class="noxref"><samp class="einst">LINK</samp></a>
+elements.
+
+<h3><a name="h-A.1.5">A.1.5</a> Changes for text</h3>
+
+<ul>
+<li>New features for <a href="#i18n">internationalization</a>
+allow authors to specify text direction and language.
+<li>The <a href="../struct/text.html#edef-ins" class="noxref"><samp class="einst">INS</samp></a> and <a href="../struct/text.html#edef-del" class="noxref"><samp
+class="einst">DEL</samp></a> elements allow authors to mark up changes
+in their documents.
+<li>The <a href="../struct/text.html#edef-ABBR" class="noxref"><samp class="einst">ABBR</samp></a> and <a href="../struct/text.html#edef-ACRONYM" class="noxref"><samp class="einst">ACRONYM</samp></a>
+elements allow authors to mark up abbreviations and acronyms
+in their documents.
+</ul>
+
+<h3><a name="h-A.1.6">A.1.6</a> Changes for links</h3>
+
+<ul>
+<li>The <a href="../struct/global.html#adef-id" class="noxref"><samp class="ainst">id</samp></a> attribute makes any
+element the destination anchor of a link.
+</ul>
+
+<h3><a name="h-A.1.7">A.1.7</a> <a name="table_changes">Changes for tables</a></h3>
+
+<p>The HTML 4.0 table model has grown out of early work on HTML+ and
+the initial draft of <a href="../references.html#ref-HTML30"
+class="informref">HTML3.0</a>. The earlier model has been extended in
+response to requests from information providers as follows:
+
+<ul>
+    <li>Authors may specify tables that may be incrementally
+    displayed as the user agent receives data.
+
+    <li>Authors may specify tables that are more accessible to users
+    with non-visual user agents.
+
+    <li>Authors may specify tables with fixed headers and
+    footers. User agents may take advantage of these when
+    scrolling large tables or rendering tables to paged
+    media.
+</ul>
+
+<P>The HTML 4.0 table model also satisfies requests for optional
+column-based defaults for alignment properties, more flexibility in
+specifying table frames and rules, and the ability to align on
+designated characters. It is expected, however, that <a
+href="../present/styles.html">style sheets</a> will take over the task
+of rendering tables in the near future.
+
+<p>In addition, a major goal has been to provide backwards
+compatibility with the widely deployed Netscape implementation of
+tables. Another goal has been to simplify importing tables
+conforming to the SGML CALS model.  The latest draft makes the <a href="../struct/tables.html#adef-align-TABLE" class="noxref"><samp
+class="ainst-TABLE">align</samp></a> attribute compatible with the
+latest versions of the most popular browsers.  Some clarifications
+have been made to the role of the <a href="../struct/dirlang.html#adef-dir" class="noxref"><samp class="ainst-TABLE">dir</samp></a>
+attribute and recommended behavior when absolute and
+relative column widths are mixed.
+
+<p>A new element, <a href="../struct/tables.html#edef-COLGROUP" class="noxref"><samp class="einst">COLGROUP</samp></a>, has been
+introduced to allow sets of columns to be grouped with different width
+and alignment properties specified by one or more <a href="../struct/tables.html#edef-COL" class="noxref"><samp
+class="einst">COL</samp></a> elements. The semantics of <a href="../struct/tables.html#edef-COLGROUP" class="noxref"><samp
+class="einst">COLGROUP</samp></a> have been clarified over previous
+drafts, and <tt>rules="basic"</tt> replaced by <tt>rules="groups"</tt>.
+
+<p>The <a href="../present/styles.html#adef-style" class="noxref"><samp class="ainst-TABLE">style</samp></a> attribute is included as a
+means for extending the properties associated with edges and interiors
+of groups of cells. For instance, the line style: dotted, double,
+thin/thick etc; the color/pattern fill for the interior; cell margins
+and font information. This will be the subject for a companion specification
+on style sheets.
+
+<p>The <a href="../struct/tables.html#adef-frame" class="noxref"><samp class="ainst-TABLE">frame</samp></a> and <a href="../struct/tables.html#adef-rules" class="noxref"><samp
+class="ainst-TABLE">rules</samp></a> attributes have been modified to avoid SGML
+name clashes with each other, and to avoid clashes with the <a href="../struct/tables.html#adef-align-TABLE" class="noxref"><samp
+class="ainst-TABLE">align</samp></a> and <a href="../struct/tables.html#adef-valign" class="noxref"><samp class="ainst">valign</samp></a>
+attributes. These changes were additionally motivated by the desire to
+avoid future problems if this specification is extended to allow <a href="../struct/tables.html#adef-frame" class="noxref"><samp
+class="ainst-TABLE">frame</samp></a> and <a href="../struct/tables.html#adef-rules" class="noxref"><samp class="ainst-TABLE">rules</samp></a>
+attributes with other table elements.
+
+<h3><a name="h-A.1.8">A.1.8</a> Changes for images, objects, and image maps</h3>
+
+<ul>
+<li>The <a href="../struct/objects.html#edef-OBJECT" class="noxref"><samp class="einst">OBJECT</samp></a> element
+allows generic inclusion of objects. 
+<li>The <a href="../present/frames.html#edef-IFRAME" class="noxref"><samp class="einst">IFRAME</samp></a> and 
+<a href="../struct/objects.html#edef-OBJECT" class="noxref"><samp class="einst">OBJECT</samp></a> elements
+allow authors to create embedded documents.
+<li>The <a href="../struct/objects.html#adef-alt" class="noxref"><samp class="ainst">alt</samp></a> attribute
+is required on the <a href="../struct/objects.html#edef-IMG" class="noxref"><samp class="einst">IMG</samp></a> and
+<a href="../struct/objects.html#edef-AREA" class="noxref"><samp class="einst">AREA</samp></a> elements.
+<li>The mechanism for creating <a
+href="../struct/objects.html#include-maps">image maps</a> now
+allows authors to create more accessible image maps.
+The content model of the <a href="../struct/objects.html#edef-MAP" class="noxref"><samp class="einst">MAP</samp></a> element
+has changed for this reason.
+</ul>
+
+<h3><a name="h-A.1.9">A.1.9</a> <a name="form_changes">Changes for forms</a></h3>
+
+<p>This specification introduces several new attributes and elements
+that affect forms:
+
+<ul>
+<li>The <a href="../interact/forms.html#adef-accesskey" class="noxref"><samp class="ainst">accesskey</samp></a> attribute allows authors
+to specify direct keyboard access to form controls.
+
+<li>The <a href="../interact/forms.html#adef-disabled" class="noxref"><samp class="ainst">disabled</samp></a> attribute allows
+authors to make a form control initially insensitive.
+
+<li>The <a href="../interact/forms.html#adef-readonly" class="noxref"><samp class="ainst">readonly</samp></a> attribute, allows authors
+to prohibit changes to a form control.
+
+<li>The <a href="../interact/forms.html#edef-LABEL" class="noxref"><samp class="einst">LABEL</samp></a> element associates a label
+with a particular form control.  
+
+<li>The <a href="../interact/forms.html#edef-FIELDSET" class="noxref"><samp class="einst">FIELDSET</samp></a> element groups related
+fields together and, in association with the <a href="../interact/forms.html#edef-LEGEND" class="noxref"><samp
+class="einst">LEGEND</samp></a> element, can be used to name the group.
+Both of these new elements allow better rendering and better
+interactivity. Speech-based browsers can better describe the form and
+graphic browsers can make labels sensitive.
+
+<li>A new set of attributes, in combination with <a
+href="../interact/scripts.html">scripts</a>, 
+allow form providers to verify user-entered data.
+
+<li>The <a href="../interact/forms.html#edef-BUTTON" class="noxref"><samp class="einst">BUTTON</samp></a> element and <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp
+class="einst">INPUT</samp></a> with <a href="../interact/forms.html#adef-type-INPUT" class="noxref"><samp class="ainst-INPUT">type</samp></a>
+set to "button" can be used in combination with <a
+href="../interact/scripts.html">scripts</a> to create richer forms.
+
+<li>The <a href="../interact/forms.html#edef-OPTGROUP" class="noxref"><samp class="einst">OPTGROUP</samp></a> element allows
+authors to group menu options together in a <a href="../interact/forms.html#edef-SELECT" class="noxref"><samp class="einst">SELECT</samp></a>,
+which is particularly important for form accessibility.
+
+<li>Additional changes for <a href="#i18n">internationalization</a>.
+</ul>
+
+<h3><a name="h-A.1.10">A.1.10</a> Changes for style sheets</h3>
+
+<P>HTML 4.0 supports a larger
+set of <a href="../types.html#type-media-descriptors">media descriptors</a>
+so that authors may write device-sensitive style sheets.
+
+<h3><a name="h-A.1.11">A.1.11</a> Changes for frames</h3>
+
+<P>HTML 4.0 supports frame documents and inline frames.
+
+<h3><a name="h-A.1.12">A.1.12</a> Changes for scripting</h3>
+
+<P>Many elements now feature <a
+href="../interact/scripts.html#events"> event attributes</a> that may
+be coupled with scripts; the script is executed when the event occurs
+(e.g., when a document is loaded, when the mouse is clicked, etc.).
+
+<h3><a name="h-A.1.13">A.1.13</a> <a name="i18n">Changes for internationalization</a></h3> 
+
+<P>HTML 4.0 integrates the recommendations of <a rel="biblioentry"
+href="../references.html#ref-RFC2070" class="informref">[RFC2070]</a> for the
+internationalization of HTML.
+
+<P>However, this specification and <a rel="biblioentry"
+href="../references.html#ref-RFC2070" class="informref">[RFC2070]</a>
+differ as follows:
+
+<ul>
+<li>The <a href="../interact/forms.html#adef-accept-charset" class="noxref"><samp class="ainst">accept-charset</samp></a> attribute has been
+specified for the <a href="../interact/forms.html#edef-FORM" class="noxref"><samp class="einst">FORM</samp></a> element rather than
+the <a href="../interact/forms.html#edef-TEXTAREA" class="noxref"><samp class="einst">TEXTAREA</samp></a> and <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp
+class="einst">INPUT</samp></a> elements.
+<li>The HTML 4.0 specification makes additional clarifications with
+respect to the <a href="../struct/dirlang.html#bidirection">bidirectional
+algorithm</a>.
+<li>The use of <a href="../types.html#type-cdata">CDATA</a> to define
+the <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a> and <a href="../present/styles.html#edef-STYLE" class="noxref"><samp class="einst">STYLE</samp></a>
+elements does not preserve the ability to transcode documents, as
+described in section 2.1  of 
+<a rel="biblioentry"
+href="../references.html#ref-RFC2070" class="informref">[RFC2070]</a>.
+</ul>
+
+
+<h2><a name="h-A.2">A.2</a> <a name="19980424">Changes from the 18 December 1997 specification</a></h2>
+
+<p>This section describes how this version of the HTML 4.0 specification
+differs from the previous version released on 18 December 1997.
+
+<h3><a name="h-A.2.1">A.2.1</a> Errors that were corrected</h3>
+
+<dl>
+<dt><a href="../intro/intro.html#h-2.1.1">Section 2.1.1</a>
+<dd>"http://www.w3.org/TR/PR-html4/cover.html" was said to designate the
+current HTML specification. The current HTML specification is actually at
+<a href="http://www.w3.org/TR/REC-html40">http://www.w3.org/TR/REC-html40</a>.
+
+<dt><a href="../struct/global.html#h-7.5.2">Section 7.5.2</a>
+<dd>The hypertext link on <samp class="ainst">name</samp> was incorrect. It
+now links to <a href="../types.html#type-name">types.html#type-name</a>.
+
+<dt><a href="../struct/global.html#h-7.5.4">Section 7.5.4</a>
+<dd><a href="../struct/links.html#adef-href" class="noxref"><samp class="ainst">href</samp></a> was listed as an attribute of the <a href="../struct/global.html#edef-DIV" class="noxref"><samp
+class="einst">DIV</samp></a> and <a href="../struct/global.html#edef-SPAN" class="noxref"><samp class="einst">SPAN</samp></a> elements. It
+is not.
+
+<dt><a href="../struct/global.html#h-7.5.6">Section 7.5.6</a>
+<dd>A <a href="../struct/text.html#edef-P" class="noxref"><samp class="einst">P</samp></a> element was used in the example. It is
+invalid in <a href="../struct/global.html#edef-ADDRESS" class="noxref"><samp class="einst">ADDRESS</samp></a>.
+
+<dt><a href="../struct/dirlang.html#h-8.1">Section 8.1</a>
+<dd>In the first example, which reads "Her super-powers were the
+result...", there was an extra double quote mark before the word "Her".
+
+<dt><a href="../struct/text.html#h-9.3.4">Section 9.3.4</a>
+<dd>The attribute <A href="../struct/text.html#adef-width-PRE"><SAMP
+class="ainst">width</SAMP></A> was not noted as <a
+href="../conform.html#deprecated"><strong>deprecated</strong></a>.
+
+<dt><a href="../struct/tables.html#h-11.2.4.4">Section 11.2.4, "Calculating
+the width of columns"</a>
+<dd>The sentence "We have set the value of the align attribute in the third
+column group to 'center'" read "second" instead of "third".
+
+<dt><a href="../struct/tables.html#h-11.2.6.1">Section 11.2.6, "Cells that
+span several rows or columns"</a>
+<dd>The second paragraph read "In this table definition, we specify
+that the cell in row four, column two should span a total of three columns,
+including the current row."  It now ends "...including the current column."
+
+<dt><a href="../struct/objects.html#h-13.2">Section 13.2</a>
+<dd>The sentence beginning "User agents must render alternate text
+when they cannot support ..." read "next", instead of "text".
+
+<dt><a href="../struct/objects.html#h-13.6.2">Section 13.6.2</a>
+<dd>The last sentence of the second paragraph applied to both the <a href="../struct/objects.html#edef-IMG" class="noxref"><samp
+class="einst">IMG</samp></a> and <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp class="einst">INPUT</samp></a>
+elements. However, the <a href="../struct/objects.html#adef-ismap" class="noxref"><samp class="ainst">ismap</samp></a> attribute is not
+defined for <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp class="einst">INPUT</samp></a>. The sentence now only applies
+to <a href="../struct/objects.html#edef-IMG" class="noxref"><samp class="einst">IMG</samp></a>.
+
+<dt><a href="../present/styles.html#h-14.2.3">Section 14.2.3</a>
+<dd>The <a href="../struct/global.html#adef-title" class="noxref"><samp class="ainst">title</samp></a> attribute for the <a href="../present/styles.html#edef-STYLE" class="noxref"><samp
+class="einst">STYLE</samp></a> element was not listed as an attribute defined
+elsewhere.
+
+<dt><a href="../present/styles.html#h-14.3.2">Section 14.3.2</a>
+<dd>The second example set <samp>title="Compact"</samp>. It now sets 
+<samp>title="compact"</samp>.
+
+<dt><a href="../present/graphics.html#h-15.1.2">Section 15.1.2</a>
+<dd>The sentence ending "the <a href="../present/graphics.html#adef-align" class="noxref"><samp class="ainst">align</samp></a> attribute."
+read "the <a href="../present/graphics.html#adef-align" class="noxref"><samp class="ainst">align</samp></a> element."
+
+<dt><a href="../present/graphics.html#h-15.1.3.2">Section 15.1.3.2</a>
+<dd>The CSS style rule "BR.mybr { clear: left }" was incorrect,
+since it refers to the class "mybr" and not the id value. The
+correct syntax is: "BR#mybr { clear: left }".
+
+<dt><a href="../present/frames.html">Section 16</a>
+<dd>All the examples containing a Document Type Declaration used
+something like "THE_LATEST_VERSION_/frameset.dtd" or
+"THE_LATEST_VERSION_" as the system identifier for the Frameset
+DTD. They now use "http://www.w3.org/TR/REC-html40/frameset.dtd" instead.
+
+<dt><a href="../present/frames.html#h-16.3">Section 16.3</a> and <a
+href="../present/frames.html#h-16.3.1">Section 16.3.1</a>
+<dd>The second example of 16.3 and the example of 16.3.1 used the
+wrong DTD; they now use the Transitional DTD.
+
+<dt><a href="../interact/forms.html#h-17.5">Section 17.5</a>
+<dd>In "attributes defined elsewhere" for the <a href="../interact/forms.html#edef-BUTTON" class="noxref"><samp
+class="einst">BUTTON</samp></a> element, <a href="../struct/global.html#adef-id" class="noxref"><samp class="ainst">id</samp></a>, <a href="../struct/global.html#adef-class" class="noxref"><samp
+class="ainst">class</samp></a>, <a href="../struct/dirlang.html#adef-lang" class="noxref"><samp class="ainst">lang</samp></a>, <a href="../struct/dirlang.html#adef-dir" class="noxref"><samp
+class="ainst">dir</samp></a>, <a href="../struct/global.html#adef-title" class="noxref"><samp class="ainst">title</samp></a>, <a href="../present/styles.html#adef-style" class="noxref"><samp
+class="ainst">style</samp></a>, and <a href="../interact/forms.html#adef-tabindex" class="noxref"><samp class="ainst">tabindex</samp></a> were
+missing. Also, <a href="../struct/objects.html#adef-usemap" class="noxref"><samp class="ainst">usemap</samp></a> has been removed.
+
+<dt><a href="../interact/forms.html#h-17.6">Section 17.6/17.6.1</a>
+<dd>The "attributes defined elsewhere" for <a href="../interact/forms.html#edef-OPTION" class="noxref"><samp
+class="einst">OPTION</samp></a> and <a href="../interact/forms.html#edef-OPTGROUP" class="noxref"><samp class="einst">OPTGROUP</samp></a>
+mistakenly listed <a href="../interact/scripts.html#adef-onfocus" class="noxref"><samp class="ainst">onfocus</samp></a>, <a href="../interact/scripts.html#adef-onblur" class="noxref"><samp
+class="ainst">onblur</samp></a>, and <a href="../interact/scripts.html#adef-onchange" class="noxref"><samp class="ainst">onchange</samp></a>.  The
+"attributes defined elsewhere" section was missing for the <a href="../interact/forms.html#edef-SELECT" class="noxref"><samp
+class="einst">SELECT</samp></a> element (please see the DTD for the full list
+of attributes).
+
+<dt><a href="../interact/forms.html#h-17.9.1">Section 17.9.1</a>
+<dd>The <a href="../interact/forms.html#adef-tabindex" class="noxref"><samp class="ainst">tabindex</samp></a> attribute was said to be
+defined for the <a href="../interact/forms.html#edef-LABEL" class="noxref"><samp class="einst">LABEL</samp></a> element. It is not.
+
+<dt><a href="../interact/forms.html#h-17.12.2">Section 17.12.2</a>
+<dd>The sentence "The following elements support the <a href="../interact/forms.html#adef-readonly" class="noxref"><samp
+class="ainst">readonly</samp></a> attribute: <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp class="einst">INPUT</samp></a>
+and <a href="../interact/forms.html#edef-TEXTAREA" class="noxref"><samp class="einst">TEXTAREA</samp></a>." read "The following elements
+support the <a href="../interact/forms.html#adef-readonly" class="noxref"><samp class="ainst">readonly</samp></a> attribute: <a href="../interact/forms.html#edef-INPUT" class="noxref"><samp
+class="einst">INPUT</samp></a>, <samp class="einst">TEXT</samp>, <samp
+class="einst">PASSWORD</samp>, and <a href="../interact/forms.html#edef-TEXTAREA" class="noxref"><samp class="einst">TEXTAREA</samp></a>."
+
+<dt><a href="../interact/scripts.html#h-18.2.2.2">Section 18.2.2, "Local
+declaration of a scripting language"</a>
+
+<dd>The first paragraph read: "It is also possible to specify the scripting
+language in each <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp class="einst">SCRIPT</samp></a> element via the <samp
+class="ainst">type</samp> attribute.  In the absence of a default scripting
+language specification, this attribute must be set on each <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp
+class="einst">SCRIPT</samp></a> element." Since the <samp
+class="ainst">type</samp> attribute is required for the <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp
+class="einst">SCRIPT</samp></a> element, this paragraph now reads: "The <samp
+class="ainst">type</samp> attribute must be specified for each <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp
+class="einst">SCRIPT</samp></a> element instance in a document. The value of
+the <samp class="ainst">type</samp> attribute for a <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp
+class="einst">SCRIPT</samp></a> element overrides the default scripting
+language for that element."
+
+<dt><a href="../sgml/entities.html#h-24.2.1">Section 24.2.1</a> and file <a
+href="../HTMLlat1.ent">HTMLlat1.ent</a>
+
+<dd>The comment for the character reference "not" read "= discretionary
+hyphen". This has been removed.<br>
+The FPI in comment read "-//W3C//ENTITIES Full Latin 1//EN//HTML",
+instead this is now "-//W3C//ENTITIES Latin1//EN//HTML".
+
+<dt><a href="../sgml/entities.html#h-24.3.1">Section 24.3.1</a> and file <a
+href="../HTMLsymbol.ent">HTMLsymbol.ent</a>
+
+<dd>The FPI in comment read "-//W3C//ENTITIES Symbolic//EN//HTML",
+instead this is now "-//W3C//ENTITIES Symbols//EN//HTML".
+
+<dt><a href="#h-A.1.1.1">Section A.1.1, "New elements"</a> (previously
+A.1.1) and <a href="#h-A.1.1.2">Section A.1.1, "Deprecated elements"</a>
+(previously A.1.2) <dd>The <a href="../present/graphics.html#edef-S" class="noxref"><samp class="einst">S</samp></a> element which is <a
+href="../conform.html#deprecated"><strong>deprecated</strong></a> was
+listed as part of the changes between HTML 3.2 and HTML 4.0. This element
+was not actually defined in <a href="../references.html#ref-HTML32">HTML
+3.2</a>. It is now in the new elements list.
+
+<dt><a href="#h-A.1.1.2">Section A.1.3 (previously A.3)</a>
+<dd>The <a href="../struct/objects.html#adef-longdesc-IMG" class="noxref"><samp class="ainst-IMG">longdesc</samp></a> attribute was said to be
+specified for tables. It is not. Instead, the <a href="../struct/tables.html#adef-summary" class="noxref"><samp
+class="ainst">summary</samp></a> attribute allows authors to give longer
+descriptions of tables.
+
+<dt><a href="notes.html#h-B.4">Section B.4</a> 
+<dd>The sentence "You may help search engines by using the <a href="../struct/links.html#edef-LINK" class="noxref"><samp
+class="einst">LINK</samp></a> element with <b>rel="start"</b> along with the
+<a href="../struct/global.html#adef-title" class="noxref"><samp class="ainst">title</samp></a> attribute, ..." read "You may help search
+engines by using the <a href="../struct/links.html#edef-LINK" class="noxref"><samp class="einst">LINK</samp></a> element with
+<b>rel="begin"</b> along with a <a href="../struct/global.html#edef-TITLE" class="noxref"><samp class="einst">TITLE</samp></a>, ..." The
+same stands for the companion example.
+
+<dt><a href="notes.html#h-B.5.1">Section B.5.1</a>
+<dd>The sentence "This can be altered by setting the <a href="../struct/tables.html#adef-width-TABLE" class="noxref"><samp
+class="ainst-TABLE">width</samp></a> attribute of the <a href="../struct/tables.html#edef-TABLE" class="noxref"><samp
+class="einst">TABLE</samp></a> element." read "This can be altered by setting
+the width-TABLE attribute of the <a href="../struct/tables.html#edef-TABLE" class="noxref"><samp class="einst">TABLE</samp></a> element."
+
+<dt><a href="notes.html#h-B.5.2">Section B.5.2</a>
+<dd>The sentence "Rules for handling objects too large for a column apply
+when the explicit or implied alignment results in a situation where the
+data exceeds the assigned width of the column." read "too large for
+column".  The meaning of the sentence was unclear since it referred to
+"rules" governing an error condition; user agent behavior in error
+conditions lies outside the scope of the specification.
+
+<dt><a href="../index/attributes.html">Index of attributes</a>
+<dd>The <a href="../struct/links.html#adef-href" class="noxref"><samp class="ainst">href</samp></a> attribute for the <a href="../struct/links.html#edef-BASE" class="noxref"><samp
+class="einst">BASE</samp></a> element was marked as <a
+href="../conform.html#deprecated"><strong>deprecated</strong></a>. It is
+not. However, it is not defined in the Strict DTD either.
+
+<P>The <a href="../interact/scripts.html#adef-language" class="noxref"><samp class="ainst">language</samp></a> attribute for the <a href="../interact/scripts.html#edef-SCRIPT" class="noxref"><samp
+class="einst">SCRIPT</samp></a> element was not marked as <a
+href="../conform.html#deprecated"><strong>deprecated</strong></a>. It is now,
+and it is no longer defined in the Strict DTD.
+</dl>
+
+<h3><a name="h-A.2.2">A.2.2</a> Minor typographical errors that were corrected</h3>
+
+<dl>
+<dt><a href="../intro/intro.html#h-2.1.3">Section 2.1.3</a>
+<dd>"Relative URIs are resolved ..." was "Relative URIsare resolved ...".
+
+<dt><a href="../intro/intro.html#h-2.2.1">Section 2.2.1</a>
+<dd>The second word "of" was missing in "Despite never receiving consensus
+in standards discussions, these drafts led to the adoption of a range of
+new features."
+
+<dt><a href="../intro/sgmltut.html#h-3.3.3">Section 3.3.3</a>
+<dd>The sentence "Element types that are designed to have no content are
+called empty elements." contained one too many "elements".  The word "a"
+was missing in the sentence "A few HTML element types use an additional
+SGML feature to exclude elements from a content model".
+
+<P>Also, in list item two, a period was missing between "optional"
+and "Two".
+
+<dt><a href="../intro/sgmltut.html#h-3.3.4">Section 3.3.4</a>
+<dd>In the section on "Boolean attributes", the sentence that begins "In
+HTML, boolean attributes may appear in minimized ..." included a bogus word
+"be".
+
+<dt><a href="../types.html#h-6.3">Section 6.3</a>
+<dd>The sentence beginning "For introductory information about attributes,
+..."  read "For introductory about attributes, ...".
+
+<dt><a href="../types.html#h-6.6">Section 6.6</a> 
+<dd>In the first sentence of the section on Pixels, "is an integer" read
+"is integer".
+
+<dt><a href="../struct/global.html#h-7.4.1">Section 7.4.1</a>
+<dd>The first word "The" was missing at the beginning of the section title.
+
+<dt><a href="../struct/global.html#h-7.4.4">Section 7.4.4</a>
+<dd>The last word "a" was missing in the sentence "The meaning of a
+property and the set of legal values for that property should be defined in
+a reference lexicon called profile."
+
+<dt><a href="../struct/global.html#h-7.5.2">Section 7.5.2</a>
+<dd>"Variable d&eacute;clar&eacute;e deux fois" read "Variable d&eacute;clar&eacute; deux fois".
+
+<dt><a href="../struct/text.html#h-9.2.2">Section 9.2.2</a>
+<dd>The language of the quotations was "en" instead of "en-us", while in
+British English, the single quotation marks would delimit the outer
+quotation.
+
+<dt><a href="../struct/text.html#h-9.3.2">Section 9.3.2</a>
+<dd>In the first line, the sixth character of "&amp;#x000A" was the letter
+'O' instead of a zero.
+
+<dt><a href="../struct/lists.html#h-10.3.1">Section 10.3.1</a>
+<dd>"(they are case-sensitive)" read "(the are case-sensitive)".
+
+<dt><a href="../struct/links.html#h-12.1.1">Section 12.1.1</a>
+<dd>In the sentence beginning "Note that the href attribute in each source
+..." the space was missing between "href" and "attribute".
+
+<dt><a href="../struct/links.html#h-12.1.2">Section 12.1.2</a>
+<dd>The sentence "Links that express other types of relationships
+have one or more link types specified in their source anchors." read "Links
+that express other types of relationships have one or more link type
+specified in their source anchor."
+
+<dt><a href="../struct/links.html#h-12.1.5">Section 12.1.5</a>
+<dd>The second paragraph reads "the hreflang attribute
+provides user agents about the language of a ..." It
+should read "the hreflang attribute provides user agents with
+information about the language of a ..."
+
+<dt><a href="../struct/objects.html#h-13.3.2">Section 13.3.2</a> 
+<dd>In the sentence beginning "Any number of <a href="../struct/objects.html#edef-PARAM" class="noxref"><samp class="einst">PARAM</samp></a>
+elements may appear in the content of an <a href="../struct/objects.html#edef-OBJECT" class="noxref"><samp class="einst">OBJECT</samp></a>
+or <a href="../struct/objects.html#edef-APPLET" class="noxref"><samp class="einst">APPLET</samp></a> element, ..." a space was missing
+between "<a href="../struct/objects.html#edef-APPLET" class="noxref"><samp class="einst">APPLET</samp></a>" and "element".
+
+<dt><a href="../present/styles.html#h-14.2.2">Section 14.2.2</a>
+<dd>There was a bogus word "style" at the beginning of the sentence "The
+<a href="../present/styles.html#adef-style" class="noxref"><samp class="ainst">style</samp></a> attribute specifies ..."
+
+<dt><a href="../interact/forms.html#h-17.2">Section 17.2</a>
+<dd>In "Those controls for which name/value pairs are submitted are called
+successful controls" the word "for" was missing.
+
+<dt><a href="../interact/forms.html#h-17.10">Section 17.10</a>
+<dd>There was a bogus word "/samp" just before section 17.11.
+
+<dt><a href="../interact/forms.html#h-17.11">Section 17.11</a>
+<dd>The first sentence read, "In an HTML document, an element must receive
+focus from the user in order to become active and perform their tasks"
+(instead of "its" tasks).
+
+<dt><a href="../interact/scripts.html#h-18.2.2">Section 18.2.2</a>
+<dd>Just before section 18.2.3, the sentence that includes "a name
+attribute takes precedence over an id if both are set." read "over a id if
+both are set.".
+
+<dt><a href="../sgml/intro.html#h-19.1">Section 19.1</a>
+<dd>The section title read "document Document Validation". It now is
+"Document Validation".
+
+<dt><a href="../sgml/dtd.html">Section 21</a>
+<dd>The FPI for the Transitional HTML 4.0 DTD was missing a closing double
+quote.
+
+<dt><a href="notes.html#h-B.5.1">Section B.5.1/B.5.2</a>
+<dd>This sections referred to a non-existent <samp>cols</samp> attribute.
+This attribute is not part of HTML 4.0. Calculating the number of columns
+in a table is described in section <a
+href="../struct/tables.html#h-11.2.4.3">Section 11.2.4.3</a>, in the chapter
+on tables. In sections B.5.1 and B.5.2, occurrences of <samp>cols</samp>
+have been replaced by "the number of columns specified by the <a href="../struct/tables.html#edef-COL" class="noxref"><samp
+class="einst">COL</samp></a> and <a href="../struct/tables.html#edef-COLGROUP" class="noxref"><samp class="einst">COLGROUP</samp></a> elements".
+
+<dt><a href="notes.html#h-B.5.2">Section B.5.2</a>
+<dd>In the sentence "The values for the frame attribute have been chosen to
+avoid clashes with the rules, align and valign attributes." a space was
+missing between "the" and "frame" and the last attribute was
+"valign-COLGROUP".
+
+<dt><a href="notes.html#h-B.10.1">Section B.10.1</a> 
+<dd>The last sentence read "Once a file is uploaded, the processing
+agent should process and store the it appropriately." "the it" was changed
+to "it".
+
+<dt><a href="../index/elements.html">Index of Elements</a>
+<dd>"strike-through" in the description of the <a href="../present/graphics.html#edef-S" class="noxref"><samp class="einst">S</samp></a>
+element read "sstrike-through".
+
+</dl>
+<div class="navbar" align="center">
+<hr><a href="../sgml/entities.html">previous</a> &nbsp; <a href="notes.html">next</a> &nbsp; <a href="../cover.html#toc">contents</a> &nbsp; <a href="../index/elements.html">elements</a> &nbsp; <a href="../index/attributes.html">attributes</a> &nbsp; <a href="../index/list.html">index</a>
+</div>
+</body>
+</html>

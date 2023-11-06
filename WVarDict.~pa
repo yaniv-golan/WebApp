@@ -1,0 +1,147 @@
+/////////////////////////////////////////////////////////////////////////////
+//
+// Written by Yaniv Golan, ygolan@hyperact.com
+// http://www.hyperact.com
+// Copyright (C) 1996, 1997 by HyperAct, Inc.
+// All Rights Reserved.
+//
+/////////////////////////////////////////////////////////////////////////////
+unit WVarDict;
+
+interface
+
+uses Classes, SysUtils, Windows;
+
+type
+TVariantList = class(TPersistent)
+private
+    FItems: TStringList;
+    FLock: TRTLCriticalSection;
+    function GetItem(const Index: string): variant;
+    procedure SetItem(const Index: string; const Value: variant);
+    procedure DeleteItem(Index: integer);
+    function GetItemName(Index: integer): string;
+    procedure SetItemName(Index: integer; const Value: string);
+    function GetCount: integer;
+public
+    constructor Create;
+    destructor Destroy; override;
+    procedure Clear;
+    procedure Lock;
+    procedure Unlock;
+    property Count: integer read GetCount;
+    property Items[const Index: string]: variant read GetItem write SetItem; default;
+    function ItemByIndex(Index: integer): variant;
+    property ItemNames[Index: integer]: string read GetItemName write SetItemName;
+end;
+
+// For compatibility with previous versions
+TWapVariantDictionary = TVariantList;
+
+implementation
+
+constructor TVariantList.Create;
+begin
+    inherited Create;
+    FItems := TStringList.Create;
+    FItems.Sorted := true;
+    InitializeCriticalSection(FLock);
+end;
+
+destructor TVariantList.Destroy;
+begin
+    Clear;
+    FItems.Free;
+    DeleteCriticalSection(FLock);
+    inherited Destroy;
+end;
+
+procedure TVariantList.Clear;
+begin
+    Lock;
+    try
+        FItems.BeginUpdate;
+        try
+            while (FItems.Count > 0) do
+                DeleteItem(0);
+        finally
+            FItems.EndUpdate;
+        end;
+    finally
+        Unlock;
+    end;
+end;
+
+function TVariantList.ItemByIndex(Index: integer): variant;
+begin
+    result := PVariant(FItems.Objects[Index])^;
+end;
+
+function TVariantList.GetItem(const Index: string): variant;
+var
+    i: integer;
+begin
+    Lock;
+    try
+        i := FItems.IndexOf(UpperCase(Index));
+        if (i = -1) then
+            result := null
+        else
+            result := ItemByIndex(i);
+    finally
+        Unlock;
+    end;
+end;
+
+procedure TVariantList.SetItem(const Index: string; const Value: variant);
+var
+    VariantPtr: PVariant;
+    i: integer;
+begin
+    Lock;
+    try
+        i := FItems.IndexOf(UpperCase(Index));
+        if (i <> -1) then
+            DeleteItem(i);
+        if (Value <> null) then begin
+            new(VariantPtr);
+            VariantPtr^ := Value;
+            FItems.AddObject(UpperCase(Index), TObject(VariantPtr));
+        end;
+    finally
+        Unlock;
+    end;
+end;
+
+procedure TVariantList.DeleteItem(Index: integer);
+begin
+    Dispose(PVariant(FItems.Objects[Index]));
+    FItems.Delete(Index);
+end;
+
+procedure TVariantList.Lock;
+begin
+    EnterCriticalSection(FLock);
+end;
+
+procedure TVariantList.Unlock;
+begin
+    LeaveCriticalSection(FLock);
+end;
+
+function TVariantList.GetItemName(Index: integer): string;
+begin
+    result := FItems[Index];
+end;
+
+procedure TVariantList.SetItemName(Index: integer; const Value: string);
+begin
+    FItems[Index] := Value;
+end;
+
+function TVariantList.GetCount: integer;
+begin
+    result := FItems.Count;
+end;
+
+end.

@@ -1,0 +1,79 @@
+package Wap20D3;
+
+{$R *.RES}
+{$R 'hwebapp.dcr'}
+{$R 'waptmplt.dcr'}
+{$R 'wscr_tlb.dcr'}
+{$R 'htmltxt.dcr'}
+{$R 'browscap.dcr'}
+{$R 'adrotate.dcr'}
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $00400000}
+{$DESCRIPTION 'HyperAct WebApp Runtime Package'}
+{$RUNONLY}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl30;
+
+contains
+  hwebapp,
+  waptmplt,
+  wscrimp,
+  wapcsrv,
+  wscr_tlb,
+  htmltxt,
+  scrhtprc,
+  axshost,
+  activscp,
+  hawrintf,
+  appssi,
+  wrdstrms,
+  timeutil,
+  base64,
+  virttext,
+  cookutil,
+  inetstr,
+  browscap,
+  sds,
+  ipcrqst,
+  ipc,
+  httpreq,
+  d3sysutl,
+  wvardict,
+  wipcshrd,
+  adrotate,
+  xstrings,
+  waptxrdr,
+  wapschdl,
+  wapwthrd,
+  wapactns,
+  wapmask,
+  WapRTTI,
+  MthdsLst,
+  wapthntf,
+  wcp,
+  comcat,
+  IpcConv;
+
+end.

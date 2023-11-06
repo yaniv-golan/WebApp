@@ -1,0 +1,11 @@
+//SUPPRESSIONPROJ:dbgisp
+//VERSION:5.00
+//ENABLE:Yes
+!include DELPHI.SUP
+ignore failure KERNEL32.DLL:LoadLibraryExA in module EXE
+ignore failure ADVAPI32.DLL:RegCloseKey in module HOOKDLL.dll
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"DoWriteToClient"
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"ExportHandle"
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"TForm1.Button3Click"
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"TForm1.test"
+

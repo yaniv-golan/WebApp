@@ -1,0 +1,149 @@
+unit NTSecurity2;
+
+interface
+
+uses SysUtils, Windows;
+
+const
+    SECURITY_DESCRIPTOR_REVISION = 1; // from winnt.h, missing in windows.pas
+
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//               NT Defined Privileges                                //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+    SE_CREATE_TOKEN_NAME              = 'SeCreateTokenPrivilege';
+    SE_ASSIGNPRIMARYTOKEN_NAME        = 'SeAssignPrimaryTokenPrivilege';
+    SE_LOCK_MEMORY_NAME               = 'SeLockMemoryPrivilege';
+    SE_INCREASE_QUOTA_NAME            = 'SeIncreaseQuotaPrivilege';
+    SE_UNSOLICITED_INPUT_NAME         = 'SeUnsolicitedInputPrivilege';
+    SE_MACHINE_ACCOUNT_NAME           = 'SeMachineAccountPrivilege';
+    SE_TCB_NAME                       = 'SeTcbPrivilege';
+    SE_SECURITY_NAME                  = 'SeSecurityPrivilege';
+    SE_TAKE_OWNERSHIP_NAME            = 'SeTakeOwnershipPrivilege';
+    SE_LOAD_DRIVER_NAME               = 'SeLoadDriverPrivilege';
+    SE_SYSTEM_PROFILE_NAME            = 'SeSystemProfilePrivilege';
+    SE_SYSTEMTIME_NAME                = 'SeSystemtimePrivilege';
+    SE_PROF_SINGLE_PROCESS_NAME       = 'SeProfileSingleProcessPrivilege';
+    SE_INC_BASE_PRIORITY_NAME         = 'SeIncreaseBasePriorityPrivilege';
+    SE_CREATE_PAGEFILE_NAME           = 'SeCreatePagefilePrivilege';
+    SE_CREATE_PERMANENT_NAME          = 'SeCreatePermanentPrivilege';
+    SE_BACKUP_NAME                    = 'SeBackupPrivilege';
+    SE_RESTORE_NAME                   = 'SeRestorePrivilege';
+    SE_SHUTDOWN_NAME                  = 'SeShutdownPrivilege';
+    SE_DEBUG_NAME                     = 'SeDebugPrivilege';
+    SE_AUDIT_NAME                     = 'SeAuditPrivilege';
+    SE_SYSTEM_ENVIRONMENT_NAME        = 'SeSystemEnvironmentPrivilege';
+    SE_CHANGE_NOTIFY_NAME             = 'SeChangeNotifyPrivilege';
+    SE_REMOTE_SHUTDOWN_NAME           = 'SeRemoteShutdownPrivilege';
+
+procedure SetUserObjectAllAccess(hUserObject: THANDLE);
+function GetUserObjectName(hUserObject: THandle; var Name: string): boolean;
+function GetAccountInfo(var CurUser, CurDomain: string): boolean;
+function GetMachineName: string;
+
+implementation
+
+procedure SetUserObjectAllAccess(hUserObject: THANDLE);
+var
+  pSD: PSecurity_Descriptor;
+  si:  Security_Information; { dword }
+begin
+  (* Initialize a security descriptor. *)
+  pSD := PSecurity_Descriptor(
+           LocalAlloc(LPTR, SECURITY_DESCRIPTOR_MIN_LENGTH));
+  Win32Check(pSD <> nil);
+  try
+      Win32Check(InitializeSecurityDescriptor(pSD, SECURITY_DESCRIPTOR_REVISION));
+
+      (* Add a NULL disc. ACL to the security descriptor. *)
+      Win32Check(SetSecurityDescriptorDacl(pSD,
+               TRUE,     // specifying a disc. ACL
+               PACL (nil),
+               FALSE)  // not a default disc. ACL
+               );
+
+      (* Add the security descriptor to the userobject (like a window or a DDE
+         conversation), NOT to a kernelobject (like a process, thread or event). *)
+      si := DACL_SECURITY_INFORMATION;
+      Win32Check(
+        SetUserObjectSecurity(hUserObject, si, pSD)
+      );
+  finally
+    LocalFree(HLOCAL(pSD));
+  end;
+end;
+
+function GetUserObjectName(hUserObject: THandle; var Name: string): boolean;
+var
+    dw: DWord;
+begin
+    Name:=EmptyStr;
+    GetUserObjectInformation(hUserObject, UOI_NAME, PChar(Name), 0, dw);
+    SetLength(Name, dw+1);
+    Result:= GetUserObjectInformation(hUserObject, UOI_NAME, PChar(Name), dw, dw);
+    if Result then
+        SetLength(Name, dw-1)
+    else
+        Name:= EmptyStr;
+end;
+
+function GetPrivilegeDisplayName(const PrivilegeName: string): string;
+{ PrivilegeName is of string type 'SE_'* }
+var
+    dw, li: DWord;
+begin
+    Result:= EmptyStr; dw:= 0; li:=0; { li:= dword(MAKELANGID(LANG_DEFAULT, LANG_USER)); }
+    if not LookupPrivilegeDisplayName(nil, PChar(PrivilegeName), PChar(Result), dw, li) then dw:=256;
+        SetLength(Result, dw+1);
+    if LookupPrivilegeDisplayName(nil, PChar(PrivilegeName), PChar(Result), dw, li) then
+        SetLength(Result, StrLen(PChar(Result)))
+    else
+        Result:= EmptyStr;
+end;
+
+procedure GetAccountInfo(var CurUser, CurDomain: string);
+var
+    dw, dw2: DWord;
+    pSD: PSecurity_Descriptor;
+    snu: Sid_Name_Use;
+begin
+    dw:= 255;
+    Setlength(CurUser, dw+1);
+    Win32Check(
+        GetUserName(PChar(CurUser), dw)
+    );
+    SetLength(CurUser, dw-1);
+    dw2:=256;
+    SetLength(CurDomain, dw2);
+    snu:= SidTypeUser;
+    pSD:= nil;
+    dw:=0; { get needed length for SID }
+    LookUpAccountName(nil{LocalMachine}, PChar(CurUser),
+        pSD, dw, PChar(CurDomain), dw2, snu);
+    Win32Check(dw <> 0);
+    pSD := PSecurity_Descriptor(LocalAlloc(LPTR, dw));
+    Win32Check(pSD <> nil);
+    try
+        Win32Check(
+            LookUpAccountName(nil, PChar(CurUser), { get the real thing }
+             pSD, dw, PChar(CurDomain), dw2, snu)
+        );
+        SetLength(CurDomain, dw2);
+    finally
+        LocalFree(HLOCAL(pSD));
+    end;
+end;
+
+function GetMachineName: string;
+var
+    dw: DWord;
+begin
+    dw:=MAX_COMPUTERNAME_LENGTH+1;
+    SetLength(Result, MAX_COMPUTERNAME_LENGTH+1);
+    Win32Check(
+        GetComputerName(PChar(Result), dw)
+    );
+end;
+
+end.

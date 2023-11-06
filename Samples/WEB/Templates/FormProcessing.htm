@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>Form Processing</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>Form Processing</h1>
+
+<p><% Dim FormSubmitted
+Dim FieldsOK
+
+' Detect if the form was already submitted :
+FormSubmitted = Request("SubmitButton") <> ""
+
+If FormSubmitted then
+	' Check if all the fields were filled :
+	FieldsOK = Request("NameText") <> "" and Request("EmailText") <> ""
+End If
+
+If FormSubmitted and FieldsOK Then
+	' No need to redisplay the form :%> This is the same HTML template which displayed the Form
+previously. However, the embedded script detects that the form
+was already submitted, and that all the fields were filled (Name
+= <%=Request("NameText")%> and E-mail = <%=Request("EmailText")%>), so it doesn't display the form. This technique
+enables us to centralize the entire form logic in one HTML
+template. Of course, we could have another template or the Delphi
+application handle the submitted form if we wanted.</p>
+
+<p><% Else 
+	' Either the form was not submitted yet, or one of the fields was not filled. So display the form :%> This form will insist on having all of its fields filled :</p>
+
+<form action="<%=Request.ScriptName + Request.LogicalPath %>"
+method="POST">
+    <table border="0" bgcolor="#FFFFCA">
+        <tr>
+            <td>Name : <input type="text" size="20"
+            name="NameText" value="<%=Request("NameText") %>"> <% If Request("SubmitButton") <> "" and Request("NameText") = "" then %> <b>Please
+            enter a value in this field</b> <% End If %> </td>
+        </tr>
+        <tr>
+            <td>E-mail : <input type="text" size="20"
+            name="EmailText" value="<%=Request("EmailText") %>"><% If Request("SubmitButton") <> "" and Request("EmailText") = "" then %> <b>Please
+            enter a value in this field</b> <% End If %></td>
+        </tr>
+        <tr>
+            <td align="right"><input type="submit"
+            name="SubmitButton" value="Continue..."></td>
+        </tr>
+    </table>
+</form>
+
+<p><% End If%></p>
+</body>
+</html>

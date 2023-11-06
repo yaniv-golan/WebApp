@@ -1,0 +1,11 @@
+filename: webappb2.zip
+replacements: webappb1.zip
+file version: 1.0 beta 2
+file description: Framework for building server-independent web applications. WebApp applications run on top of any server, and provide automatic session management, multithreading, easy debugging, and a variety of components to get you started as quickly as possible.
+target: Delphi 2.0, Delphi 3.0, C++Builder
+author name: Yaniv Golan, HyperAct
+author email: ygolan@hyperact.com
+author url: http://www.hyperact.com
+file status: shareware
+full source: yes
+category: Winsock and Communications

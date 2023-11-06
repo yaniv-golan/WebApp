@@ -1,0 +1,75 @@
+HyperAct releases WebApp : Web server applications, the RAD way!
+For Delphi 2, Delphi 3 and C++Builder
+
+DES MOINES, IOWA, April 24, 1997 - HyperAct, Inc., a leading provider of Web tools 
+and Applications, announced WebApp, a new and exciting framework that provides web 
+programmers with the building blocks they need to build great web applications today!
+
+WEBAPP FEATURES :
+* Server Independent - a WebApp Server Application can run unmodified, without 
+  re-compilation, on top of any Web server!
+* Automatic Session Management - The WebApp framework implements transparent 
+  cookies-based session state management, keeping track of your users for you.
+* High performance - WebApp Server Applications are fully multi-threaded, employing 
+  thread pooling to maximize the utilization of the server resources. 
+* Safe - WebApp Server Applications run in a separate process from the server, 
+  eliminating the risk for a server crash!
+* Easy Debugging - Live WebApp applications can be debugged easily from within the 
+  Delphi or C++Builder environment, without requiring a restart of the server. 
+
+Here's what the professionals have to say about WebApp :
+
+   "I have already fallen in love with WebApp. This is just too cool. Delphi 3 makes 
+   ISAPI development much easier but why would I bang my head against the wall when 
+   I can have session management and all the other goodies that WebApp gives me?" 
+
+   Stephen Genusa - Consultant, maintainer of IIS, ASP and ISAPI FAQs, author of Que’s 
+   Special Edition Using ISAPI. 
+
+WebApp applications run on top of any web server, using the server's native interface. 
+WebApp ships with native support for Microsoft Internet Information Server (ISAPI), 
+Microsoft Personal Web Server (ISAPI), Netscape FastTrack (NSAPI), O'reilly WebSite and 
+WebSite Pro (WSAPI), as well as CGI and Win-CGI interfaces which will work with any web 
+server!
+
+Put this great technology to work using WebApp's simple object model (similar to and 
+compatible with the model used in Microsoft Active Server Pages). To get you started 
+as quickly as possible, we've included a variety of common components and sample 
+applications, including:
+
+* Browser Capabilities component, providing your applications with a description of 
+  the capabilities of the client's web browser
+* Ad Rotator component, providing automated, controlled rotation of advertisement images.
+* HTML generation components and functions, simplifying the generation of complex HTML 
+  constructs, including generation of HTML tables from DB tables and queries.
+* Coming soon - integrated HTML template preprocessor with embedded scripting language!
+
+A beta version of WebApp is available for download NOW from 
+ftp://ftp.vwm.com/hyperact/beta/webappb1.zip
+
+HyperAct, Inc. : Headquartered in Des Moines, IA, with developers spread around the world 
+(a true Internet based corporation), HyperAct, Inc. provides innovative technologies that 
+allow on-line content providers to extend their reach through Internet/World Wide Web 
+technology and best-of-breed development tools. 
+
+HyperAct publishes several Delphi developers tools, such as HyperTerp - the Drag & Drop 
+Delphi Script Language, and offers authoring and run-time engines for web-based e-commerce 
+and distance education applications, all are written in Delphi and use the WebApp 
+technology.
+
+HyperAct was first to offer many of the HTML related innovations and technologies for 
+WinHelp developers: it was the first company to offer cross-platform authoring tools that 
+support WinHelp, HTML, DOS and OS/2 IPF (1995), The first to offer WinHelp to HTML 
+conversion tools (1995), and the first to embed HTML topics in WinHelp (June 1996).
+
+For Further Information Contact:
+HyperAct, Inc
+3437 335th Street
+West Des Moines, IA 50266 USA
+Tel/Fax (515) 987-2910
+Fax only (515) 987-2909
+e-mail: rhalevi@hyperact.com 
+URL: http://www.hyperact.com 
+
+Copyright © 1996, 1997 HyperAct, Inc. All brand or product names are trademarks or 
+registered trademarks of their respective holders.

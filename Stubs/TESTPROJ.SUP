@@ -1,0 +1,8 @@
+//SUPPRESSIONPROJ:testproj
+//VERSION:5.00
+//ENABLE:Yes
+ignore failure KERNEL32.DLL:LoadLibraryExA in module EXE
+ignore failure ADVAPI32.DLL:RegCloseKey in module HOOKDLL.dll
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"ExportHandle"
+ignore failure ADVAPI32.DLL:OpenThreadToken in function EXE:"DoWriteToClient"
+

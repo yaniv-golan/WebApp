@@ -1,0 +1,114 @@
+unit UrlMaper;
+
+interface
+
+uses Classes, SysUtils, HttpReq;
+
+procedure RequestURLMapping(RequestInterface: TAbstractHttpRequestInterface; const LogicalPath: string): string;
+procedure ProvideURLMapping(RequestInterface: TAbstractHttpRequestInterface; const PhysicalPath: string);
+
+implementation
+
+uses IPC;
+
+type
+PUrlMappingData = ^TUrlMappingData;
+TUrlMappingData = record
+    Physical: array[0..1023] of char;
+end;
+
+procedure MakeHttpRequest(RequestInterface: TAbstractHttpRequestInterface; const s: string);
+var
+    hInet: HInternet;
+    hConn: HInternet;
+    hHttp: HInternet;
+begin
+    hInet := InternetOpen(
+        'WebApp_URLMapper',
+        INTERNET_OPEN_TYPE_PRECONFIG,
+        nil,
+        nil,
+        0
+        );
+    try
+        hConn := InternetConnect(
+            hInet,
+            RequestInterface.GetServerVariable('SERVER_NAME'),
+            StrToInt(RequestInterface.GetServerVariable('SERVER_PORT')),
+            nil,
+            nil,
+            INTERNET_SERVICE_HTTP,
+            0,
+            0
+            );
+        try
+            hHttp := HttpOpenRequest(
+                hConn,
+                'GET',
+                RequestInterface.GetServerVariable('SCRIPT_NAME') + s,
+                HTTP_VERSION,
+                nil,
+                nil,
+                0,
+                0);
+            try
+                HttpSendRequest(hHttp, nil, 0, nil, 0);
+            finally
+                InternetCloseHandle(hHttp);
+            end;
+        finally
+            InternetCloseHandle(hConn);
+        end;
+    finally
+        InternetCloseHandle(hInet);
+    end;
+end;
+
+function GetBaseObjName: string;
+begin
+    result := 'WebAppUrlMapper_' + IntToStr(GetCurrentProcessId) + '_' + IntToStr(GetCurrentThreadId) + '_';
+end;
+
+procedure RequestURLMapping(RequestInterface: TAbstractHttpRequestInterface; const LogicalPath: string): string;
+var
+    SharedMem: TSharedMem;
+    MappingReadyEvent: TEvent;
+begin
+    SharedMem := TSharedMem.Create(GetBaseObjName + 'Mem', SizeOf(UrlMappingData), NoSecurityAttributes);
+    try
+        MappingReadyEvent := TEvent.Create(GetBaseObjName + 'Mem', true, NoSecurityAttributes);
+        try
+            MakeHttpRequest(Request, LogicalPath + '?WapCmd=MapURL&' + GetBaseObjName);
+            if (MappingReadyEvent.WaitFor(20 * 100) <> wrSignaled) then
+                raise exception.Create('Timed out while waiting for URL mapping');
+            result := PUrlMappingData(SharedMem.Buffer)^.Physical;
+        finally
+            MappingReadyEvent.Free;
+        end;
+    finally
+        SharedMem.Free;
+    end;
+end;
+
+procedure ProvideURLMapping(RequestInterface: TAbstractHttpRequestInterface; const PhysicalPath: string);
+var
+    SharedMem: TSharedMem;
+    MappingReadyEvent: TEvent;
+begin
+    SharedMem := TSharedMem.Create(GetBaseObjName + 'Mem', SizeOf(UrlMappingData), NoSecurityAttributes);
+    try
+        MappingReadyEvent := TEvent.Create(GetBaseObjName + 'Mem', true, NoSecurityAttributes);
+        try
+            MakeHttpRequest(Request, LogicalPath + '?WapCmd=MapURL&' + GetBaseObjName);
+            if (MappingReadyEvent.WaitFor(20 * 100) <> wrSignaled) then
+                raise exception.Create('Timed out while waiting for URL mapping');
+            result := PUrlMappingData(SharedMem.Buffer)^.Physical;
+        finally
+            MappingReadyEvent.Free;
+        end;
+    finally
+        SharedMem.Free;
+    end;
+end;
+
+end.

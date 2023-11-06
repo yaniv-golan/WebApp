@@ -1,0 +1,26 @@
+<!-- This document was created with HomeSite 2.5 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+</HEAD>
+
+<BODY BGCOLOR="White">
+
+<H1>WebApp Rubicon Sample</H1>
+
+<FORM ACTION="<%= Request.ScriptName %>" METHOD=GET>
+
+Search Phrase : <INPUT TYPE="TEXT" NAME="SearchFor" SIZE=40 VALUE="<%~SearchFor%>">
+<INPUT TYPE="SUBMIT" NAME="SubmitButton" VALUE="Search">
+
+<% If Session("DisplayResults") Then %>
+<HR>
+<%~ MatchHtmlTable.WriteHTML %>
+<% End If %>
+
+</FORM>
+
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>WebApp SendMail Sample</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1>WebApp SendMail Sample</h1>
+
+<p>The following is a sample order form. Before using it, <strong>please
+make sure you have specified your email address</strong> in the
+WebApp application window, and that you are <strong>connected to
+the Internet</strong> (so that the email can actually be sent).</p>
+
+<p>Once you fill in the detail and click the Submit button, the
+order information will be sent to the address you specified in
+the WebApp application window with a Carbon Copy (CC) to the
+customer's email.</p>
+
+<table border="1">
+    <tr>
+        <td bgcolor="#FFFFB7"><form
+        action="<%= Request.ScriptName %>" method="GET">
+            <p>Please fill in your cookies order in the following
+            form, and click the Submit button. A confirmation of
+            your order will be sent to you by email :</p>
+            <table border="0">
+                <tr>
+                    <td>Your Name : </td>
+                    <td><input type="text" size="20"
+                    name="CustomerName"></td>
+                </tr>
+                <tr>
+                    <td>Your email : </td>
+                    <td><input type="text" size="20"
+                    name="WapSMTP1@CC"></td>
+                </tr>
+                <tr>
+                    <td>How many cookies to do wish to purchase ?
+                    </td>
+                    <td><input type="text" size="20"
+                    name="CookiesNum" value="10"></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"
+                    name="WaitAfterSend" value="ON">Wait to see
+                    if the email was send successfully</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit"
+                    name="WapSMTP1.SendMessage" value="Submit"></td>
+                </tr>
+            </table>
+        </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,70 @@
+; ***********************************************
+;           ClassExplorer Settings File
+; ***********************************************
+
+; This file is maintained by ClassExplorer
+; All project dependend ClassExplorer
+; settings are saved in this file
+;
+; DO NOT CHANGE THIS FILE MANUALLY!
+
+; General Project Options
+[General]
+UseProjectExternals=0
+SynchronizeContextBar=1
+SynchronizeContextBarSpeed=1
+SynchronizeContextBarModeIdle=1
+ClassViewActivePage=0
+ClassHierarchyTreeWidth=-1
+ClassHierarchyListHeight=-1
+
+; Window Settings
+[Window Settings\ClassView]
+StateSaved=0
+PositionX=-1
+PositionY=-1
+Width=-1
+Height=-1
+Visible=0
+Docked=0
+Align=3
+Size=-1
+
+[Window Settings\ContextBar]
+StateSaved=0
+PositionX=-1
+PositionY=-1
+Width=-1
+Visible=0
+Docked=0
+
+[Window Settings\ClassHierarchy]
+StateSaved=1
+PositionX=230
+PositionY=111
+Width=561
+Height=349
+Visible=1
+Docked=0
+Align=3
+Size=-1
+
+[Window Settings\BrowseHistory]
+StateSaved=0
+PositionX=-1
+PositionY=-1
+Width=-1
+Height=-1
+Visible=0
+
+; Files excluded from parsing
+[Exclude From Parsing]
+Count=0
+
+; Browse History
+[Browse History]
+Count=0
+
+; Class Filter Settings
+[Class Filters]
+Count=0

@@ -1,0 +1,58 @@
+Document
+---------
+- Update HTML Form Controls, document individual controls
+- Document Data aware controls
+- TDatabase components, HandleShared
+- Mention in what's new for PR5 : ContentProducer.Enabled was removed, as well as TWapApp.Serialize
+- add ISAPI/NSAPI/CGI background
+- Add list of HTML/HTTP refernces to the docs
+- Talk in docs about debugging behaviour (\temp\cgixxxx.tmp for cgistub)
+- Observation : PWS does not pass HTTP_ vars to the CGI interface! Therfore, CGI should not be used with PWS
+- Talk in docs about how to store expired session information using an additional cookie
+- CGI does not work with IIS, permissions problem
+- WinCGI with Netscape server demands that the script and the temp directory are on the
+ same drive, since the server does include the drive letter in the filenames
+
+Install
+-------
+- Install the AppTemplate in Delphi
+- Create server setup program
+- Add .int versions of the source files
+- Document Request.MapPath, Response.RequestBasicAuthorization, DecodeBasicAuthorization
+- Document new components in htmltxt.pas, dbhtml.pas, add them to the comp. installation instructions
+
+Next Version
+-----------
+
+- implement multipart form encoding
+- Add TDBHtmlTRadioGroup
+- Add TCustomHTMLBitmap, THTMLBitmap :See BITMAP.TXT for interface. Need to provide a way for action objects to determine their full name, including the module name.
+- TWapModule and TWapSession should become TDataModule descendants
+- Add to the HTMLFormControl : OnCustomize(HTMLTag: THTMLTag), where THTMLTag = Tag: string, Attributes: TStrings
+- Add ISAPI optimization with delayed response
+- Add mapping of script names to AppIDs (/App1Dir = App=App1)
+- Expose URL decode/encode to the scripts
+- Add premature UnlockSession
+- App disable mechanism
+- better exception handling
+- Add Log() to server request interface
+- Use Request.Log in the stub exception handling code
+- Add Request.MapURL. What to do on CGI ???
+- Figure out the REMOTE_USER, AUTH_USER stuff.
+- Check if the limitation of each app requiring a differnt virtual path can be removed.
+- Adjust the number of threads dynamically
+- Make cleaner thread block instead of sleep
+- Add remote controls to WebApp : start an application, stop an application, suspend, resume, check that an application is running
+- product compare : Delphi 3 always cache the entire response, with WebApp this is optional. True ?
+- The various locks in TWapSession can be removed since now sessions are always executed by the same thread
+- Optimize the THttpReq interface. For example :
+  - Move RemoteUser to have its own method.
+- Check if WinCGI writes http "extra headers" as header-name or header_name, and fix wcgireq.pas to match.
+- Change Macro syntax to Application.Macro, Session.Macro, Macro
+- Optimize HAWebApp.DLL - 
+	WapStub gets the WriteToClient info using a shared memory which is re-allocated on
+	every write - should use a fixed size one.
+- Put a limit on the number of requests in the queue
+- TWapSession.FWaitingRequests is meaningless... it will always be one. It's TWapScheduler that should increment this.
+- Action names - problems when renaming secondary modules...
+- State saving

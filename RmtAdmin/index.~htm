@@ -1,0 +1,4 @@
+<FRAMESET ROWS=60%,*,1>
+	<FRAME NAME="mainFrame" SRC="main.html">
+	<FRAME NAME="resultFrame" SRC="result.html">
+</FRAMESET>

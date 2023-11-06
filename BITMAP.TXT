@@ -1,0 +1,40 @@
+TCustomHTMLBitmap = class(TWapControl)
+private
+    FFormat: THTMLBitmapFormat;
+    FOnWriteCustomFormat: TWriteCustomFormatEvent;
+    FAltText: string;
+protected
+    procedure Execute(
+        Request: THttpRequest; Response: THttpResponse;
+        const Verb, Value: string; Params: TWapVariantDictionary;
+        var Handled: boolean); override;
+
+    // VERBS
+    procedure WriteImage(
+        Request: THttpRequest; Response: THttpResponse;
+        const Value: string; Params: TWapVariantDictionary;
+        var Handled: Boolean); virtual;
+
+    procedure ProduceHTML(Dest: TStrings); override;
+    procedure GetBitmap(var Bitmap: TBitmap; var ShouldFree: boolean); virtual; abstract;
+    procedure WriteCustomFormat(Bitmap: TBitmap; var ContentType: string; OutputStream: TStream); virtual;
+    property Format: THTMLBitmapFormat read FFormat write FFormat;
+    property AltText: string read FAltText write FAltText;
+    property OnWriteCustomFormat: TWriteCustomFormatEvent read FOnWriteCustomFormat write FOnWriteCustomFormat;
+public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+end;
+
+THTMLBitmap = class(THTMLBitmap)
+private
+    FBitmap: TBitmap;
+    procedure SetBitmap(Value: TBitmap);
+protected
+    procedure GetBitmap(var Bitmap: TBitmap; var ShouldFree: boolean); override;
+published
+    property Bitmap: TBitmap read FBitmap write SetBitmap;
+    property Format;
+    property AltText;
+    property OnWriteCustomFormat;
+end;

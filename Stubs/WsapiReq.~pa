@@ -1,0 +1,155 @@
+unit WsapiReq;
+
+interface
+
+uses Classes, SysUtils, Windows, HttpReq, DynWSAPI
+    ;
+
+type
+
+EWsapiHttpRequestImp = class(EAbstractHttpRequestInterface);
+
+TWsapiHttpRequestImp = class(TAbstractHttpRequestInterface)
+private
+    FTP: PTCTX;
+public
+    constructor Create(TP: PTCTX);
+    destructor  Destroy; override;
+    function    GetQueryString: string; override;
+    function    GetMethod: string; override;
+    function    GetLogicalPath: string; override;
+    function    GetPhysicalPath: string; override;
+    function    WriteToClient(const Buffer; Count: integer): integer; override;
+    function    ReadFromClient(var Buffer; Count: integer): integer; override;
+    function    GetInputSize: integer; override;
+    function    GetInputContentType: string; override;
+    function    GetServerVariable(const VarName: string): string; override;
+    function    GetHttpHeader(const HeaderName: string): string; override;
+    function    MapURLToPath(const LogicalURL: string): string; override;
+
+    property    TP: PTCTX read FTP;
+end;
+
+implementation
+
+constructor TWsapiHttpRequestImp.Create(TP: PTCTX);
+begin
+    inherited Create;
+    LoadWSAPI;
+    FTP := TP;
+    FTP.content_length := -1;
+end;
+
+destructor  TWsapiHttpRequestImp.Destroy;
+begin
+    nflush(FTP);
+    inherited Destroy;
+end;
+
+function    TWsapiHttpRequestImp.GetQueryString: string;
+begin
+    result := GetServerVariable('QUERY_STRING');
+end;
+
+function    TWsapiHttpRequestImp.GetMethod: string;
+begin
+    result := StrPas(FTP.method);
+end;
+
+function    TWsapiHttpRequestImp.GetLogicalPath: string;
+begin
+    result := GetServerVariable('PATH_INFO');
+end;
+
+function    TWsapiHttpRequestImp.GetPhysicalPath: string;
+begin
+    result := GetServerVariable('PATH_TRANSLATED');
+end;
+
+function    TWsapiHttpRequestImp.WriteToClient(const Buffer; Count: integer): integer;
+begin
+    nwrite(@Buffer, Count, FTP);
+    result := Count;
+end;
+
+function    TWsapiHttpRequestImp.ReadFromClient(var Buffer; Count: integer): integer;
+begin
+    nread(@Buffer, Count, FTP);
+    result := Count;
+end;
+
+function    TWsapiHttpRequestImp.GetInputSize: integer;
+begin
+    result := FTP.content_length;
+end;
+
+function    TWsapiHttpRequestImp.GetInputContentType: string;
+begin
+    result := StrPas(FTP.content_type);
+end;
+
+function    TWsapiHttpRequestImp.GetServerVariable(const VarName: string): string;
+begin
+    SetLength(result, 102048);
+    if (get_server_variable(PChar(VarName), PChar(result), 102048, FTP)) then
+        SetLength(result, StrLen(pchar(result)))
+    else
+        result := '';
+end;
+
+function underscoreToDash(const s: string): string;
+var
+    i: integer;
+begin
+    result := s;
+    for i := 1 to length(result) do
+        if (result[i] = '_') then
+            result[i] := '-';
+end;
+
+function    TWsapiHttpRequestImp.GetHttpHeader(const HeaderName: string): string;
+var
+    i: integer;
+    temp: string;
+begin
+    result := '';
+    temp := underscoreToDash(headerName);
+    if (compareText(temp, 'METHOD') = 0) then
+        result  := FTP.method
+(*    else if (compareText(temp, '???') = 0) then // tbd
+        result := FTP.url
+    else if (compareText(temp, '???') = 0) then // ???
+        result := FTP.params
+    else if (compareText(temp, '???') = 0) then // ???
+        result := FTP.args*)
+    else if (compareText(temp, 'ACCEPT') = 0) then
+        result := FTP.http_accept
+    else if (compareText(temp, 'If-Modified-Since') = 0) then
+        result := FTP.if_mod_since
+    else if (compareText(temp, 'Request-Range') = 0) then
+        result := FTP.request_range
+    else if (compareText(temp, 'Unless-Modified-Since') = 0) then
+        result := FTP.unl_mod_since
+    else if (compareText(temp, 'Referer') = 0) then
+        result := FTP.Referer
+    else if (compareText(temp, 'From') = 0) then
+        result := FTP.from
+    else if (compareText(temp, 'User-Agent') = 0) then
+        result := FTP.user_agent
+    else if (compareText(temp, 'Connection') = 0) then begin
+        if (FTP.keep_alive) then
+            result := 'Keep-Alive';
+    end else begin
+        for i := 0 to (ftp.num_req_xhdr - 1) do begin
+            if (compareText(temp, pchar(ftp.req_xhdr[i].key)) = 0) then 
+                result := pchar(ftp.req_xhdr[i].value);
+        end; // for
+    end;
+end;
+
+function    TWsapiHttpRequestImp.MapURLToPath(const LogicalURL: string): string;
+begin
+    url_to_file(PChar(LogicalURL), true, FTP);
+end;
+
+end.

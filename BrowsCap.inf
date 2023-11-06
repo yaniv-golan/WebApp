@@ -1,0 +1,11 @@
+filename: browscap.zip
+replacements: none
+file version: 1.1
+file description: For CGI application : The TBrowserType component will determine browser capabilities (Tables, JavaScript etc.) based on the UserAgent HTTP header. Compatible with the BROWSCAP.INI distributed with Microsoft's ASP.
+target: Delphi 2.0
+author name: Yaniv Golan, HyperAct
+author email: ygolan@hyperact.com
+author url: http://www.hyperact.com
+file status: freeware
+full source: yes
+category: InVisible Components

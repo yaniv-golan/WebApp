@@ -1,0 +1,53 @@
+   "I have already fallen in love with WebApp. This is just too cool. Delphi 3 makes 
+   ISAPI development much easier but why would I bang my head against the wall when 
+   I can have session management and all the other goodies that WebApp gives me?" 
+
+Stephen Genusa - Consultant, maintainer of IIS, ASP and ISAPI FAQs, author of 		
+Que’s Special Edition Using ISAPI. 
+
+   "You've really done an incredible job! I started on my application yesterday, 
+   and I think   I'll be done by tomorrow. I was certain this project was going to 
+   take at least three weeks, not three days! Thanks for all your hard work... 
+   I really appreciate it."
+
+Steve Kramer [goog@goog.com]
+
+   "I just wanted to write an congratulate you on a fine product...I've been
+   using the latest beta version of WebApp and must say that it makes life
+   easy.  Thanks and keep up the great work."
+
+John Powers, Black Unicorn Software [jfpowers@blackunicorn.com]
+
+
+In borland.public.delphi.internet, Soulhuntre <soulhuntre@earthling.com> wrote:
+
+> Hi there !
+> 
+> If you remember, in the roundup, I talked about ...
+> 
+> > WEBApp (http://www.hyperact.com/)
+> >
+> >     WebApp Base Product: $199.00
+> >     WebApp Pro - includes sources: $495.00
+> 
+> Well, in their response, they mentioned that my preview was an early
+> one, and that I should wait a day and look at the new preview :)
+> 
+> I did, and I did. And I decided to purchase right away :)
+> 
+> You all need to look at this, IMHO, Pro OR C/S users alike.
+> 
+> Here is the >new< and important feature...
+> 
+> "HTML Templates - Seperate the application logic from the HTML pages
+> using sophisticated HTML templates, with support for macros and embedded
+> VBScript/JScript scripts."
+> 
+> In addition to allowing the use of the *Producer" features of c/s, this
+> thing runs ASP compatible html pages :)
+> 
+> Anyway, this isnt a full fledged advert :) Just a follow up. Go to the
+> page and try the preview :)
+> 
+> 
+> 

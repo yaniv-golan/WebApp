@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>WebApp HTML Controls Sample - Form Template</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>The following form is defined in a HTML template file. Fill
+the form fields, and click the Send button :</p>
+
+<form action="<%= Request.ScriptName %>" name="HTMLForm1">
+    <input type="hidden" name="HTMLForm1.Submit" value><table
+    border="0" cellpadding="0" cellspacing="0" bgcolor="#E0E0E0">
+        <tr>
+            <td>&nbsp;&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td valign="top">Your name </td>
+            <td valign="top"><%~ HTMLForm1.WriteControlHTML Control=NameText%></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td valign="top">Your gender</td>
+            <td valign="top"><%~ HTMLForm1.WriteControlHTML Control=GenderRadioGroup%></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td valign="top">Your favorite color</td>
+            <td valign="top"><%~ HTMLForm1.WriteControlHTML Control=FavColorSelect%></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td valign="top"><%~ HTMLForm1.WriteControlHTML Control=MailingListCheckbox%> Join our mailing list </td>
+            <td valign="top">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td align="right" valign="top"><%~ HTMLForm1.WriteControlHTML Control=SubmitButton%></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

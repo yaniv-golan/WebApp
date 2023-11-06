@@ -1,0 +1,148 @@
+<HTML><HEAD>
+<TITLE>BDE Memory Errors
+</TITLE>
+<META NAME="UPDATED">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#000000" ALINK="#999999" VLINK="#666666">
+
+<CENTER>
+<TABLE CELLPADDING="4" CELLSPACING="4" WIDTH="600" BORDER="0">
+
+<TR>
+
+<!-- THIS IS THE TOP NAVIGATION BANNER -->
+
+<TD ALIGN="CENTER" VALIGN="TOP" COLSPAN="1" WIDTH="600"><NOBR><A HREF="/"><IMG SRC="/images/bolus.gif" ALT="Home" BORDER="0"></A><A HREF="/products.html"><IMG SRC="/images/products.gif" ALT="Product" BORDER="0"></A><A HREF="/search/"><IMG SRC="/images/search.gif" ALT="Search" BORDER="0"></A><A HREF="/download.html"><IMG SRC="/images/downloads.gif" ALT="Downloads" BORDER="0"></A><A HREF="/membership.html"><IMG SRC="/images/membership.gif" ALT="Join" BORDER="0"></A><A HREF="/newsgroups/"><IMG SRC="/images/newsgroups.gif" ALT="Discussion" BORDER="0"></A><A HREF="/feedback/"><IMG SRC="/images/feedback.gif" ALT="Send Email" BORDER="0"></A></NOBR></TD>
+</TR>
+
+<TR>
+
+<TD>
+
+<TR>
+
+<!-- THIS IS THE HEADING -->
+
+<TD COLSPAN="2" ALIGN="LEFT" VALIGN="TOP"><A HREF="/bde/"><IMG SRC="/images/ds_bde.gif" alt="Bde Devsupport" border=0></A>
+<BR>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<BASEFONT SIZE="2">
+<H3>Frequently Asked Questions</H3>
+<H4>BDE Memory Errors</H4>
+<H4>Question:</H4>
+BDE Errors 2501, 210D, 2104, insufficient memory for this
+operation (2501), shared memory conflict (210D), and cannot 
+find engine conguration file (2104) with  BDE v3.x and 
+higher for Win95 and NT
+
+What can cause these errors?
+<H4>Answer:</H4>
+It may be necessary to modify the BDE setting SHAREDMEMLOCATION 
+found on the SYSTEM | INIT page of the BDE Administrator. 
+<P>
+Valid SHAREDMEMLOCATION values range from 1000 to 7F00 
+(additional details can be found below and in the BDEADMIN.HLP 
+file)
+<P>
+With one application using the Borland Database Engine already
+loaded
+<UL>
+<LI>Launch of second app using BDE:
+    BDE Error 2501 "INSUFFICIENT MEMORY FOR THIS OPERATION"
+<LI>Debugging second app:
+    BDE Error 210D "SHARED MEMORY CONFLICT"
+<LI>With debugger turned off:
+    BDE Error 2104 "CANNOT FIND ENGINE CONFIGURATION FILE"
+</UL>
+
+Additional SHAREDMEMLOCATION details:
+<P>
+Preferred address of shared memory manager. The shared memory 
+manager and shared buffer manager load at a preferred address. 
+If this address is used, the system can find a suitable 
+address (first process only). If this address conflicts with 
+another application, you might want to modify it. If the shared 
+managers cannot be loaded into the default, or specified 
+memory address, one attempt to allow the operating system to 
+find a memory address is made.  If a memory address if 
+specified outside the boundry (below), the default is used.
+<P>
+Default (for Windows 95): 0xEBDE0000<BR>
+Minimum Value (for Windows 95): 0x90000000<BR>
+Maximum Value (for Windows 95): 0xFFFF0000<BR>
+<P>
+Default (for Windows NT): 0x6BDE0000<BR>
+Minimum Value (for Windows NT): 0x10000000<BR>
+Maximum Value (for Windows NT): 0x7F000000<BR>
+<P>
+The range setting for SHAREDMEMLOCATION is 9000 to FFFF for 
+Windows 95 and 1000 to 7F00 for Windows NT.
+<P>
+Only the upper word is used to set SHAREDMEMLOCATION.
+<P>
+</td>
+</tr>
+
+<TR>
+
+<!-- THIS IS THE BOTTOM MINI-NAVIGATION BOX -->
+
+<TD ALIGN="RIGHT" VALIGN="TOP" BGCOLOR="#DDDDDD"><FONT SIZE="2" FACE="Arial Narrow, sans-serif"><B><A HREF="index.html">Back To Faq Index</A><BR>
+<A HREF="/">Borland Online</A></B></FONT></TD>
+
+
+</TR>
+
+
+<TR>
+
+<!-- THIS IS THE BOTTOM COPYRIGHT & UPDATED MESSAGE -->
+
+<TD ALIGN="CENTER" VALIGN="TOP" COLSPAN="1"><FONT SIZE="2"><A HREF="/copyright.html">Trademarks &amp; Copyright</A> &#169; 1998 Borland International, Inc.
+
+<SCRIPT LANGUAGE="JavaScript">
+<!-- HIDE FROM OLD BROWSERS
+
+// THIS WILL WRITE OUT THE LAST MODIFIED DATE
+// YOU DO NOT NEED TO CHANGE ANYTHING HERE
+
+function makeArray(arraySize) {
+     this.length = arraySize
+     return this
+}
+
+monthNames = new makeArray(12)
+monthNames[1] = "January"
+monthNames[2] = "February"
+monthNames[3] = "March"
+monthNames[4] = "April"
+monthNames[5] = "May"
+monthNames[6] = "June"
+monthNames[7] = "July"
+monthNames[8] = "August"
+monthNames[9] = "September"
+monthNames[10] = "October"
+monthNames[11] = "November"
+monthNames[12] = "December"
+
+updated = new Date(document.lastModified)
+theMonth = monthNames[updated.getMonth() + 1]
+theDate = updated.getDate()
+theYear = updated.getYear() + 1900
+
+document.write("Last modified on " + theDate +  "-" + theMonth + "-" + theYear + ".")
+
+// END HIDING -->
+</SCRIPT></FONT></TD>
+</TR>
+
+</TABLE>
+</CENTER>
+
+</BODY>
+</HTML>

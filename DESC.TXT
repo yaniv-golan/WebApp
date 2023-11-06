@@ -1,0 +1,14 @@
+Components framework for building web server applications
+using Delphi 2, Delph 3 and C++Builder. 
+WebApp applications run on top of any web server (IIS, PWS,
+WebSite, Netscape and all others), and includes native 
+high-performance ISAPI/NSAPI/WSAPI/CGI/WinCGI intefaces.
+WebApp features :
+* automatic session managemnet, keeping track of your 
+users for you.
+* Server independcy - write once, run on every server without
+recompilation
+* High performance - fully multithreaded
+* Safe - does not run in the server process
+* Easy Debugging - debug live WebApp applications from within
+the IDE
